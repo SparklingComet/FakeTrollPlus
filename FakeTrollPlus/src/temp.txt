@@ -1,0 +1,787 @@
+/*     */ package me.github.ShanerX.FakeTrollPlus;
+/*     */ 
+/*     */ import java.util.ArrayList;
+/*     */ import org.bukkit.Bukkit;
+/*     */ import org.bukkit.ChatColor;
+/*     */ import org.bukkit.GameMode;
+/*     */ import org.bukkit.Location;
+/*     */ import org.bukkit.Server;
+/*     */ import org.bukkit.World;
+/*     */ import org.bukkit.block.Block;
+/*     */ import org.bukkit.command.Command;
+/*     */ import org.bukkit.command.CommandExecutor;
+/*     */ import org.bukkit.command.CommandSender;
+/*     */ import org.bukkit.configuration.file.FileConfiguration;
+/*     */ import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.InventoryEvent;
+import org.bukkit.event.inventory.InventoryOpenEvent;
+import org.bukkit.event.player.PlayerInventoryEvent;
+import org.bukkit.inventory.Inventory;
+/*     */ import org.bukkit.inventory.PlayerInventory;
+/*     */ import org.bukkit.potion.PotionEffect;
+/*     */ import org.bukkit.potion.PotionEffectType;
+/*     */ 
+/*     */ public class temp
+/*     */   implements CommandExecutor
+/*     */ {
+/*     */   FakeTrollPlus plugin;
+/*     */ 
+/*     */   public temp(FakeTrollPlus instance)
+/*     */   {
+/*  20 */     this.plugin = instance;
+/*     */   }
+/*     */ 
+/*     */   @SuppressWarnings("deprecation")
+public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
+/*     */   {
+/*  25 */     if (cmd.getName().equalsIgnoreCase("faketrollplus")) {
+/*  26 */       if (args.length == 0) {
+/*  27 */         sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "\n \n &f----------&e[ &aHELP &e]&f---------- \n&aFakeTrollPlus &ev2.0.1 by Lori00 \n&bFor commands and permissions help go to &3&ngoo.gl/c8RL4G \n&cCommands:\n&e/faketrollplus &f- Display plugin help \n&e/fakeop &f- Make a player believe that they just got opped! \n&e/fakedeop &f- Make a player believe that they just got de-opped! \n&e/fakealert &f - Send a BungeeCord alert message to a single player \n&e/fakebroadcast &f - Send an Essentials broadcast message, which looks like server-wide broadcast, to a single player \n&e/fakejoin &f - Pretend that a certain player joined the game. \n&e/fakeleave &f - Pretend that a certain player left the game. \n&e/hurt &f - Be mean. \n&e/tprandom &f - Teleport a player to a random location. \n&e/portal &f - Banish the player by sending them very far away. \n&e/spam &f - Annoy a player. \n&e/clearinv &f - Clear someone's inventory. \n&e/fakecrash &f - Kick a player and show them a Java error message. \n&e/murder &f - Please don't do such an horrible thing! \n&e/fakegod &f - Make your target believe that they just got free god mode! \n&e/fakechat &f - Send a chat message pretending to be someone else. \n&e/fakemsg &f - Send a private message to someone pretending to be someone else. \n&e/fakeafk &f - Pretend to be afk or set another player afk. \n&e/burn &f - Be nasty. \n&e/poison &f - Poison a player for x seconds. \n&e/fakeban &f - Make a player believe they just got banned. \n&e/anvil &f - Spawn an anvil on the target's head! \n&e/forcecmd &f - Force a player to run a command. \n&e/freeze &f - Freeze a player! \n&e/fakepay &f - Fake a money transaction."));
+/*  28 */         return true;
+/*     */       }
+/*  30 */       if (args[0].equalsIgnoreCase("reload")) {
+/*  31 */         if (!sender.hasPermission("faketrollplus.reload")) {
+/*  32 */           sender.sendMessage(ChatColor.RED + "You do not have access to that command");
+/*     */         }
+/*  34 */         this.plugin.reloadConfig();
+/*  35 */         sender.sendMessage(ChatColor.AQUA + "Configuration file has been reloaded!");
+/*  36 */         return true;
+/*     */       }
+/*  38 */       sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "\n \n &f----------&e[ &aHELP &e]&f---------- \n&aFakeTrollPlus &ev2.0.1 by Lori00 \n&bFor commands and permissions help go to &3&ngoo.gl/c8RL4G \n&cCommands:\n&e/faketrollplus &f- Display plugin help \n&e/fakeop &f- Make a player believe that they just got opped! \n&e/fakedeop &f- Make a player believe that they just got de-opped! \n&e/fakealert &f - Send a BungeeCord alert message to a single player \n&e/fakebroadcast &f - Send an Essentials broadcast message, which looks like server-wide broadcast, to a single player \n&e/fakejoin &f - Pretend that a certain player joined the game. \n&e/fakeleave &f - Pretend that a certain player left the game. \n&e/hurt &f - Be mean. \n&e/tprandom &f - Teleport a player to a random location. \n&e/portal &f - Banish the player by sending them very far away. \n&e/spam &f - Annoy a player. \n&e/clearinv &f - Clear someone's inventory. \n&e/fakecrash &f - Kick a player and show them a Java error message. \n&e/murder &f - Please don't do such an horrible thing! \n&e/fakegod &f - Make your target believe that they just got free god mode! \n&e/fakechat &f - Send a chat message pretending to be someone else. \n&e/fakemsg &f - Send a private message to someone pretending to be someone else. \n&e/fakeafk &f - Pretend to be afk or set another player afk. \n&e/burn &f - Be nasty. \n&e/poison &f - Poison a player for x seconds. \n&e/fakeban &f - Make a player believe they just got banned. \n&e/anvil &f - Spawn an anvil on the target's head! \n&e/forcecmd &f - Force a player to run a command. \n&e/freeze &f - Freeze a player! \n&e/fakepay &f - Fake a money transaction."));
+/*     */     }
+/*     */ 
+
+			//DONE!!!!
+/*  43 */     if (cmd.getName().equalsIgnoreCase("fakeop")) {
+/*  44 */       if (!this.plugin.getConfig().getBoolean("enable-fake-op")) {
+/*  45 */         sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.plugin.getConfig().getString("message-for-disabled-cmds")));
+/*  46 */         return true;
+/*     */       }
+/*  48 */       if (!sender.hasPermission("faketroll.fakeop")) {
+/*  49 */         sender.sendMessage(ChatColor.RED + "You do not have access to that command!");
+/*  50 */         return true;
+/*     */       }
+/*  52 */       if (args.length != 1) {
+/*  53 */         sender.sendMessage(ChatColor.GOLD + "Usage: /fakeop <target>");
+/*  54 */         return true;
+/*     */       }
+/*  56 */       Player target = this.plugin.getServer().getPlayer(args[0]);
+/*     */ 
+/*  61 */       if (target == null) {
+/*  62 */         sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.plugin.getConfig().getString("invalid-target")));
+/*  63 */         return true;
+/*     */       }
+/*  65 */       String target_name = target.getName();
+/*  66 */       if (!(sender instanceof Player)) {
+/*  67 */         target.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7&o[Server: Opped " + target_name + "]"));
+/*  68 */         return true;
+/*     */       }
+/*  70 */       target.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7&o[" + sender.getName() + ": Opped " + target_name + "]"));
+/*  71 */       sender.sendMessage(ChatColor.GOLD + "Fake-opped " + target_name + "!");
+/*     */     }
+/*     */ 
+/*  76 */     if (cmd.getName().equalsIgnoreCase("fakedeop")) {
+/*  77 */       if (!this.plugin.getConfig().getBoolean("enable-fake-deop")) {
+/*  78 */         sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.plugin.getConfig().getString("message-for-disabled-cmds")));
+/*  79 */         return true;
+/*     */       }
+/*  81 */       if (!sender.hasPermission("faketroll.fakedeop")) {
+/*  82 */         sender.sendMessage(ChatColor.RED + "You do not have access to that command!");
+/*  83 */         return true;
+/*     */       }
+/*  85 */       if (args.length != 1) {
+/*  86 */         sender.sendMessage(ChatColor.GOLD + "Usage: /fakedeop <target>");
+/*  87 */         return true;
+/*     */       }
+/*  89 */       Player target = this.plugin.getServer().getPlayer(args[0]);
+/*  90 */       if (target == null) {
+/*  91 */         sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.plugin.getConfig().getString("invalid-target")));
+/*  92 */         return true;
+/*     */       }
+/*  94 */       String target_name = target.getName();
+/*  95 */       if (!(sender instanceof Player)) {
+/*  96 */         target.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7&o[Server: De-opped " + target_name + "]"));
+/*  97 */         return true;
+/*     */       }
+/*  99 */       target.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7&o[" + sender.getName() + ": De-opped " + target_name + "]"));
+/* 100 */       sender.sendMessage(ChatColor.GOLD + "Fake-opped " + target_name + "!");
+/*     */     }
+/*     */ 
+/* 105 */     if (cmd.getName().equalsIgnoreCase("fakealert")) {
+/* 106 */       if (!this.plugin.getConfig().getBoolean("enable-fake-alert")) {
+/* 107 */         sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.plugin.getConfig().getString("message-for-disabled-cmds")));
+/* 108 */         return true;
+/*     */       }
+/* 110 */       if (!sender.hasPermission("faketroll.fakealert")) {
+/* 111 */         sender.sendMessage(ChatColor.RED + "You do not have access to that command!");
+/* 112 */         return true;
+/*     */       }
+/* 114 */       if (args.length < 2) {
+/* 115 */         sender.sendMessage(ChatColor.GOLD + "Usage: /fakealert <target> <message>");
+/* 116 */         return true;
+/*     */       }
+/* 118 */       Player target = this.plugin.getServer().getPlayer(args[0]);
+/* 119 */       if (target == null) {
+/* 120 */         sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.plugin.getConfig().getString("invalid-target")));
+/* 121 */         return true;
+/*     */       }
+/* 123 */       int msgLength = args.length;
+/*     */ 
+/* 125 */       String alert = args[1];
+/* 126 */       for (int i = 2; i < msgLength; i++) {
+/* 127 */         alert = alert + " " + args[i];
+/*     */       }
+/* 129 */       target.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&4Alert&8]&f " + alert));
+/*     */     }
+/*     */ 
+/* 134 */     if (cmd.getName().equalsIgnoreCase("fakebroadcast")) {
+/* 135 */       if (!this.plugin.getConfig().getBoolean("fake-broadcast.enable")) {
+/* 136 */         sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.plugin.getConfig().getString("message-for-disabled-cmds")));
+/* 137 */         return true;
+/*     */       }
+/* 139 */       if (!sender.hasPermission("faketroll.fakebroadcast")) {
+/* 140 */         sender.sendMessage(ChatColor.RED + "You do not have access to that command!");
+/* 141 */         return true;
+/*     */       }
+/* 143 */       if (args.length < 2) {
+/* 144 */         sender.sendMessage(ChatColor.GOLD + "Usage: /fakebroadcast <target> <message>");
+/* 145 */         return true;
+/*     */       }
+/* 147 */       Player target = this.plugin.getServer().getPlayer(args[0]);
+/* 148 */       if (target == null) {
+/* 149 */         sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.plugin.getConfig().getString("invalid-target")));
+/* 150 */         return true;
+/*     */       }
+/* 152 */       int msgLength = args.length;
+/*     */ 
+/* 154 */       String message = args[1];
+/* 155 */       for (int i = 2; i < msgLength; i++) {
+/* 156 */         message = message + " " + args[i];
+/*     */       }
+/* 158 */       target.sendMessage(ChatColor.translateAlternateColorCodes('&', this.plugin.getConfig().getString("fake-broadcast.format") + message));
+/*     */     }
+/*     */ 
+/* 163 */     if (cmd.getName().equalsIgnoreCase("fakejoin")) {
+/* 164 */       if (!this.plugin.getConfig().getBoolean("fake-join.enable")) {
+/* 165 */         sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.plugin.getConfig().getString("message-for-disabled-cmds")));
+/* 166 */         return true;
+/*     */       }
+/* 168 */       if (!sender.hasPermission("faketroll.fakejoin")) {
+/* 169 */         sender.sendMessage(ChatColor.RED + "You do not have access to that command!");
+/* 170 */         return true;
+/*     */       }
+/* 172 */       if (args.length != 1) {
+/* 173 */         sender.sendMessage(ChatColor.GOLD + "Usage: /fakejoin <target>");
+/* 174 */         return true;
+/*     */       }
+/* 176 */       Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', this.plugin.getConfig().getString("fake-join.message").replaceAll("%Player%", args[0])));
+/*     */     }
+/*     */ 
+/* 181 */     if (cmd.getName().equalsIgnoreCase("fakeleave")) {
+/* 182 */       if (!this.plugin.getConfig().getBoolean("fake-leave.enable")) {
+/* 183 */         sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.plugin.getConfig().getString("message-for-disabled-cmds")));
+/* 184 */         return true;
+/*     */       }
+/* 186 */       if (!sender.hasPermission("faketroll.fakeleave")) {
+/* 187 */         sender.sendMessage(ChatColor.RED + "You do not have access to that command!");
+/* 188 */         return true;
+/*     */       }
+/* 190 */       if (args.length != 1) {
+/* 191 */         sender.sendMessage(ChatColor.GOLD + "Usage: /fakeleave <target>");
+/* 192 */         return true;
+/*     */       }
+/* 194 */       Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', this.plugin.getConfig().getString("fake-leave.message").replaceAll("%Player%", args[0])));
+/*     */     }
+/*     */ 
+/* 199 */     if (cmd.getName().equalsIgnoreCase("hurt")) {
+/* 200 */       if (!this.plugin.getConfig().getBoolean("enable-hurt")) {
+/* 201 */         sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.plugin.getConfig().getString("message-for-disabled-cmds")));
+/* 202 */         return true;
+/*     */       }
+/* 204 */       if (!sender.hasPermission("faketroll.hurt")) {
+/* 205 */         sender.sendMessage(ChatColor.RED + "You do not have access to that command!");
+/* 206 */         return true;
+/*     */       }
+/* 208 */       if (args.length < 2) {
+/* 209 */         sender.sendMessage(ChatColor.GOLD + "Usage: /hurt <target> <HP>");
+/* 210 */         return true;
+/*     */       }
+/* 212 */       Player target = this.plugin.getServer().getPlayer(args[0]);
+/* 213 */       if (target == null) {
+/* 214 */         sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.plugin.getConfig().getString("invalid-target")));
+/* 215 */         return true;
+/*     */       }
+/* 217 */       String target_name = target.getName();
+/* 218 */       int hp_dmg = Integer.parseInt(args[1]);
+/* 219 */       int dmg = hp_dmg / 2;
+/* 220 */       if (target.getHealth() - hp_dmg <= 0.0D) target.setHealth(0.0D); else
+/* 221 */         target.setHealth(target.getHealth() - hp_dmg);
+/* 222 */       sender.sendMessage(ChatColor.GOLD + "Applied a " + dmg + " heart(s) damage to " + target_name + "!");
+/*     */     }
+/*     */ 
+/* 227 */     if (cmd.getName().equalsIgnoreCase("tprandom")) {
+/* 228 */       if (!this.plugin.getConfig().getBoolean("tprandom.enable")) {
+/* 229 */         sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.plugin.getConfig().getString("message-for-disabled-cmds")));
+/* 230 */         return true;
+/*     */       }
+/* 232 */       if (!sender.hasPermission("faketroll.tprandom")) {
+/* 233 */         sender.sendMessage(ChatColor.RED + "You do not have access to that command!");
+/* 234 */         return true;
+/*     */       }
+/* 236 */       if (args.length != 1) {
+/* 237 */         sender.sendMessage(ChatColor.GOLD + "Usage: /tprandom <target>");
+/* 238 */         return true;
+/*     */       }
+/* 240 */       Player target = this.plugin.getServer().getPlayer(args[0]);
+/* 241 */       if (target == null) {
+/* 242 */         sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.plugin.getConfig().getString("invalid-target")));
+/* 243 */         return true;
+/*     */       }
+/* 245 */       String target_name = target.getName();
+/* 246 */       double bounds = this.plugin.getConfig().getDouble("tprandom.tp-bounds");
+/* 247 */       double x = Math.random() * 2.0D * bounds - bounds;
+/* 248 */       double y = target.getLocation().getY();
+/* 249 */       double z = Math.random() * 2.0D * bounds - bounds;
+/* 250 */       World w = Bukkit.getServer().getWorld("world");
+/* 251 */       target.teleport(new Location(w, x, y, z));
+/* 252 */       sender.sendMessage(ChatColor.GOLD + target_name + " has been teleported to a random location!");
+/* 253 */       if (!this.plugin.getConfig().getBoolean("tprandom.do-msg-to-target")) return true;
+/* 254 */       target.sendMessage(ChatColor.translateAlternateColorCodes('&', this.plugin.getConfig().getString("tprandom.msg-to-target")));
+/*     */     }
+/*     */ 
+/* 259 */     if (cmd.getName().equalsIgnoreCase("portal")) {
+/* 260 */       if (!this.plugin.getConfig().getBoolean("enable-portal")) {
+/* 261 */         sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.plugin.getConfig().getString("message-for-disabled-cmds")));
+/* 262 */         return true;
+/*     */       }
+/* 264 */       if (!sender.hasPermission("faketroll.portal")) {
+/* 265 */         sender.sendMessage(ChatColor.RED + "You do not have access to that command!");
+/* 266 */         return true;
+/*     */       }
+/* 268 */       if (args.length != 1) {
+/* 269 */         sender.sendMessage(ChatColor.GOLD + "Usage: /portal <target>");
+/* 270 */         return true;
+/*     */       }
+/* 272 */       Player target = this.plugin.getServer().getPlayer(args[0]);
+/* 273 */       if (target == null) {
+/* 274 */         sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.plugin.getConfig().getString("invalid-target")));
+/* 275 */         return true;
+/*     */       }
+/* 277 */       String target_name = target.getName();
+/* 278 */       String world = target.getLocation().getWorld().getName();
+/* 279 */       if (world.contains("_the_end")) {
+/* 280 */         sender.sendMessage(ChatColor.GOLD + "Player " + target_name + " is already there!");
+/* 281 */         return true;
+/*     */       }
+/* 283 */       if (world.contains("nether")) {
+/* 284 */         sender.sendMessage(ChatColor.GOLD + "The target cannot be in the nether!");
+/* 285 */         return true;
+/*     */       }
+/* 287 */       sender.sendMessage(ChatColor.GOLD + target_name + " has been warped far away!");
+/* 288 */       Location spawn = this.plugin.getServer().getWorld(target.getWorld().getName() + "_the_end").getSpawnLocation();
+/* 289 */       target.teleport(spawn);
+/*     */     }
+/*     */ 
+/* 299 */     if (cmd.getName().equalsIgnoreCase("spam")) {
+/* 300 */       if (!this.plugin.getConfig().getBoolean("enable-spam")) {
+/* 301 */         sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.plugin.getConfig().getString("message-for-disabled-cmds")));
+/* 302 */         return true;
+/*     */       }
+/* 304 */       if (!sender.hasPermission("faketroll.spam")) {
+/* 305 */         sender.sendMessage(ChatColor.RED + "You do not have access to that command!");
+/* 306 */         return true;
+/*     */       }
+/* 308 */       if (args.length <= 2) {
+/* 309 */         sender.sendMessage(ChatColor.GOLD + "Usage: /spam <target> <times> <message>");
+/* 310 */         return true;
+/*     */       }
+/* 312 */       String msg = args[2];
+/* 313 */       for (int i = 3; i < args.length; i++) {
+/* 314 */         msg = msg + " " + args[i];
+/*     */       }
+/* 316 */       Player target = this.plugin.getServer().getPlayer(args[0]);
+/* 317 */       if (target == null) {
+/* 318 */         sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.plugin.getConfig().getString("invalid-target")));
+/* 319 */         return true;
+/*     */       }
+/* 321 */       String target_name = target.getName();
+/*     */       try {
+/* 323 */         int msgCount = Integer.parseInt(args[1]);
+/* 324 */         int msgCounter = 1;
+/* 325 */         while (msgCounter <= msgCount) {
+/* 326 */           target.sendMessage(ChatColor.translateAlternateColorCodes('&', msg));
+/* 327 */           msgCounter++;
+/*     */         }
+/* 329 */         sender.sendMessage(ChatColor.GOLD + "You've successfully annoyed " + target_name + "!");
+/*     */       } catch (NumberFormatException e) {
+/* 331 */         sender.sendMessage(ChatColor.GOLD + "The 2nd parameter has to be a whole number!");
+/*     */       }
+/*     */ 
+/*     */     }
+/*     */ 
+/* 338 */     if (cmd.getName().equalsIgnoreCase("clearinv")) {
+/* 339 */       if (!this.plugin.getConfig().getBoolean("enable-clearinv")) {
+/* 340 */         sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.plugin.getConfig().getString("message-for-disabled-cmds")));
+/* 341 */         return true;
+/*     */       }
+/* 343 */       if (!sender.hasPermission("faketroll.clearinv")) {
+/* 344 */         sender.sendMessage(ChatColor.RED + "You do not have access to that command!");
+/* 345 */         return true;
+/*     */       }
+/* 347 */       if (args.length != 1) {
+/* 348 */         sender.sendMessage(ChatColor.GOLD + "Usage: /clearinv <target>");
+/* 349 */         return true;
+/*     */       }
+/* 351 */       Player target = this.plugin.getServer().getPlayer(args[0]);
+/* 352 */       if (target == null) {
+/* 353 */         sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.plugin.getConfig().getString("invalid-target")));
+/* 354 */         return true;
+/*     */       }
+/* 356 */       String target_name = target.getName();
+/* 357 */       target.getInventory().clear();
+/* 358 */       sender.sendMessage(ChatColor.GOLD + "Cleared inventory of " + target_name);
+/*     */     }
+/*     */ 
+/* 363 */     if (cmd.getName().equalsIgnoreCase("fakecrash")) {
+/* 364 */       if (!this.plugin.getConfig().getBoolean("enable-fake-crash")) {
+/* 365 */         sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.plugin.getConfig().getString("message-for-disabled-cmds")));
+/* 366 */         return true;
+/*     */       }
+/* 368 */       if (!sender.hasPermission("faketroll.fakecrash")) {
+/* 369 */         sender.sendMessage(ChatColor.RED + "You do not have access to that command!");
+/* 370 */         return true;
+/*     */       }
+/* 372 */       if (args.length != 1) {
+/* 373 */         sender.sendMessage(ChatColor.GOLD + "Usage: /fakecrash <target>");
+/* 374 */         return true;
+/*     */       }
+/* 376 */       Player target = this.plugin.getServer().getPlayer(args[0]);
+/* 377 */       if (target == null) {
+/* 378 */         sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.plugin.getConfig().getString("invalid-target")));
+/* 379 */         return true;
+/*     */       }
+/* 381 */       String target_name = target.getName();
+/* 382 */       sender.sendMessage(ChatColor.GOLD + target_name + " has been kicked");
+/* 383 */       target.kickPlayer("Internal Exception: io.netty.handler.codec.DecoderException: java.lang.IndexOutOfBoundsException: readerIndex(9) + length(1) exceeds writerIndex(9): UnpooledHeapByteBuf(ridx: 9,widx: 9, cap: 9)");
+/*     */     }
+/*     */ 
+/* 389 */     if (cmd.getName().equalsIgnoreCase("murder")) {
+/* 390 */       if (!this.plugin.getConfig().getBoolean("enable-murder")) {
+/* 391 */         sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.plugin.getConfig().getString("message-for-disabled-cmds")));
+/* 392 */         return true;
+/*     */       }
+/* 394 */       if (!sender.hasPermission("faketroll.murder")) {
+/* 395 */         sender.sendMessage(ChatColor.RED + "You do not have access to that command!");
+/* 396 */         return true;
+/*     */       }
+/* 398 */       if (args.length != 1) {
+/* 399 */         sender.sendMessage(ChatColor.GOLD + "Usage: /murder <target>");
+/* 400 */         return true;
+/*     */       }
+/* 402 */       Player target = this.plugin.getServer().getPlayer(args[0]);
+/* 403 */       if (target == null) {
+/* 404 */         sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.plugin.getConfig().getString("invalid-target")));
+/* 405 */         return true;
+/*     */       }
+/* 407 */       String target_name = target.getName();
+/* 408 */       target.getGameMode(); if (GameMode.CREATIVE != null) {
+/* 409 */         target.setGameMode(GameMode.SURVIVAL);
+/* 410 */         target.damage(20.0D);
+/* 411 */         target.setGameMode(GameMode.CREATIVE);
+/*     */       }
+/*     */       else {
+/* 414 */         target.damage(20.0D);
+/*     */       }
+/* 416 */       sender.sendMessage(ChatColor.GOLD + "Why did you do this to " + target_name + "?");
+/*     */     }
+/*     */ 
+/* 421 */     if (cmd.getName().equalsIgnoreCase("fakegod")) {
+/* 422 */       if (!this.plugin.getConfig().getBoolean("enable-fake-god")) {
+/* 423 */         sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.plugin.getConfig().getString("message-for-disabled-cmds")));
+/* 424 */         return true;
+/*     */       }
+/* 426 */       if (!sender.hasPermission("faketroll.fakegod")) {
+/* 427 */         sender.sendMessage(ChatColor.RED + "You do not have access to that command!");
+/* 428 */         return true;
+/*     */       }
+/* 430 */       if (args.length != 2) {
+/* 431 */         sender.sendMessage(ChatColor.GOLD + "Usage: /fakegod <target> <on|off>");
+/* 432 */         return true;
+/*     */       }
+/* 434 */       Player target = this.plugin.getServer().getPlayer(args[0]);
+/* 435 */       if (target == null) {
+/* 436 */         sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.plugin.getConfig().getString("invalid-target")));
+/* 437 */         return true;
+/*     */       }
+/* 439 */       if ((!args[1].equalsIgnoreCase("on")) && (!args[1].equalsIgnoreCase("off"))) {
+/* 440 */         sender.sendMessage(ChatColor.GOLD + "Usage: /fakegod <target> <on|off>");
+/* 441 */         return true;
+/*     */       }
+/* 443 */       if (args[1].equalsIgnoreCase("on")) {
+/* 444 */         target.sendMessage(ChatColor.GOLD + "God mode " + ChatColor.RED + "enabled" + ChatColor.GOLD + ".");
+/*     */       }
+/*     */       else {
+/* 447 */         target.sendMessage(ChatColor.GOLD + "God mode " + ChatColor.RED + "disabled" + ChatColor.GOLD + ".");
+/*     */       }
+/*     */ 
+/*     */     }
+/*     */ 
+/* 453 */     if (cmd.getName().equalsIgnoreCase("fakechat")) {
+/* 454 */       if (!this.plugin.getConfig().getBoolean("fake-chat.enable")) {
+/* 455 */         sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.plugin.getConfig().getString("message-for-disabled-cmds")));
+/* 456 */         return true;
+/*     */       }
+/* 458 */       if (!sender.hasPermission("faketroll.fakechat")) {
+/* 459 */         sender.sendMessage(ChatColor.RED + "You do not have access to that command!");
+/* 460 */         return true;
+/*     */       }
+/* 462 */       if (args.length < 2) {
+/* 463 */         sender.sendMessage(ChatColor.GOLD + "Usage: /fakechat <target> <message>");
+/* 464 */         return true;
+/*     */       }
+/* 466 */       Player target = this.plugin.getServer().getPlayer(args[0]);
+/* 467 */       boolean targetIsReal = false;
+/* 468 */       if (target != null) targetIsReal = true;
+/* 469 */       if ((target == null) && (!this.plugin.getConfig().getBoolean("fake-chat.allow-unexisting-nicks"))) {
+/* 470 */         sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.plugin.getConfig().getString("invalid-target")));
+/* 471 */         return true;
+/*     */       }
+/* 473 */       String msg = args[1];
+/* 474 */       for (int i = 2; i < args.length; i++) {
+/* 475 */         msg = msg + " " + args[i];
+/*     */       }
+/* 477 */       String fakeMsg = this.plugin.getConfig().getString("fake-chat.format");
+/* 478 */       String displayName = null;
+/* 479 */       if (targetIsReal) displayName = target.getDisplayName(); else
+/* 480 */         displayName = args[0];
+/* 481 */       fakeMsg = fakeMsg.replace("{PLAYER}", displayName);
+/* 482 */       fakeMsg = fakeMsg.replace("{MESSAGE}", msg);
+/* 483 */       Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', fakeMsg));
+/*     */     }
+/*     */ 
+/* 488 */     if (cmd.getName().equalsIgnoreCase("fakemsg")) {
+/* 489 */       if (!this.plugin.getConfig().getBoolean("fake-msg.enable")) {
+/* 490 */         sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.plugin.getConfig().getString("message-for-disabled-cmds")));
+/* 491 */         return true;
+/*     */       }
+/* 493 */       if (!sender.hasPermission("faketroll.fakemsg")) {
+/* 494 */         sender.sendMessage(ChatColor.RED + "You do not have access to that command!");
+/* 495 */         return true;
+/*     */       }
+/* 497 */       if (args.length < 3) {
+/* 498 */         sender.sendMessage(ChatColor.GOLD + "Usage: /fakemsg <target> <fake-name> <message>");
+/* 499 */         return true;
+/*     */       }
+/* 501 */       Player target = this.plugin.getServer().getPlayer(args[0]);
+/* 502 */       if (target == null) {
+/* 503 */         sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.plugin.getConfig().getString("invalid-target")));
+/* 504 */         return true;
+/*     */       }
+/*     */       String fakeName;
+/*     */       try
+/*     */       {
+/* 509 */         Player fakePlayer = this.plugin.getServer().getPlayer(args[1]);
+/* 510 */         fakeName = fakePlayer.getDisplayName();
+/*     */       }
+/*     */       catch (NullPointerException e)
+/*     */       {
+/* 512 */         fakeName = args[1];
+/*     */       }
+/*     */ 
+/* 515 */       String msg = args[2];
+/* 516 */       for (int i = 3; i < args.length; i++) {
+/* 517 */         msg = msg + " " + args[i];
+/*     */       }
+/* 519 */       String fakeMsg = this.plugin.getConfig().getString("fake-msg.format");
+/* 521 */       fakeMsg = fakeMsg.replace("{PLAYER}", fakeName);
+/* 522 */       fakeMsg = fakeMsg.replace("{MESSAGE}", msg);
+/* 523 */       target.sendMessage(ChatColor.translateAlternateColorCodes('&', fakeMsg));
+/*     */     }
+/*     */ 
+/* 528 */     if (cmd.getName().equalsIgnoreCase("fakeafk")) {
+/* 529 */       if (!this.plugin.getConfig().getBoolean("fake-afk.enable")) {
+/* 530 */         sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.plugin.getConfig().getString("message-for-disabled-cmds")));
+/* 531 */         return true;
+/*     */       }
+/* 533 */       if (!sender.hasPermission("faketroll.fakeafk")) {
+/* 534 */         sender.sendMessage(ChatColor.RED + "You do not have access to that command!");
+/* 535 */         return true;
+/*     */       }
+/* 537 */       if (args.length != 2) {
+/* 538 */         sender.sendMessage(ChatColor.GOLD + "Usage: /fakeafk <target> <on|off>");
+/* 539 */         return true;
+/*     */       }
+/* 541 */       Player target = this.plugin.getServer().getPlayer(args[0]);
+/*     */       String target_name;
+/* 543 */       if (target == null) {
+/* 544 */         target_name = args[0];
+/*     */       }
+/*     */       else {
+/* 547 */         target_name = target.getDisplayName();
+/*     */       }
+/* 549 */       if (args[1].equalsIgnoreCase("on"))
+/* 550 */         Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', this.plugin.getConfig().getString("fake-afk.format-on")).replace("{PLAYER}", target_name));
+/*     */       else {
+/* 552 */         Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', this.plugin.getConfig().getString("fake-afk.format-off")).replace("{PLAYER}", target_name));
+/*     */       }
+/*     */ 
+/*     */     }
+/*     */ 
+/* 557 */     if (cmd.getName().equalsIgnoreCase("burn")) {
+/* 558 */       if (!this.plugin.getConfig().getBoolean("enable-burn")) {
+/* 559 */         sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.plugin.getConfig().getString("message-for-disabled-cmds")));
+/* 560 */         return true;
+/*     */       }
+/* 562 */       if (!sender.hasPermission("faketroll.burn")) {
+/* 563 */         sender.sendMessage(ChatColor.RED + "You do not have access to that command!");
+/* 564 */         return true;
+/*     */       }
+/* 566 */       if (args.length != 2) {
+/* 567 */         sender.sendMessage(ChatColor.GOLD + "Usage: /burn <target> <time>");
+/* 568 */         return true;
+/*     */       }
+/* 570 */       Player target = this.plugin.getServer().getPlayer(args[0]);
+/* 571 */       if (target == null) {
+/* 572 */         sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.plugin.getConfig().getString("invalid-target")));
+/* 573 */         return true;
+/*     */       }
+/* 575 */       String target_name = target.getName();
+/*     */       try
+/*     */       {
+/* 578 */         int time = Integer.parseInt(args[1]);
+/* 579 */         sender.sendMessage(ChatColor.GOLD + "Set " + target_name + " on fire for " + time + " seconds");
+/* 580 */         target.setFireTicks(time * 20);
+/*     */       } catch (NumberFormatException e) {
+/* 582 */         sender.sendMessage(ChatColor.GOLD + "Time must be in seconds.");
+/*     */       }
+/*     */ 
+/*     */     }
+/*     */ 
+/* 588 */     if (cmd.getName().equalsIgnoreCase("poison")) {
+/* 589 */       if (!this.plugin.getConfig().getBoolean("enable-poison")) {
+/* 590 */         sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.plugin.getConfig().getString("message-for-disabled-cmds")));
+/* 591 */         return true;
+/*     */       }
+/* 593 */       if (!sender.hasPermission("faketroll.poison")) {
+/* 594 */         sender.sendMessage(ChatColor.RED + "You do not have access to that command!");
+/* 595 */         return true;
+/*     */       }
+/* 597 */       if (args.length != 2) {
+/* 598 */         sender.sendMessage(ChatColor.GOLD + "Usage: /poison <target> <time>");
+/* 599 */         return true;
+/*     */       }
+/* 601 */       Player target = this.plugin.getServer().getPlayer(args[0]);
+/* 602 */       if (target == null) {
+/* 603 */         sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.plugin.getConfig().getString("invalid-target")));
+/* 604 */         return true;
+/*     */       }
+/* 606 */       String target_name = target.getName();
+/*     */       try
+/*     */       {
+/* 609 */         int time = Integer.parseInt(args[1]);
+/* 610 */         sender.sendMessage(ChatColor.GOLD + "Poisoned " + target_name + " for " + time + " seconds");
+/* 611 */         target.addPotionEffect(new PotionEffect(PotionEffectType.POISON, time * 20, 1), true);
+/*     */       } catch (NumberFormatException e) {
+/* 613 */         sender.sendMessage(ChatColor.GOLD + "Time must be in seconds.");
+/*     */       }
+/*     */ 
+/*     */     }
+/*     */ 
+/* 619 */     if (cmd.getName().equalsIgnoreCase("fakeban")) {
+/* 620 */       if (!this.plugin.getConfig().getBoolean("fake-ban.enable")) {
+/* 621 */         sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.plugin.getConfig().getString("message-for-disabled-cmds")));
+/* 622 */         return true;
+/*     */       }
+/* 624 */       if (!sender.hasPermission("faketroll.fakeban")) {
+/* 625 */         sender.sendMessage(ChatColor.RED + "You do not have access to that command!");
+/* 626 */         return true;
+/*     */       }
+/* 628 */       if (args.length < 2) {
+/* 629 */         sender.sendMessage(ChatColor.GOLD + "Usage: /fakeban <target> <reason>");
+/* 630 */         return true;
+/*     */       }
+/* 632 */       Player target = this.plugin.getServer().getPlayer(args[0]);
+/* 633 */       if (target == null) {
+/* 634 */         sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.plugin.getConfig().getString("invalid-target")));
+/* 635 */         return true;
+/*     */       }
+/* 637 */       String target_name = target.getName();
+/* 638 */       String reason = args[1];
+/* 639 */       for (int i = 2; i < args.length; i++) {
+/* 640 */         reason = reason + " " + args[i];
+/*     */       }
+/* 642 */       sender.sendMessage(ChatColor.GOLD + "Fake-banned " + target_name + " for \"" + reason + "\"");
+/* 643 */       String banMessage = ChatColor.translateAlternateColorCodes('&', this.plugin.getConfig().getString("fake-ban.ban-message").replace("{REASON}", reason));
+/* 644 */       target.kickPlayer(banMessage);
+/* 645 */       Player staff = (Player)sender;
+/* 646 */       String staff_name = staff.getDisplayName();
+/* 647 */       if (this.plugin.getConfig().getBoolean("fake-ban.do-broadcast")) {
+/* 648 */         String fakebanMessage = ChatColor.translateAlternateColorCodes('&', this.plugin.getConfig().getString("fake-ban.broadcast-msg"));
+/* 649 */         fakebanMessage = fakebanMessage.replace("{PLAYER}", target.getName());
+/* 650 */         fakebanMessage = fakebanMessage.replace("{STAFF}", staff_name);
+/* 651 */         fakebanMessage = fakebanMessage.replace("{REASON}", reason);
+/* 652 */         Bukkit.broadcastMessage(fakebanMessage);
+/*     */       }
+/*     */ 
+/*     */     }
+/*     */ 
+/* 659 */     if (cmd.getName().equalsIgnoreCase("anvil")) {
+/* 660 */       if (!this.plugin.getConfig().getBoolean("enable-anvil")) {
+/* 661 */         sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.plugin.getConfig().getString("message-for-disabled-cmds")));
+/* 662 */         return true;
+/*     */       }
+/* 664 */       if (!sender.hasPermission("faketroll.anvil")) {
+/* 665 */         sender.sendMessage(ChatColor.RED + "You do not have access to that command!");
+/* 666 */         return true;
+/*     */       }
+/* 668 */       if (args.length != 1) {
+/* 669 */         sender.sendMessage(ChatColor.GOLD + "Usage: /anvil <target>");
+/* 670 */         return true;
+/*     */       }
+/* 672 */       Player target = this.plugin.getServer().getPlayer(args[0]);
+/* 673 */       if (target == null) {
+/* 674 */         sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.plugin.getConfig().getString("invalid-target")));
+/* 675 */         return true;
+/*     */       }
+/* 677 */       String target_name = target.getName();
+/* 678 */       int x = target.getLocation().getBlockX();
+/* 679 */       int y = target.getLocation().getBlockY();
+/* 680 */       int z = target.getLocation().getBlockZ();
+/* 681 */       World world = target.getLocation().getWorld();
+/* 682 */       Block block = world.getBlockAt(x, y + 2, z);
+/* 683 */       block.setTypeId(145);
+/* 684 */       sender.sendMessage(ChatColor.GOLD + "Ouch!");
+/* 685 */       if (!target.isOnGround()) {
+/* 686 */         sender.sendMessage(ChatColor.GOLD + target_name + " is flying right now.");
+/*     */       }
+/*     */ 
+/*     */     }
+/*     */ 
+/* 692 */     if (cmd.getName().equalsIgnoreCase("forcecmd")) {
+/* 693 */       if (!this.plugin.getConfig().getBoolean("enable-force-cmd")) {
+/* 694 */         sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.plugin.getConfig().getString("message-for-disabled-cmds")));
+/* 695 */         return true;
+/*     */       }
+/* 697 */       if (!sender.hasPermission("faketroll.forcecmd")) {
+/* 698 */         sender.sendMessage(ChatColor.RED + "You do not have access to that command!");
+/* 699 */         return true;
+/*     */       }
+/* 701 */       if (args.length < 2) {
+/* 702 */         sender.sendMessage(ChatColor.GOLD + "Usage: /forcecmd <target> <command> [args]");
+/* 703 */         return true;
+/*     */       }
+/* 705 */       Player target = this.plugin.getServer().getPlayer(args[0]);
+/* 706 */       if (target == null) {
+/* 707 */         sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.plugin.getConfig().getString("invalid-target")));
+/* 708 */         return true;
+/*     */       }
+/* 710 */       String target_name = target.getName();
+/* 711 */       String forceCmd = args[1];
+/* 712 */       if (args.length > 2) {
+/* 713 */         for (int i = 2; i < args.length; i++) {
+/* 714 */           forceCmd = forceCmd + " " + args[i];
+/*     */         }
+/*     */       }
+/* 717 */       sender.sendMessage(ChatColor.GOLD + "Forced " + target_name + " to run /" + forceCmd);
+/* 718 */       this.plugin.getServer().dispatchCommand(target, forceCmd);
+/*     */     }
+/*     */ 
+/* 723 */     if (cmd.getName().equalsIgnoreCase("freeze")) {
+/* 724 */       if (!this.plugin.getConfig().getBoolean("freeze.enable")) {
+/* 725 */         sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.plugin.getConfig().getString("message-for-disabled-cmds")));
+/* 726 */         return true;
+/*     */       }
+/* 728 */       if (!sender.hasPermission("faketroll.freeze")) {
+/* 729 */         sender.sendMessage(ChatColor.RED + "You do not have access to that command!");
+/* 730 */         return true;
+/*     */       }
+/* 732 */       if (args.length != 1) {
+/* 733 */         sender.sendMessage(ChatColor.GOLD + "Usage: /freeze <target>");
+/* 734 */         return true;
+/*     */       }
+/* 736 */       Player target = this.plugin.getServer().getPlayer(args[0]);
+/* 737 */       if (target == null) {
+/* 738 */         sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.plugin.getConfig().getString("invalid-target")));
+/* 739 */         return true;
+/*     */       }
+/* 741 */       String target_name = target.getName();
+/* 742 */       if (FakeTrollPlus.frozenPlayers.contains(target_name)) {
+/* 743 */         FakeTrollPlus.frozenPlayers.remove(target_name);
+/* 744 */         sender.sendMessage(ChatColor.GOLD + "Player " + target_name + " has been unfrozen!");
+/* 745 */         target.sendMessage(ChatColor.translateAlternateColorCodes('&', this.plugin.getConfig().getString("freeze.unfreeze-msg")));
+/* 746 */         return true;
+/*     */       }
+/* 748 */       FakeTrollPlus.frozenPlayers.add(target_name);
+/* 749 */       sender.sendMessage(ChatColor.GOLD + "Player " + target_name + " has been frozen!");
+/* 750 */       target.sendMessage(ChatColor.translateAlternateColorCodes('&', this.plugin.getConfig().getString("freeze.freeze-msg")));
+/*     */     }
+/*     */ 
+/* 755 */     if (cmd.getName().equalsIgnoreCase("fakepay")) {
+/* 756 */       if (!this.plugin.getConfig().getBoolean("fake-pay.enable")) {
+/* 757 */         sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.plugin.getConfig().getString("message-for-disabled-cmds")));
+/* 758 */         return true;
+/*     */       }
+/* 760 */       if (!sender.hasPermission("faketroll.fakepay")) {
+/* 761 */         sender.sendMessage(ChatColor.RED + "You do not have access to that command!");
+/* 762 */         return true;
+/*     */       }
+/* 764 */       if (args.length != 2) {
+/* 765 */         sender.sendMessage(ChatColor.GOLD + "Usage: /fakepay <target> <amount>");
+/* 766 */         return true;
+/*     */       }
+/* 768 */       Player target = this.plugin.getServer().getPlayer(args[0]);
+/* 769 */       if (target == null) {
+/* 770 */         sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.plugin.getConfig().getString("invalid-target")));
+/* 771 */         return true;
+/*     */       }
+/* 773 */       Player troll = (Player)sender;
+/* 774 */       String trollName = troll.getDisplayName();
+/*     */ 
+/* 776 */       double amount = Double.parseDouble(args[1]);
+/* 777 */       String targetMsg = this.plugin.getConfig().getString("fake-pay.format");
+/* 778 */       targetMsg = targetMsg.replace("{SENDER}", trollName);
+/* 779 */       targetMsg = targetMsg.replace("{AMOUNT}", String.valueOf(amount));
+/* 780 */       target.sendMessage(ChatColor.translateAlternateColorCodes('&', targetMsg));
+/* 781 */       sender.sendMessage(ChatColor.GOLD + "Faked transaction of $" + amount + " to " + target.getName());
+/*     */     }
+
+
+if (cmd.getName().equalsIgnoreCase("randominv")) {
+  /*	  if (!plugin.getConfig().getBoolean("randominv.enable")) {
+     	 sender.sendMessage(ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("message-for-disabled-cmds")));
+     	return true;
+      }*/
+/* 689 */       if (!sender.hasPermission("faketroll.randominv")) {
+/* 690 */         sender.sendMessage(ChatColor.RED + "You do not have access to that command!");
+/* 691 */         return true;
+/*     */       }
+/* 693 */       if (args.length != 1) {
+/* 694 */         sender.sendMessage(ChatColor.GOLD + "Usage: /randominv <target>");
+/* 695 */         return true;
+/*     */       }
+/* 697 */       Player target = plugin.getServer().getPlayer(args[0]);
+/* 698 */       if (target == null) {
+/* 699 */         sender.sendMessage(ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("invalid-target")));
+/* 700 */         return true;
+/*     */       }
+			Inventory playerInventory = target.getInventory();
+			target.openInventory(playerInventory);
+			boolean targetMsg = plugin.getConfig().getBoolean("do-target-msg");
+			String targetMessage = plugin.getConfig().getString("target-msg");
+			if (targetMsg) {
+				target.sendMessage(ChatColor.translateAlternateColorCodes('&', targetMessage));
+			}
+/*     */    }
+
+		if (cmd.getName().equalsIgnoreCase("ftptest")) {
+			sender.sendMessage("test");
+		}
+/*     */ 
+/* 787 */     return false;
+/*     */   }
+/*     */ }
+
+/* Location:           C:\Users\Lorenzo\Desktop\FakeTrollPlus.jar
+ * Qualified Name:     me.github.ShanerX.FakeTrollPlus.Commands
+ * JD-Core Version:    0.6.2
+ */

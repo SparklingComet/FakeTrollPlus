@@ -1,0 +1,114 @@
+#################################################################
+# FakeTrollPlus plugin v3.0.0 by Lori00.
+
+
+exempt-admins: false
+no-admin-trolling: '&cYou may not troll this player!'
+console-bypass: true
+
+
+# You may use the following settings to enable/disable every feature in this plugin. More customisability is the first task in our Todo-list. If you need help, see this page: goo.gl/c8RL4G.
+motd:
+  motd-to-ops: true
+  motd-to-players: true
+  motd1: '&e[&2FakeTrollPlus&e] &aThis server is using FakeTrollPlus v1.2.0 by Lori00!'
+  motd2: '&e[&2FakeTrollPlus&e] &aMore inforamtion under http://goo.gl/1ZgQXs/'
+  
+help:
+  require-permission: true
+
+enable-fake-op: true
+enable-fake-deop: true
+
+# Set this to true if you wish to enable /fakealert and /fakebroadcast:
+enable-fake-alert: true
+fake-broadcast:
+  enable: true
+  format: '&6[&4Broadcast&6]&a '
+
+# Set this to true if you wish to enable /fakejoin and /fakeleave:
+fake-join:
+  enable: true
+  message: '&e%Player% joined the game'
+fake-leave:
+  enable: true
+  message: '&e%Player% left the game'
+  
+# Set this to true if you wish to enable /hurt, /poison, /murder and /burn:
+enable-hurt: true
+enable-poison: true
+enable-murder: true
+enable-burn: true
+
+freeze:
+  enable: true
+  freeze-msg: '&3You have been frozen! Please do not log off!'
+  unfreeze-msg: '&3You have been unfrozen and are free to log off!'
+  do-move-attempt-msg: true
+  move-attempt-msg: '&3You are not allowed to move!'
+
+enable-gibberish: true
+
+rename-items:
+  enable: true
+  do-target-msg: false
+  target-msg: '&cOops! It seems that there is something wrong with your items!'
+
+# Set this to true if you wish to enable /tprandom and /portal:
+tprandom:
+  enable: true
+  tp-bounds: 10000
+  do-msg-to-target: false
+  msg-to-target: '&6It seems that you have been teleported!'
+  
+enable-portal: true
+
+# Set this to true if you wish to enable /spam, /fakemsg and /fakechat:
+enable-spam: true
+fake-msg:
+  enable: true
+  format: '&6[&r{PLAYER} &6-> &cme&6]&f {MESSAGE}'
+  allow-fake-names: true
+fake-chat:
+  enable: true
+  allow-unexisting-nicks: true
+  format: '<{PLAYER}> {MESSAGE}'
+
+# Set this to true if you wish to enable /clearinv:
+enable-clearinv: true
+random-inv:
+  enable: true
+  do-target-msg: false
+  target-msg: '&3Something unexpected happened.'
+fake-pay:
+  enable: true
+  format: '&a${AMOUNT} has been received from {SENDER}&f.F'
+
+
+# Set this to true if you wish to enable /fakecrash and /fakeban:
+enable-fake-crash: true
+fake-ban:
+  enable: true
+  ban-message: 'You are banned from this server! Reason: {REASON}'
+  do-broadcast: true
+  broadcast-msg: '&cPlayer {PLAYER} has been banned by {STAFF} for {REASON}!'
+
+# Set this to true if you wish to enable /fakegod and /fakeafk:
+enable-fake-god: true
+fake-afk:
+  enable: true
+  format-on: '&7* {PLAYER} &7is now AFK.'
+  format-off: '&7* {PLAYER} &7is no longer AFK.'
+
+# Set this to true if you wish to enable /anvil:
+enable-anvil: true
+
+# Set this to true if you wish to enable /forcecmd:
+enable-force-cmd: true
+
+# Should disabled commands display the vanilla unknown command message when executed?
+# If not, leave the message below:
+message-for-disabled-cmds: '&fUnknown command. Type "/help" for help.'
+
+# Set the message displayed when the target's name is either invalid or they are not online.
+invalid-target: '&6Player not found.'
