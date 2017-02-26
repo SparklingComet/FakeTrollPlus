@@ -1,9 +1,12 @@
 package org.shanerx.faketrollplus.commands;
 
+import java.util.logging.Level;
+
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.shanerx.faketrollplus.utils.PluginBuild;
 
 public class FakeTrollPlus implements CommandExecutor {
 	
@@ -17,16 +20,15 @@ public class FakeTrollPlus implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-
 		if (cmd.getName().equalsIgnoreCase("faketrollplus")) {
 			
 			if (args.length == 0) {
 				if (!sender.hasPermission("faketrollplus.help") && plugin.getConfig().getBoolean("help.require-permission")) {
 					sender.sendMessage(ChatColor.RED + "You do not have access to that command");
-					return true;	
+					return false;	
 				}
 				sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "\n \n &f----------&e[ &aHELP &e]&f---------- "
-						+ "\n&aFakeTrollPlus &ev3.0.1 by Lori00 "
+						+ "\n&aFakeTrollPlus &e" + PluginBuild.getVersion() + " by Lori00 "
 						+ "\n&bFor commands and permissions help go to &3&ngoo.gl/c8RL4G "
 						+ "\n&cCommands:"
 						+ "\n&e/faketrollplus &f- Display plugin help "
@@ -62,14 +64,18 @@ public class FakeTrollPlus implements CommandExecutor {
 			if (args[0].equalsIgnoreCase("reload")) {
 				if (!sender.hasPermission("faketrollplus.reload")) {
 					sender.sendMessage(ChatColor.RED + "You do not have access to that command");
-					return true;
+					return false;
 				}
 				this.plugin.reloadConfig();
 				sender.sendMessage(ChatColor.AQUA + "Configuration file has been reloaded!");
 				return true;
 			}
+			if (!sender.hasPermission("faketrollplus.help") && plugin.getConfig().getBoolean("help.require-permission")) {
+				sender.sendMessage(ChatColor.RED + "You do not have access to that command");
+				return false;	
+			}
 			sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "\n \n &f----------&e[ &aHELP &e]&f---------- "
-					+ "\n&aFakeTrollPlus &ev3.0.1 by Lori00 "
+					+ "\n&aFakeTrollPlus &e" + PluginBuild.getVersion() + " by Lori00 "
 					+ "\n&bFor commands and permissions help go to &3&ngoo.gl/c8RL4G "
 					+ "\n&cCommands:"
 					+ "\n&e/faketrollplus &f- Display plugin help "

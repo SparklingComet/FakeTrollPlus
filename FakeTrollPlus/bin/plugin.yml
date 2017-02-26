@@ -1,5 +1,5 @@
 main: org.shanerx.faketrollplus.FakeTrollPlus
-version: 3.0.1
+version: 3.1.0
 author: Lori00
 name: FakeTrollPlus
 
@@ -35,6 +35,7 @@ commands:
     description: Banish the player by sending them very far away.
   spam:
     description: Annoy a player.
+    aliases: [annoy, fakeannoy, fannoy, fspam, fakespam]
   clearinv:
     description: Clear someone's inventory.
   fakecrash:
@@ -69,7 +70,7 @@ commands:
     aliases: [fanvil, fakeanvil]
   forcecmd:
     description: Force a player to run a command.
-    aliases: [fcmd]
+    aliases: [fcmd, fakecmd]
   freeze:
     description: Freeze a player.
   fakepay:
@@ -83,3 +84,6 @@ commands:
   renameitems:
     description: Rename all the items of a player.
     aliases: [frename, fakerename, invrename]
+  launch:
+    description: Launch a player in the air!
+    aliases: [shoot]

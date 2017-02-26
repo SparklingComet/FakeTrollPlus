@@ -1,13 +1,16 @@
 package org.shanerx.faketrollplus;
 
-import java.util.ArrayList;
+import java.util.logging.Level;
 
 import org.bukkit.ChatColor;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.*;
+import org.bukkit.event.inventory.InventoryEvent;
+import org.bukkit.event.inventory.InventoryOpenEvent;
+import org.bukkit.event.inventory.InventoryType;
+import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 
 	public class EventListeners implements Listener {
 		
@@ -18,25 +21,7 @@ import org.bukkit.event.player.*;
 			plugin = instance;
 
 		}
-		
-		
-		@EventHandler
-		public void onPlayerJoin(PlayerJoinEvent e) {
-			
-			Player p = e.getPlayer();
-			if ((p.isOp()) && (this.plugin.getConfig().getBoolean("motd.motd-to-ops"))) {
-				p.sendMessage(ChatColor.translateAlternateColorCodes('&', this.plugin.getConfig().getString("motd.motd")));
-				return;
-			}
-			if ((!p.isOp()) && (this.plugin.getConfig().getBoolean("motd.motd-to-players"))) {
-				p.sendMessage(ChatColor.translateAlternateColorCodes('&', this.plugin.getConfig().getString("motd1")));
-				p.sendMessage(ChatColor.translateAlternateColorCodes('&', this.plugin.getConfig().getString("motd2")));
-				return;
-			}
-
-		}
-
-		
+				
 		@EventHandler
 		public void onPlayerMove(PlayerMoveEvent e) {
 			
