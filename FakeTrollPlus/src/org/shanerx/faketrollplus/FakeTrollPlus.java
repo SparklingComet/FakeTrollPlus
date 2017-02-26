@@ -72,7 +72,6 @@ import net.md_5.bungee.api.ChatColor;
 			getCommand("randominv").setExecutor(new Executor(this));			
 			getCommand("gibberish").setExecutor(new Executor(this));
 			getCommand("renameitems").setExecutor(new Executor(this));
-			getCommand("inventorylock").setExecutor(new Executor(this));
 			getCommand("launch").setExecutor(new Executor(this));
 
 			logs = new File(getDataFolder(), "logs");

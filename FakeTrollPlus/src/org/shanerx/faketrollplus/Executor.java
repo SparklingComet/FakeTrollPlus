@@ -1,14 +1,38 @@
 package org.shanerx.faketrollplus;
 
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
 import java.util.Date;
-import java.util.logging.Level;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.shanerx.faketrollplus.commands.*;
+import org.shanerx.faketrollplus.commands.Anvil;
+import org.shanerx.faketrollplus.commands.Burn;
+import org.shanerx.faketrollplus.commands.Clearinv;
+import org.shanerx.faketrollplus.commands.Fakeafk;
+import org.shanerx.faketrollplus.commands.Fakealert;
+import org.shanerx.faketrollplus.commands.Fakeban;
+import org.shanerx.faketrollplus.commands.Fakebroadcast;
+import org.shanerx.faketrollplus.commands.Fakechat;
+import org.shanerx.faketrollplus.commands.Fakecrash;
+import org.shanerx.faketrollplus.commands.Fakedeop;
+import org.shanerx.faketrollplus.commands.Fakegod;
+import org.shanerx.faketrollplus.commands.Fakejoin;
+import org.shanerx.faketrollplus.commands.Fakeleave;
+import org.shanerx.faketrollplus.commands.Fakemsg;
+import org.shanerx.faketrollplus.commands.Fakeop;
+import org.shanerx.faketrollplus.commands.Fakepay;
+import org.shanerx.faketrollplus.commands.Forcecmd;
+import org.shanerx.faketrollplus.commands.Freeze;
+import org.shanerx.faketrollplus.commands.Gibberish;
+import org.shanerx.faketrollplus.commands.Hurt;
+import org.shanerx.faketrollplus.commands.Launch;
+import org.shanerx.faketrollplus.commands.Murder;
+import org.shanerx.faketrollplus.commands.Poison;
+import org.shanerx.faketrollplus.commands.Portal;
+import org.shanerx.faketrollplus.commands.RandomInv;
+import org.shanerx.faketrollplus.commands.RenameItems;
+import org.shanerx.faketrollplus.commands.Spam;
+import org.shanerx.faketrollplus.commands.TpRandom;
 
 public class Executor implements CommandExecutor {
 	
