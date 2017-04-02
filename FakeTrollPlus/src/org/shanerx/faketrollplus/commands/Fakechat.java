@@ -13,16 +13,13 @@ public class Fakechat implements CommandExecutor {
 	FakeTrollPlus plugin;
 	
 	public Fakechat(FakeTrollPlus instance) {
-		
 		plugin = instance;
-		
 	}
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
-		if (cmd.getName().equalsIgnoreCase("fakechat")) {
 			if (!this.plugin.getConfig().getBoolean("fake-chat.enable")) {
-				sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.plugin.getConfig().getString("message-for-disabled-cmds")));
+				sender.sendMessage(FakeTrollPlus.col(this.plugin.getConfig().getString("message-for-disabled-cmds")));
 				return true;
 			}
 			if (!sender.hasPermission("faketroll.fakechat")) {
@@ -37,7 +34,7 @@ public class Fakechat implements CommandExecutor {
 			boolean targetIsReal = false;
 			if (target != null) targetIsReal = true;
 			if ((target == null) && (!this.plugin.getConfig().getBoolean("fake-chat.allow-unexisting-nicks"))) {
-				sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.plugin.getConfig().getString("invalid-target")));
+				sender.sendMessage(FakeTrollPlus.col(this.plugin.getConfig().getString("invalid-target")));
 				return true;
 			}
 			String msg = args[1];
@@ -54,9 +51,8 @@ public class Fakechat implements CommandExecutor {
 			}
 			fakeMsg = fakeMsg.replace("{PLAYER}", displayName);
 			fakeMsg = fakeMsg.replace("{MESSAGE}", msg);
-			Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', fakeMsg));
-		}
-		
+			Bukkit.broadcastMessage(FakeTrollPlus.col(fakeMsg));
+
 		return true;
 	}
 	

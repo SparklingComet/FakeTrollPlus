@@ -13,39 +13,36 @@ public class RandomInv implements CommandExecutor {
 	FakeTrollPlus plugin;
 	
 	public RandomInv(FakeTrollPlus instance) {
-		
 		plugin = instance;
 	}
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
-		if (cmd.getName().equalsIgnoreCase("randominv")) {
-			  /*	  if (!plugin.getConfig().getBoolean("randominv.enable")) {
-			     	 sender.sendMessage(ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("message-for-disabled-cmds")));
-			     	return true;
-			      }*/
+			if (!plugin.getConfig().getBoolean("random-inv.enable")) {
+				sender.sendMessage(FakeTrollPlus.col(plugin.getConfig().getString("message-for-disabled-cmds")));
+				return false;
+			}
 			if (!sender.hasPermission("faketroll.randominv")) {
 				sender.sendMessage(ChatColor.RED + "You do not have access to that command!");
-				return true;
+				return false;
 			}
 			if (args.length != 1) {
 				sender.sendMessage(ChatColor.GOLD + "Usage: /randominv <target>");
-				return true;
+				return false;
 			}
 			Player target = plugin.getServer().getPlayer(args[0]);
 			if (target == null) {
-				sender.sendMessage(ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("invalid-target")));
-				return true;
+				sender.sendMessage(FakeTrollPlus.col(plugin.getConfig().getString("invalid-target")));
+				return false;
 			}
 			Inventory playerInventory = target.getInventory();
 			target.openInventory(playerInventory);
-			boolean targetMsg = plugin.getConfig().getBoolean("do-target-msg");
-			String targetMessage = plugin.getConfig().getString("target-msg");
+			boolean targetMsg = plugin.getConfig().getBoolean("random-inv.do-target-msg");
+			String targetMessage = plugin.getConfig().getString("random-inv.target-msg");
 			if (targetMsg) {
-				target.sendMessage(ChatColor.translateAlternateColorCodes('&', targetMessage));
+				target.sendMessage(FakeTrollPlus.col(targetMessage));
 			}
-		}
-		
+
 		return true;
 	}
 

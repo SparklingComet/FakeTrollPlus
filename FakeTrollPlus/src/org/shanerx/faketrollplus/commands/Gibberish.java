@@ -11,31 +11,24 @@ public class Gibberish implements CommandExecutor {
 	FakeTrollPlus plugin;
 	
 	public Gibberish(FakeTrollPlus instance) {
-		
 		plugin = instance;
-		
 	}
 	
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		
-		if (label.equalsIgnoreCase("gibberish")) {
-			
+
 			if (!this.plugin.getConfig().getBoolean("enable-gibberish")) {
-				sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.plugin.getConfig().getString("message-for-disabled-cmds")));
-				return true;
+				sender.sendMessage(FakeTrollPlus.col(this.plugin.getConfig().getString("message-for-disabled-cmds")));
+				return false;
 			}
-			
 			if (!sender.hasPermission("faketroll.gibberish")) {
 				sender.sendMessage(ChatColor.RED + "You do not have access to that command!");
-				return true;
-			}
-			
+				return false;
+			}			
 			if (args.length != 1) {
 				sender.sendMessage(ChatColor.GOLD + "Usage: /gibberish <target>");
-				return true;
-			}
-			
+				return false;
+			}		
 			if (FakeTrollPlus.gibberish.contains(args[0])) {
 				FakeTrollPlus.gibberish.remove(args[0]);
 				sender.sendMessage(ChatColor.RED + args[0] + ChatColor.GOLD + " will no longer talk gibberish!");
@@ -43,10 +36,7 @@ public class Gibberish implements CommandExecutor {
 			}
 			FakeTrollPlus.gibberish.add(args[0]);
 			sender.sendMessage(ChatColor.RED + args[0] + ChatColor.GOLD + " will now talk gibberish!");
-			return true;			
-		}
-		
-		
+
 		return true;
 	}
 

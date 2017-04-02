@@ -11,26 +11,23 @@ public class Spam implements CommandExecutor {
 	
 	FakeTrollPlus plugin;
 	
-	public Spam(FakeTrollPlus instance) {
-		
-		plugin = instance;
-		
+	public Spam(FakeTrollPlus instance) {	
+		plugin = instance;	
 	}
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
-		if (cmd.getName().equalsIgnoreCase("spam")) {
 			if (!this.plugin.getConfig().getBoolean("enable-spam")) {
-				sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.plugin.getConfig().getString("message-for-disabled-cmds")));
-				return true;
+				sender.sendMessage(FakeTrollPlus.col(this.plugin.getConfig().getString("message-for-disabled-cmds")));
+				return false;
 			}
 			if (!sender.hasPermission("faketroll.spam")) {
 				sender.sendMessage(ChatColor.RED + "You do not have access to that command!");
-				return true;
+				return false;
 			}
 			if (args.length <= 2) {
 				sender.sendMessage(ChatColor.GOLD + "Usage: /spam <target> <times> <message>");
-				return true;
+				return false;
 			}
 			String msg = args[2];
 			for (int i = 3; i < args.length; i++) {
@@ -38,22 +35,21 @@ public class Spam implements CommandExecutor {
 			}
 			Player target = this.plugin.getServer().getPlayer(args[0]);
 			if (target == null) {
-				sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.plugin.getConfig().getString("invalid-target")));
-				return true;
+				sender.sendMessage(FakeTrollPlus.col(this.plugin.getConfig().getString("invalid-target")));
+				return false;
 			}
 			String target_name = target.getName();
 			try {
 				int msgCount = Integer.parseInt(args[1]);
 				int msgCounter = 1;
 				while (msgCounter <= msgCount) {
-					target.sendMessage(ChatColor.translateAlternateColorCodes('&', msg));
+					target.sendMessage(FakeTrollPlus.col(msg));
 					msgCounter++;
 				}
 				sender.sendMessage(ChatColor.GOLD + "You've successfully annoyed " + target_name + "!");
 			} catch (NumberFormatException e) {
 				sender.sendMessage(ChatColor.GOLD + "The 2nd parameter has to be a whole number!");
 			}
-		}
 		
 		return true;
 	}

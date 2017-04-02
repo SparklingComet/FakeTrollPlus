@@ -1,5 +1,5 @@
 main: org.shanerx.faketrollplus.FakeTrollPlus
-version: 3.1.1
+version: 3.2.0
 author: Lori00
 name: FakeTrollPlus
 
@@ -87,3 +87,22 @@ commands:
   launch:
     description: Launch a player in the air!
     aliases: [shoot]
+  swap:
+    description: Make a player swap locations with another player.
+    aliases: [switch]
+  replaceinv:
+    description: Replace all items in a player's inventory with something else.
+    aliases: [replaceinventory, ri, invreplace]
+  bury:
+    description: Bury a player.
+  nopickup:
+    description: Prevent a player from picking up items.
+    aliases: [np]
+  cobweb:
+    description: Trap a player into a cobweb.
+    aliases: [trap, ftrap]
+  inventorylock:
+    description: Lock a player out of their inventory.
+    aliases: [invlock, lockinventory, lockinv, il, li]
+  explode:
+    description: Explode a player.

@@ -14,31 +14,28 @@ public class TpRandom implements CommandExecutor {
 	
 	FakeTrollPlus plugin;
 	
-	public TpRandom(FakeTrollPlus instance) {
-		
+	public TpRandom(FakeTrollPlus instance) {	
 		plugin = instance;
-		
 	}
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
-		if (cmd.getName().equalsIgnoreCase("tprandom")) {
 			if (!this.plugin.getConfig().getBoolean("tprandom.enable")) {
 				sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.plugin.getConfig().getString("message-for-disabled-cmds")));
-				return true;
+				return false;
 			}
 			if (!sender.hasPermission("faketroll.tprandom")) {
 				sender.sendMessage(ChatColor.RED + "You do not have access to that command!");
-				return true;
+				return false;
 			}
 			if (args.length != 1) {
 				sender.sendMessage(ChatColor.GOLD + "Usage: /tprandom <target>");
-				return true;
+				return false;
 			}
 			Player target = this.plugin.getServer().getPlayer(args[0]);
 			if (target == null) {
 				sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.plugin.getConfig().getString("invalid-target")));
-				return true;
+				return false;
 			}
 			String target_name = target.getName();
 			double bounds = this.plugin.getConfig().getDouble("tprandom.tp-bounds");
@@ -52,9 +49,8 @@ public class TpRandom implements CommandExecutor {
 				return true;
 			}
 			target.sendMessage(ChatColor.translateAlternateColorCodes('&', this.plugin.getConfig().getString("tprandom.msg-to-target")));
-		}
 		
-		return false;
+		return true;
 	}
 
 }

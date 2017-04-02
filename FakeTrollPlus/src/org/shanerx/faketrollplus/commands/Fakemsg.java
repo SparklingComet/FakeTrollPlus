@@ -12,30 +12,27 @@ public class Fakemsg implements CommandExecutor {
 	FakeTrollPlus plugin;
 	
 	public Fakemsg(FakeTrollPlus instance) {
-		
 		plugin = instance;
-		
 	}
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
-		if (cmd.getName().equalsIgnoreCase("fakemsg")) {
 			if (!this.plugin.getConfig().getBoolean("fake-msg.enable")) {
-				sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.plugin.getConfig().getString("message-for-disabled-cmds")));
-				return true;
+				sender.sendMessage(FakeTrollPlus.col(this.plugin.getConfig().getString("message-for-disabled-cmds")));
+				return false;
 			}
 			if (!sender.hasPermission("faketroll.fakemsg")) {
 				sender.sendMessage(ChatColor.RED + "You do not have access to that command!");
-				return true;
+				return false;
 			}
 			if (args.length < 3) {
 				sender.sendMessage(ChatColor.GOLD + "Usage: /fakemsg <target> <fake-name> <message>");
-				return true;
+				return false;
 			}
 			Player target = this.plugin.getServer().getPlayer(args[0]);
 			if (target == null) {
-				sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.plugin.getConfig().getString("invalid-target")));
-				return true;
+				sender.sendMessage(FakeTrollPlus.col(this.plugin.getConfig().getString("invalid-target")));
+				return false;
 			}
 			String fakeName;
 			try {
@@ -52,9 +49,8 @@ public class Fakemsg implements CommandExecutor {
 			String fakeMsg = this.plugin.getConfig().getString("fake-msg.format");
 			fakeMsg = fakeMsg.replace("{PLAYER}", fakeName);
 			fakeMsg = fakeMsg.replace("{MESSAGE}", msg);
-			target.sendMessage(ChatColor.translateAlternateColorCodes('&', fakeMsg));
-		}
-		
+			target.sendMessage(FakeTrollPlus.col(fakeMsg));
+
 		return true;
 	}
 

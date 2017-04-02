@@ -6,12 +6,13 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
+import org.shanerx.faketrollplus.FakeTrollPlus;
 
 public class Launch implements CommandExecutor {
 	
-	org.shanerx.faketrollplus.FakeTrollPlus plugin;
+	FakeTrollPlus plugin;
 	
-	public Launch(org.shanerx.faketrollplus.FakeTrollPlus plugin) {
+	public Launch(FakeTrollPlus plugin) {
 		this.plugin = plugin;
 	}
 
@@ -19,7 +20,7 @@ public class Launch implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (cmd.getName().equalsIgnoreCase("launch")) {
 			if (!this.plugin.getConfig().getBoolean("enable-launch")) {
-				sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.plugin.getConfig().getString("message-for-disabled-cmds")));
+				sender.sendMessage(FakeTrollPlus.col(this.plugin.getConfig().getString("message-for-disabled-cmds")));
 				return true;
 			}
 			if (!sender.hasPermission("faketroll.launch")) {
@@ -32,12 +33,12 @@ public class Launch implements CommandExecutor {
 			}
 			Player target = this.plugin.getServer().getPlayer(args[0]);
 			if (target == null) {
-				sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.plugin.getConfig().getString("invalid-target")));
+				sender.sendMessage(FakeTrollPlus.col(this.plugin.getConfig().getString("invalid-target")));
 				return true;
 			}
 			double y = Double.parseDouble(args[1]);
 			target.setVelocity(new Vector(0, y, 0));
-			sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&c" + target.getName() + " &6has been launched in the air!"));
+			sender.sendMessage(FakeTrollPlus.col("&c" + target.getName() + " &6has been launched in the air!"));
 			target.sendMessage(ChatColor.BLUE + "Whooshh!");
 		}
 		return true;

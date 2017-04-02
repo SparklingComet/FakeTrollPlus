@@ -1,8 +1,9 @@
-#################################################################
-# FakeTrollPlus plugin v3.0.0 by Lori00.
-
+###########################################
+# FakeTrollPlus plugin v3.2.0 by Lori00. #
+###########################################
 
 exempt-admins: false
+
 no-admin-trolling: '&cYou may not troll this player!'
 console-bypass: true
   
@@ -31,6 +32,11 @@ enable-hurt: true
 enable-poison: true
 enable-murder: true
 enable-burn: true
+
+inventory-lock:
+  enable: true
+  do-target-msg: true
+  target-msg: '&3Sorry, but you are not allowed to access your inventory at the moment.'
 
 freeze:
   enable: true
@@ -61,6 +67,7 @@ fake-msg:
   enable: true
   format: '&6[&r{PLAYER} &6-> &cme&6]&f {MESSAGE}'
   allow-fake-names: true
+  
 fake-chat:
   enable: true
   allow-unexisting-nicks: true
@@ -72,10 +79,10 @@ random-inv:
   enable: true
   do-target-msg: false
   target-msg: '&3Something unexpected happened.'
+  
 fake-pay:
   enable: true
   format: '&a${AMOUNT} has been received from {SENDER}&f.F'
-
 
 # Set this to true if you wish to enable /fakecrash and /fakeban:
 enable-fake-crash: true
@@ -95,11 +102,40 @@ fake-afk:
 # Set this to true if you wish to enable /anvil:
 enable-anvil: true
 
+# Setting the 'power' value too high may lag or crash your server. The default value ('4') equals the explosion of a TNT block.
+explode:
+  enable: true
+  power: 4
+  set-fire: true
+
 # Set this to true if you wish to enable /forcecmd:
 enable-force-cmd: true
 
 # Set to true if you wish to enable /launch (alias of /shoot):
 enable-launch: true
+
+# Settings for /swap:
+swap:
+  enable: true
+  invalid-target: '&6Sorry, but at least one of your targets was not found.'
+  send-message-to-target: true
+  target-msg: '&bSomething unexpected happened...'
+
+bury:
+  enable: true
+  depth: 6.0
+  do-msg-to-target: true
+  msg-to-target: '&bUh, oh: It appears that you have been buried alive!'
+  
+no-pickup:
+  enable: true
+  alert-victim: true
+  enable: '&3You may no longer pick up items from the ground!'
+  disable: '&3You may now pick up items from the ground!'
+  
+enable-replaceinv: true
+enable-push: true
+enable-cobweb: true
 
 # Logging options: - After editing this setting, you will need to restart the server for the changes to take place.
 enable-logs: true

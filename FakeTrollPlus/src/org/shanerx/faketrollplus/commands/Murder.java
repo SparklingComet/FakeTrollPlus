@@ -13,30 +13,27 @@ public class Murder implements CommandExecutor {
 	FakeTrollPlus plugin;
 	
 	public Murder(FakeTrollPlus instance) {
-		
-		plugin = instance;
-		
+		plugin = instance;		
 	}
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
-		if (cmd.getName().equalsIgnoreCase("murder")) {
 			if (!this.plugin.getConfig().getBoolean("enable-murder")) {
-				sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.plugin.getConfig().getString("message-for-disabled-cmds")));
-				return true;
+				sender.sendMessage(FakeTrollPlus.col(this.plugin.getConfig().getString("message-for-disabled-cmds")));
+				return false;
 			}
 			if (!sender.hasPermission("faketroll.murder")) {
 				sender.sendMessage(ChatColor.RED + "You do not have access to that command!");
-				return true;
+				return false;
 			}
 			if (args.length != 1) {
 				sender.sendMessage(ChatColor.GOLD + "Usage: /murder <target>");
-				return true;
+				return false;
 			}
 			Player target = this.plugin.getServer().getPlayer(args[0]);
 			if (target == null) {
-				sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.plugin.getConfig().getString("invalid-target")));
-				return true;
+				sender.sendMessage(FakeTrollPlus.col(this.plugin.getConfig().getString("invalid-target")));
+				return false;
 			}
 			String target_name = target.getName();
 			target.getGameMode();
@@ -49,8 +46,7 @@ public class Murder implements CommandExecutor {
 				target.damage(20.0D);
 			}
 			sender.sendMessage(ChatColor.GOLD + "Why did you do this to " + target_name + "?");
-		}
-		
+
 		return true;
 	}
 

@@ -12,29 +12,25 @@ public class Fakeleave implements CommandExecutor {
 	FakeTrollPlus plugin;
 	
 	public Fakeleave(FakeTrollPlus instance) {
-		
 		plugin = instance;
-		
 	}
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
-		if (cmd.getName().equalsIgnoreCase("fakeleave")) {
 			if (!this.plugin.getConfig().getBoolean("fake-leave.enable")) {
-				sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.plugin.getConfig().getString("message-for-disabled-cmds")));
-				return true;
+				sender.sendMessage(FakeTrollPlus.col(this.plugin.getConfig().getString("message-for-disabled-cmds")));
+				return false;
 			}
 			if (!sender.hasPermission("faketroll.fakeleave")) {
 				sender.sendMessage(ChatColor.RED + "You do not have access to that command!");
-				return true;
+				return false;
 			}
 			if (args.length != 1) {
 				sender.sendMessage(ChatColor.GOLD + "Usage: /fakeleave <target>");
-				return true;
+				return false;
 			}
-			Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', this.plugin.getConfig().getString("fake-leave.message").replaceAll("%Player%", args[0])));
-		}
-		
+			Bukkit.broadcastMessage(FakeTrollPlus.col(this.plugin.getConfig().getString("fake-leave.message").replaceAll("%Player%", args[0])));
+
 		return true;
 	}
 }
