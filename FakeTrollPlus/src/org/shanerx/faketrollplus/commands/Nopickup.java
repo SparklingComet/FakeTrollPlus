@@ -1,15 +1,12 @@
 package org.shanerx.faketrollplus.commands;
 
-import java.util.UUID;
-
 import org.bukkit.ChatColor;
-import org.bukkit.World;
-import org.bukkit.block.Block;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.shanerx.faketrollplus.FakeTrollPlus;
+import org.shanerx.faketrollplus.core.TrollPlayer;
 
 public class Nopickup implements CommandExecutor {
 	
@@ -20,6 +17,7 @@ public class Nopickup implements CommandExecutor {
 	}
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+		//TODO FIX:
 //			if (!this.plugin.getConfig().getBoolean("no-pickup.enable")) {
 //				sender.sendMessage(FakeTrollPlus.col(this.plugin.getConfig().getString("message-for-disabled-cmds")));
 //				return false;
@@ -37,16 +35,16 @@ public class Nopickup implements CommandExecutor {
 				sender.sendMessage(FakeTrollPlus.col(this.plugin.getConfig().getString("invalid-target")));
 				return false;
 			}
-			UUID uuid = target.getUniqueId();
-			if (FakeTrollPlus.noPickup.contains(uuid)) {
-				FakeTrollPlus.noPickup.remove(uuid);
+			TrollPlayer tp = plugin.getUserCache().getTrollPlayer(target.getUniqueId());
+			if (!tp.canPickup()) {
+				tp.setPickup(true);
 				sender.sendMessage(ChatColor.GOLD + "Player " + ChatColor.RED + target.getName() + ChatColor.GOLD + " can now pickup items!");
 				if (plugin.getConfig().getBoolean("alert-victim")) {
 					target.sendMessage(FakeTrollPlus.col(this.plugin.getConfig().getString("no-pickup.disable")));
 				}
 				return true;
 			}
-			FakeTrollPlus.noPickup.add(uuid);
+			tp.setPickup(false);
 			sender.sendMessage(ChatColor.GOLD + "Player " + ChatColor.RED + target.getName() + ChatColor.GOLD + " can no longer pickup items!");
 			if (plugin.getConfig().getBoolean("alert-victim")) {
 				target.sendMessage(FakeTrollPlus.col(this.plugin.getConfig().getString("no-pickup.enable")));

@@ -17,7 +17,7 @@ public class Faketrollplus implements CommandExecutor {
 		plugin = instance;
 	}
 	
-	public static final String HELP = org.shanerx.faketrollplus.FakeTrollPlus.col("\n \n &f----------&e[ &aHELP &e]&f---------- "
+	public static final String HELP = FakeTrollPlus.col("\n \n &f----------&e[ &aHELP &e]&f---------- "
 			+ "\n&aFakeTrollPlus &e" + PluginBuild.getVersion() + " by Lori00 "
 			+ "\n&bFor commands and permissions help go to &3&ngoo.gl/c8RL4G "
 			+ "\n&cCommands:"
@@ -57,7 +57,8 @@ public class Faketrollplus implements CommandExecutor {
 			+ "\n&e/cobweb &f - Trap a player into a cobweb."
 			+ "\n&e/inventorylock &f - Lock a player out of their inventory."
 			+ "\n&e/explode &f - Explode a player."
-			+ "");
+			+ "\n&e/badfood &f - Make a player get poisoned by everything they eat."
+			+ "\n&e/explodeblocks &f - Blow up every block a player mines.");
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {

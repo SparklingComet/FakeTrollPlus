@@ -128,6 +128,11 @@ public class Executor implements CommandExecutor {
 		case "explode":
 			new Explode(plugin).onCommand(sender, cmd, label, args);
 			break;
+		case "badfood":
+			new Badfood(plugin).onCommand(sender, cmd, label, args);
+			break;
+		case "explodeblocks":
+			new ExplodeBlocks(plugin).onCommand(sender, cmd, label, args);
 		}
 		
 		if (!FakeTrollPlus.doLogging) {

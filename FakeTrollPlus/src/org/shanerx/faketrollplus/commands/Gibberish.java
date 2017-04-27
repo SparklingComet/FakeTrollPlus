@@ -1,10 +1,13 @@
 package org.shanerx.faketrollplus.commands;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.shanerx.faketrollplus.FakeTrollPlus;
+import org.shanerx.faketrollplus.core.TrollPlayer;
 
 public class Gibberish implements CommandExecutor {
 	
@@ -28,13 +31,19 @@ public class Gibberish implements CommandExecutor {
 			if (args.length != 1) {
 				sender.sendMessage(ChatColor.GOLD + "Usage: /gibberish <target>");
 				return false;
-			}		
-			if (FakeTrollPlus.gibberish.contains(args[0])) {
-				FakeTrollPlus.gibberish.remove(args[0]);
+			}
+			Player p = Bukkit.getPlayer(args[0]);
+			if (p == null) {
+				sender.sendMessage(FakeTrollPlus.col(this.plugin.getConfig().getString("invalid-target")));
+				return false;
+			}
+			TrollPlayer tp = plugin.getUserCache().getTrollPlayer(p.getUniqueId());
+			if (tp.chatIsGibberish()) {
+				tp.setGibberishChat(false);
 				sender.sendMessage(ChatColor.RED + args[0] + ChatColor.GOLD + " will no longer talk gibberish!");
 				return true;
 			}
-			FakeTrollPlus.gibberish.add(args[0]);
+			tp.setGibberishChat(true);
 			sender.sendMessage(ChatColor.RED + args[0] + ChatColor.GOLD + " will now talk gibberish!");
 
 		return true;

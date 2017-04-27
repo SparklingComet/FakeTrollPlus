@@ -1,5 +1,5 @@
 main: org.shanerx.faketrollplus.FakeTrollPlus
-version: 3.2.0
+version: 3.3.0
 author: Lori00
 name: FakeTrollPlus
 
@@ -106,3 +106,8 @@ commands:
     aliases: [invlock, lockinventory, lockinv, il, li]
   explode:
     description: Explode a player.
+  badfood:
+    description: Make a player get poisoned by everything they eat.
+  explodeblocks:
+    description: Blow up every block a player mines.
+    aliases: [eb, explodebl, blocksexplode]

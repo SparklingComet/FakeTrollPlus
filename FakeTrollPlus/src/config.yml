@@ -2,8 +2,11 @@
 # FakeTrollPlus plugin v3.2.0 by Lori00. #
 ###########################################
 
-exempt-admins: false
 
+# Keeping the Updater enabled is recommended. Only disable if the server is not connected to the internet.
+check-updates: true
+
+exempt-admins: false
 no-admin-trolling: '&cYou may not troll this player!'
 console-bypass: true
   
@@ -107,6 +110,11 @@ explode:
   enable: true
   power: 4
   set-fire: true
+  
+explode-blocks:
+  enable: true
+  power: 0.5
+  set-fire: false
 
 # Set this to true if you wish to enable /forcecmd:
 enable-force-cmd: true
@@ -132,6 +140,10 @@ no-pickup:
   alert-victim: true
   enable: '&3You may no longer pick up items from the ground!'
   disable: '&3You may now pick up items from the ground!'
+  
+badfood:
+  enable: true
+  duration: 10
   
 enable-replaceinv: true
 enable-push: true

@@ -1,13 +1,12 @@
 package org.shanerx.faketrollplus.commands;
 
 import org.bukkit.ChatColor;
-import org.bukkit.GameMode;
-import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.shanerx.faketrollplus.FakeTrollPlus;
+import org.shanerx.faketrollplus.core.TrollPlayer;
 
 public class Invlock implements CommandExecutor {
 	
@@ -36,14 +35,15 @@ public class Invlock implements CommandExecutor {
 				sender.sendMessage(FakeTrollPlus.col(this.plugin.getConfig().getString("invalid-target")));
 				return false;
 			}
+			TrollPlayer tp = plugin.getUserCache().getTrollPlayer(target.getUniqueId());
 			String target_name = target.getName();
-			if (FakeTrollPlus.inventoryLock.contains(target.getUniqueId())) {
+			if (tp.invIsLocked()) {
 				sender.sendMessage(ChatColor.GOLD + "You have removed the lock on " + ChatColor.RED + target_name + ChatColor.GOLD + "'s inventory.");
-				FakeTrollPlus.inventoryLock.remove(target.getUniqueId());
+				tp.setInvLocked(false);
 				return true;
 			}
 			sender.sendMessage(ChatColor.GOLD + "You have locked " + ChatColor.RED + target_name + ChatColor.GOLD + " out of their inventory.");
-			FakeTrollPlus.inventoryLock.add(target.getUniqueId());
+			tp.setInvLocked(true);
 
 		return true;
 	}
