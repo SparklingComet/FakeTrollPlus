@@ -1,0 +1,113 @@
+main: org.shanerx.faketrollplus.FakeTrollPlus
+version: 3.3.0
+author: Lori00
+name: FakeTrollPlus
+
+commands:
+  faketrollplus:
+    description: Show plugin help and version
+    aliases: [faketroll, ftroll, troll, ftp]
+  fakeop:
+    description: Make a player believe that they just got opped!
+    aliases: [fop]
+  fakedeop:
+    description: Make a player believe that they just got de-opped!
+    aliases: [fdeop]
+  fakealert:
+    description: Send a BungeeCord alert message to a single player, making them believe it is a server-wide broadcast.
+    aliases: [falert, fbungeealert, fbalert, fakebungeealert]
+  fakebroadcast:
+    description: Send an Essentials broadcast message to a single player, making them believe it is a server-wide broadcast.
+    aliases: [fbc, fbroad, fbroadcast]
+  fakejoin:
+    description: Pretend that a certain player joined the game.
+    aliases: [fj, fjoin]
+  fakeleave:
+    description: Pretend that a certain player left the game.
+    aliases: [fl, fq, fakequit, fquit, fleave]
+  hurt:
+    description: Be mean.
+    aliases: [fhurt, fakehurt]
+  tprandom:
+    description: Teleport a player to a random location.
+    aliases: [tpr]
+  portal:
+    description: Banish the player by sending them very far away.
+  spam:
+    description: Annoy a player.
+    aliases: [annoy, fakeannoy, fannoy, fspam, fakespam]
+  clearinv:
+    description: Clear someone's inventory.
+  fakecrash:
+    description: Kick a player and show them a Java error message.
+    aliases: [crash, fcrash]
+  murder:
+    description: Please don't do such a horrible thing!
+    aliases: [assassinate]
+  fakegod:
+    description: Make your target believe that they just got free god mode!
+    aliases: [fg, fgod]
+  fakechat:
+    description: Send a chat message pretending to be someone else.
+    aliases: [fc, fchat]
+  fakemsg:
+    description: Send a private message to someone pretending to be someone else.
+    aliases: [fmsg, fpm, fakepm, faketell, ftell]
+  fakeafk:
+    description: Pretend to be afk or set another player afk.
+    aliases: [fafk]
+  burn:
+    description: Be nasty.
+    aliases: [fburn, fakeburn]
+  poison:
+    description: Poison a player for x seconds.
+    aliases: [fpoison, fakepoison]
+  fakeban:
+    description: Make a player believe they just got banned.
+    aliases: [fban, fb]
+  anvil:
+    description: Spawn an anvil on the target's head
+    aliases: [fanvil, fakeanvil]
+  forcecmd:
+    description: Force a player to run a command.
+    aliases: [fcmd, fakecmd]
+  freeze:
+    description: Freeze a player.
+  fakepay:
+    description: Fake a transaction.
+    aliases: [fpay]
+  randominv:
+    description: Randomly open a player's inventory.
+    aliases: [openinv, oi, openinventory, randominventory, rinv]
+  gibberish:
+    description: Change all the text a player types to gibberish!
+  renameitems:
+    description: Rename all the items of a player.
+    aliases: [frename, fakerename, invrename]
+  launch:
+    description: Launch a player in the air!
+    aliases: [shoot]
+  swap:
+    description: Make a player swap locations with another player.
+    aliases: [switch]
+  replaceinv:
+    description: Replace all items in a player's inventory with something else.
+    aliases: [replaceinventory, ri, invreplace]
+  bury:
+    description: Bury a player.
+  nopickup:
+    description: Prevent a player from picking up items.
+    aliases: [np]
+  cobweb:
+    description: Trap a player into a cobweb.
+    aliases: [trap, ftrap]
+  inventorylock:
+    description: Lock a player out of their inventory.
+    aliases: [invlock, lockinventory, lockinv, il, li]
+  explode:
+    description: Explode a player.
+  badfood:
+    description: Make a player get poisoned by everything they eat.
+  explodeblocks:
+    description: Blow up every block a player mines.
+    aliases: [eb, explodebl, blocksexplode]
