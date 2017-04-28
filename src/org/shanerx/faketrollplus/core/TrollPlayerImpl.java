@@ -71,7 +71,7 @@ public class TrollPlayerImpl implements TrollPlayer {
 			return false;
 		if (isConsole && ftp.getConfig().getBoolean("console-bypass"))
 			return true;
-		return !Bukkit.getPlayer(uuid).hasPermission("ftp.exempt");
+		return !Bukkit.getPlayer(uuid).hasPermission("faketroll.exempt");
 	}
 
 	/**
@@ -132,7 +132,10 @@ public class TrollPlayerImpl implements TrollPlayer {
 		JSONObject root = uc.getJSONConfiguration();
 		JSONObject userInfo = getUserInfo();
 		try {
-			return root.containsKey(uuid.toString()) && (boolean) userInfo.get("canPickup");
+			if (!root.containsKey(uuid.toString())) {
+				return true;
+			}
+			return (boolean) userInfo.get("canPickup");
 		} catch (NullPointerException npe) {
 			return false;
 		}

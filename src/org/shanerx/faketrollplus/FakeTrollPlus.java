@@ -20,6 +20,11 @@ import org.shanerx.faketrollplus.utils.PluginBuild;
 
 import net.md_5.bungee.api.ChatColor;
 
+/*
+ * DONE SINCE LAST UPDATE:
+ * Optimize config comments
+ * Fixed bug where new players couldn't pickup items.
+ */
 public class FakeTrollPlus extends JavaPlugin {
 
 	static File logs;

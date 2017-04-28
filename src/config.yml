@@ -1,28 +1,30 @@
 ###########################################
-# FakeTrollPlus plugin v3.3.0 by Lori00. #
+# FakeTrollPlus plugin v3.3.1 by Lori00. #
 ###########################################
 
 
 # Keeping the Updater enabled is recommended. Only disable if the server is not connected to the internet.
 check-updates: true
 
+# These settings enable/disable admin-protection. Set to true to protect admins.
+# Admins are the ones who have the permission 'faketroll.exempt'.
+# Operators are granted the permission by default.
 exempt-admins: false
 no-admin-trolling: '&cYou may not troll this player!'
 console-bypass: true
-  
+
+# Set whether the permission 'faketroll.help' is required to see the help menu.
 help:
   require-permission: true
 
 enable-fake-op: true
 enable-fake-deop: true
 
-# Set this to true if you wish to enable /fakealert and /fakebroadcast:
 enable-fake-alert: true
 fake-broadcast:
   enable: true
   format: '&6[&4Broadcast&6]&a '
 
-# Set this to true if you wish to enable /fakejoin and /fakeleave:
 fake-join:
   enable: true
   message: '&e%Player% joined the game'
@@ -30,7 +32,6 @@ fake-leave:
   enable: true
   message: '&e%Player% left the game'
   
-# Set this to true if you wish to enable /hurt, /poison, /murder and /burn:
 enable-hurt: true
 enable-poison: true
 enable-murder: true
@@ -55,7 +56,6 @@ rename-items:
   do-target-msg: false
   target-msg: '&cOops! It seems that there is something wrong with your items!'
 
-# Set this to true if you wish to enable /tprandom and /portal:
 tprandom:
   enable: true
   tp-bounds: 10000
@@ -64,7 +64,6 @@ tprandom:
   
 enable-portal: true
 
-# Set this to true if you wish to enable /spam, /fakemsg and /fakechat:
 enable-spam: true
 fake-msg:
   enable: true
@@ -76,7 +75,6 @@ fake-chat:
   allow-unexisting-nicks: true
   format: '<{PLAYER}> {MESSAGE}'
 
-# Set this to true if you wish to enable /clearinv:
 enable-clearinv: true
 random-inv:
   enable: true
@@ -87,25 +85,23 @@ fake-pay:
   enable: true
   format: '&a${AMOUNT} has been received from {SENDER}&f.F'
 
-# Set this to true if you wish to enable /fakecrash and /fakeban:
 enable-fake-crash: true
+
 fake-ban:
   enable: true
   ban-message: 'You are banned from this server! Reason: {REASON}'
   do-broadcast: true
   broadcast-msg: '&cPlayer {PLAYER} has been banned by {STAFF} for {REASON}!'
 
-# Set this to true if you wish to enable /fakegod and /fakeafk:
 enable-fake-god: true
+
 fake-afk:
   enable: true
   format-on: '&7* {PLAYER} &7is now AFK.'
   format-off: '&7* {PLAYER} &7is no longer AFK.'
 
-# Set this to true if you wish to enable /anvil:
 enable-anvil: true
 
-# Setting the 'power' value too high may lag or crash your server. The default value ('4') equals the explosion of a TNT block.
 explode:
   enable: true
   power: 4
@@ -116,13 +112,10 @@ explode-blocks:
   power: 0.5
   set-fire: false
 
-# Set this to true if you wish to enable /forcecmd:
 enable-force-cmd: true
 
-# Set to true if you wish to enable /launch (alias of /shoot):
 enable-launch: true
 
-# Settings for /swap:
 swap:
   enable: true
   invalid-target: '&6Sorry, but at least one of your targets was not found.'
@@ -153,7 +146,7 @@ enable-cobweb: true
 enable-logs: true
 
 # Should disabled commands display the vanilla unknown command message when executed?
-# If not, leave the message below:
+# If not, change the message below:
 message-for-disabled-cmds: '&fUnknown command. Type "/help" for help.'
 
 # Set the message displayed when the target's name is either invalid or they are not online.
