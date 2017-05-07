@@ -42,10 +42,14 @@ public class FakeTrollPlus extends JavaPlugin {
 	public static PrintWriter log;
 	static boolean doLogging;
 
-	public static String version;
+	private static String version;
 	public static Logger console;
 
 	private volatile UserCache usercache;
+	
+	public static String getVersion() {
+		return version;
+	}
 
 	@Override
 	@SuppressWarnings("deprecation")

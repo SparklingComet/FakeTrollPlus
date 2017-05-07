@@ -28,7 +28,7 @@ public enum PluginBuild {
 	DEV, BETA, STABLE, FINAL;
 
 	public static String getVersion() {
-		return FakeTrollPlus.version + "-" + PluginBuild.DEV;
+		return FakeTrollPlus.getVersion() + "-" + PluginBuild.DEV;
 	}
 	
 	public static void checkCurrentVersion() {
@@ -42,7 +42,7 @@ public enum PluginBuild {
 	        String inputLine;
 	        while ((inputLine = in.readLine()) != null) {
 	        	System.out.println(inputLine);
-	        	if (!inputLine.equalsIgnoreCase(FakeTrollPlus.version)) {
+	        	if (!inputLine.equalsIgnoreCase(FakeTrollPlus.getVersion())) {
 	    			log.log(Level.WARNING, "[Updater] ------------------------------------------------------");
 	    			log.log(Level.WARNING, "[Updater] You are running an outdated version of the plugin!");
 	    			log.log(Level.WARNING, "[Updater] Most recent stable version: " + inputLine);
