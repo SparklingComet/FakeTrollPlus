@@ -1,7 +1,10 @@
 main: org.shanerx.faketrollplus.FakeTrollPlus
-version: 3.3.2
+version: 3.3.3
 author: Lori00
 name: FakeTrollPlus
+
+website: https://www.spigotmc.org/resources/30762/
+description: New large-range trolling plugin for server administrators.
 
 commands:
   faketrollplus:

@@ -155,7 +155,7 @@ public class UserCache {
 	 *         that UUID.
 	 */
 	public TrollPlayer getTrollPlayer(UUID uuid) {
-		return new TrollPlayerImpl(uuid, plugin);
+		return new TrollPlayer(uuid, plugin);
 	}
 
 }
