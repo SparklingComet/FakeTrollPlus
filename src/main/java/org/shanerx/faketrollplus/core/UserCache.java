@@ -21,6 +21,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.UUID;
 
+import org.bukkit.OfflinePlayer;
+import org.bukkit.entity.Player;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -141,8 +143,40 @@ public class UserCache {
 	 * @return the {@link org.json.simple.JSONObject} representing the data
 	 *         related to the UUID.
 	 */
-	JSONObject getPlayerInfo(UUID uuid) {
+	public JSONObject getPlayerInfo(UUID uuid) {
 		return (JSONObject) getJSONConfiguration().get(uuid.toString());
+	}
+
+	/**
+	 * Returns an instance of {@link org.json.simple.JSONObject}, containing the
+	 * specific data related to that {@link java.util.UUID}. <br>
+	 * {@code null} if there are no records about that player. If the value
+	 * {@code null} is returned, the player may still have joined once, they
+	 * have never been trolled.
+	 * 
+	 * @param uuid
+	 *            the uuid of the player.
+	 * @return the {@link org.json.simple.JSONObject} representing the data
+	 *         related to the {@link org.bukkit.OfflinePlayer}.
+	 */
+	public JSONObject getPlayerInfo(OfflinePlayer op) {
+		return (JSONObject) getJSONConfiguration().get(op.getUniqueId().toString());
+	}
+
+	/**
+	 * Returns an instance of {@link org.json.simple.JSONObject}, containing the
+	 * specific data related to that {@link java.util.UUID}. <br>
+	 * {@code null} if there are no records about that player. If the value
+	 * {@code null} is returned, the player may still have joined once, they
+	 * have never been trolled.
+	 * 
+	 * @param uuid
+	 *            the player.
+	 * @return the {@link org.json.simple.JSONObject} representing the data
+	 *         related to the {@link org.bukkit.entity.Player}.
+	 */
+	public JSONObject getPlayerInfo(Player p) {
+		return (JSONObject) getJSONConfiguration().get(p.getUniqueId().toString());
 	}
 
 	/**
@@ -156,6 +190,32 @@ public class UserCache {
 	 */
 	public TrollPlayer getTrollPlayer(UUID uuid) {
 		return new TrollPlayer(uuid, plugin);
+	}
+
+	/**
+	 * Gets the instance of {@link org.shanerx.faketrollplus.core.TrollPlayer}
+	 * which represents the player known by the {@link java.util.UUID} of the
+	 * {@link org.bukkit.OfflinePlayer}.
+	 * 
+	 * @param op
+	 *            the player.
+	 * @return the {@link org.shanerx.faketrollplus.core.TrollPlayer}.
+	 */
+	public TrollPlayer getTrollPlayer(OfflinePlayer op) {
+		return new TrollPlayer(op, plugin);
+	}
+
+	/**
+	 * Gets the instance of {@link org.shanerx.faketrollplus.core.TrollPlayer}
+	 * which represents the player known by the {@link java.util.UUID} of the
+	 * {@link org.bukkit.entity.Player}.
+	 * 
+	 * @param p
+	 *            the player.
+	 * @return the {@link org.shanerx.faketrollplus.core.TrollPlayer}.
+	 */
+	public TrollPlayer getTrollPlayer(Player p) {
+		return new TrollPlayer(p, plugin);
 	}
 
 }

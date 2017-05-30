@@ -22,51 +22,49 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.shanerx.faketrollplus.FakeTrollPlus;
+import org.shanerx.faketrollplus.Message;
 
 public class Fakeafk implements CommandExecutor {
-	
+
 	FakeTrollPlus plugin;
-	
-	public Fakeafk(FakeTrollPlus instance) {
-		plugin = instance;		
+
+	public Fakeafk(final FakeTrollPlus instance) {
+		plugin = instance;
 	}
 
-	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-			
-			if (!this.plugin.getConfig().getBoolean("fake-afk.enable")) {
-				sender.sendMessage(FakeTrollPlus.col(this.plugin.getConfig().getString("message-for-disabled-cmds")));
-				return false;
-			}
-			
-			if (!sender.hasPermission("faketroll.fakeafk")) {
-				sender.sendMessage(ChatColor.RED + "You do not have access to that command!");
-				return false;
-			}
-			
-			if (args.length != 2) {
-				sender.sendMessage(ChatColor.GOLD + "Usage: /fakeafk <target> <on|off>");
-				return false;
-			}
-			
-			Player target = this.plugin.getServer().getPlayer(args[0]);
-			String target_name;
-			
-			if (target == null) {
-				sender.sendMessage(FakeTrollPlus.col(this.plugin.getConfig().getString("invalid-target")));
-				return false;
-			}
-			
-			target_name = target.getDisplayName();
-			
-			if (args[1].equalsIgnoreCase("on")) {
-				Bukkit.broadcastMessage(FakeTrollPlus.col(this.plugin.getConfig().getString("fake-afk.format-on")).replace("{PLAYER}", target_name));
-			} else if (args[1].equalsIgnoreCase("off")) {
-				Bukkit.broadcastMessage(FakeTrollPlus.col(this.plugin.getConfig().getString("fake-afk.format-off")).replace("{PLAYER}", target_name));
-			} else {
-				sender.sendMessage(ChatColor.GOLD + "Usage: /fakeafk <target> <on|off>");
-			}
-		
+	@Override
+	public boolean onCommand(final CommandSender sender, final Command cmd, final String label, final String[] args) {
+		if (!Message.getBool("fake-afk.enable")) {
+			sender.sendMessage(Message.getString("message-for-disabled-cmds"));
+			return false;
+		}
+
+		if (!sender.hasPermission("faketroll.fakeafk")) {
+			sender.sendMessage(ChatColor.RED + "You do not have access to that command!");
+			return false;
+		}
+
+		if (args.length != 2) {
+			sender.sendMessage(ChatColor.GOLD + "Usage: /fakeafk <target> <on|off>");
+			return false;
+		}
+
+		final Player target = plugin.getServer().getPlayer(args[0]);
+		String target_name;
+
+		if (target == null) {
+			sender.sendMessage(Message.getString("invalid-target"));
+			return false;
+		}
+		target_name = target.getDisplayName();
+		if (args[1].equalsIgnoreCase("on")) {
+			Bukkit.broadcastMessage(Message.getString("fake-afk.format-on").replace("{PLAYER}", target_name));
+		} else if (args[1].equalsIgnoreCase("off")) {
+			Bukkit.broadcastMessage(Message.getString("fake-afk.format-off").replace("{PLAYER}", target_name));
+		} else {
+			sender.sendMessage(ChatColor.GOLD + "Usage: /fakeafk <target> <on|off>");
+		}
 		return true;
 	}
-	
+
 }

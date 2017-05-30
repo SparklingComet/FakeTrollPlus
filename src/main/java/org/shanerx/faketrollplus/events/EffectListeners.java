@@ -13,11 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.shanerx.faketrollplus;
+package org.shanerx.faketrollplus.events;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -25,19 +24,21 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerLoginEvent;
+import org.bukkit.event.player.PlayerLoginEvent.Result;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.shanerx.faketrollplus.FakeTrollPlus;
+import org.shanerx.faketrollplus.Message;
 import org.shanerx.faketrollplus.core.TrollPlayer;
 
-public class EventListeners implements Listener {
+public class EffectListeners implements Listener {
 
 	FakeTrollPlus plugin;
 
-	public EventListeners(FakeTrollPlus instance) {
+	public EffectListeners(FakeTrollPlus instance) {
 
 		plugin = instance;
 
@@ -49,12 +50,10 @@ public class EventListeners implements Listener {
 		TrollPlayer tp = plugin.getUserCache().getTrollPlayer(p.getUniqueId());
 		if (tp.isFrozen()) {
 			e.setCancelled(true);
-			if (!this.plugin.getConfig().getBoolean("freeze.do-move-attempt-msg"))
+			if (!Message.getBool("freeze.do-move-attempt-msg"))
 				return;
-			p.sendMessage(ChatColor.translateAlternateColorCodes('&',
-					this.plugin.getConfig().getString("freeze.move-attempt-msg")));
+			p.sendMessage(ChatColor.translateAlternateColorCodes('&', Message.getString("freeze.move-attempt-msg")));
 		}
-
 	}
 
 	@EventHandler
@@ -62,7 +61,7 @@ public class EventListeners implements Listener {
 		Player p = e.getPlayer();
 		TrollPlayer tp = plugin.getUserCache().getTrollPlayer(p.getUniqueId());
 		if (tp.chatIsGibberish()) {
-			String randomString = plugin.changeToGibberish(e.getMessage());
+			String randomString = Message.changeToGibberish(e.getMessage());
 			e.setMessage(randomString);
 		}
 	}
@@ -82,8 +81,8 @@ public class EventListeners implements Listener {
 		TrollPlayer tp = plugin.getUserCache().getTrollPlayer(p.getUniqueId());
 		if (tp.invIsLocked()) {
 			e.setCancelled(true);
-			if (plugin.getConfig().getBoolean("inventory-lock.do-target-msg")) {
-				p.sendMessage(FakeTrollPlus.col(plugin.getConfig().getString("inventory-lock.target-msg")));
+			if (Message.getBool("inventory-lock.do-target-msg")) {
+				p.sendMessage(Message.getString("inventory-lock.target-msg"));
 			}
 		}
 	}
@@ -93,20 +92,28 @@ public class EventListeners implements Listener {
 		Player p = e.getPlayer();
 		TrollPlayer tp = plugin.getUserCache().getTrollPlayer(p.getUniqueId());
 		if (tp.hasBadfoodEffect()) {
-			int duration = plugin.getConfig().getInt("badfood.duration") * 20;
+			int duration = Message.getInt("badfood.duration") * 20;
 			e.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.POISON, duration, 1));
 		}
 	}
-	
+
 	@EventHandler
 	public void onBlockBreak(BlockBreakEvent e) {
 		Player p = e.getPlayer();
 		TrollPlayer tp = plugin.getUserCache().getTrollPlayer(p.getUniqueId());
 		Location loc = e.getBlock().getLocation();
 		if (tp.hasExplodeMinedBlocksEffect()) {
-			float power = (float) plugin.getConfig().getDouble("explode-blocks.power");
-			boolean setFire = plugin.getConfig().getBoolean("explode-blocks.set-fire");
+			float power = (float) Message.getDouble("explode-blocks.power");
+			boolean setFire = Message.getBool("explode-blocks.set-fire");
 			loc.getWorld().createExplosion(loc, power, setFire);
+		}
+	}
+
+	@EventHandler
+	public void onPreLogin(PlayerLoginEvent e) {
+		TrollPlayer tp = plugin.getUserCache().getTrollPlayer(e.getPlayer().getUniqueId());
+		if (tp.isBlacklisted()) {
+			e.disallow(Result.KICK_BANNED, Message.getString("blacklist"));
 		}
 	}
 

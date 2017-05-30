@@ -15,50 +15,54 @@
  */
 package org.shanerx.faketrollplus.commands;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 import org.shanerx.faketrollplus.FakeTrollPlus;
 import org.shanerx.faketrollplus.Message;
 import org.shanerx.faketrollplus.core.TrollPlayer;
 
-public class ExplodeBlocks implements CommandExecutor {
+public class Blacklist implements CommandExecutor {
 
-	FakeTrollPlus plugin;
+	private FakeTrollPlus ftp;
 
-	public ExplodeBlocks(final FakeTrollPlus instance) {
-		plugin = instance;
+	public Blacklist(final FakeTrollPlus ftp) {
+		this.ftp = ftp;
 	}
 
 	@Override
 	public boolean onCommand(final CommandSender sender, final Command cmd, final String label, final String[] args) {
-		if (!Message.getBool("explode-blocks.enable")) {
+		if (!Message.getBool("enable-blacklist")) {
 			sender.sendMessage(Message.getString("message-for-disabled-cmds"));
 			return false;
 		}
-		if (!sender.hasPermission("faketroll.explodeblocks")) {
-			sender.sendMessage(ChatColor.RED + "You do not have access to that command!");
+		if (!sender.hasPermission("faketroll.blacklist")) {
+			sender.sendMessage(Message.col(Message.ACCESS_DENIED));
 			return false;
 		}
 		if (args.length != 1) {
-			sender.sendMessage(ChatColor.GOLD + "Usage: /explodeblocks <target>");
+			sender.sendMessage(ChatColor.GOLD + "Usage: /blacklist <target>");
 			return false;
 		}
-		final Player target = plugin.getServer().getPlayer(args[0]);
-		if (target == null) {
+		@SuppressWarnings("deprecation")
+		final OfflinePlayer op = Bukkit.getOfflinePlayer(args[0]);
+		if (op == null) {
 			sender.sendMessage(Message.getString("invalid-target"));
 			return false;
 		}
-		final TrollPlayer tp = plugin.getUserCache().getTrollPlayer(target.getUniqueId());
-		if (tp.hasExplodeMinedBlocksEffect()) {
-			tp.setExplodeMinedBlocksEffect(false);
-			sender.sendMessage(ChatColor.GOLD + "Removed effect from " + target.getName() + "!");
-			return true;
+		final TrollPlayer target = ftp.getUserCache().getTrollPlayer(op);
+		if (target.isBlacklisted()) {
+			sender.sendMessage(Message.col("already-blacklisted"));
+			return false;
 		}
-		tp.setExplodeMinedBlocksEffect(true);
-		sender.sendMessage(ChatColor.GOLD + "Applied effect on " + target.getName() + "!");
+		target.setBlacklisted(true);
+		sender.sendMessage(Message.getString("on-blacklist").replace("%player%", target.getName()));
+		if (op.isOnline()) {
+			Bukkit.getPlayer(op.getUniqueId()).kickPlayer(Message.getString("blacklist"));
+		}
 		return true;
 	}
 

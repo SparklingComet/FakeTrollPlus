@@ -1,5 +1,5 @@
 ###########################################
-# FakeTrollPlus plugin v3.3.4 by Lori00. #
+# FakeTrollPlus plugin v3.4.0 by Lori00. #
 ###########################################
 
 
@@ -141,6 +141,14 @@ badfood:
 enable-replaceinv: true
 enable-push: true
 enable-cobweb: true
+
+# Blacklist configurations
+enable-blacklist: true
+blacklist: '&4You were blacklisted from the network!'
+already-blacklisted: '&4Player already blacklisted!'
+not-blacklisted: '&4Player not blacklisted!'
+on-blacklist: '&6You have blacklisted &c%player%'
+on-unblacklist: '&6You have unblacklisted &c%player%'
 
 # Logging options: - After editing this setting, you will need to restart the server for the changes to take place.
 enable-logs: true

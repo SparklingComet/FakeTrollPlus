@@ -1,5 +1,5 @@
 main: org.shanerx.faketrollplus.FakeTrollPlus
-version: 3.3.4
+version: 3.4.0
 author: Lori00
 name: FakeTrollPlus
 
@@ -114,3 +114,9 @@ commands:
   explodeblocks:
     description: Blow up every block a player mines.
     aliases: [eb, explodebl, blocksexplode]
+  blacklist:
+    description: Add a player's account to the blacklist.
+    aliases: [bl]
+  unblacklist:
+    description: Pardon a player.
+    aliases: [unbl]

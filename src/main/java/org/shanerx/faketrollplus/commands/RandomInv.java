@@ -22,42 +22,42 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.shanerx.faketrollplus.FakeTrollPlus;
+import org.shanerx.faketrollplus.Message;
 
 public class RandomInv implements CommandExecutor {
-	
+
 	FakeTrollPlus plugin;
-	
-	public RandomInv(FakeTrollPlus instance) {
+
+	public RandomInv(final FakeTrollPlus instance) {
 		plugin = instance;
 	}
 
-	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-
-			if (!plugin.getConfig().getBoolean("random-inv.enable")) {
-				sender.sendMessage(FakeTrollPlus.col(plugin.getConfig().getString("message-for-disabled-cmds")));
-				return false;
-			}
-			if (!sender.hasPermission("faketroll.randominv")) {
-				sender.sendMessage(ChatColor.RED + "You do not have access to that command!");
-				return false;
-			}
-			if (args.length != 1) {
-				sender.sendMessage(ChatColor.GOLD + "Usage: /randominv <target>");
-				return false;
-			}
-			Player target = plugin.getServer().getPlayer(args[0]);
-			if (target == null) {
-				sender.sendMessage(FakeTrollPlus.col(plugin.getConfig().getString("invalid-target")));
-				return false;
-			}
-			Inventory playerInventory = target.getInventory();
-			target.openInventory(playerInventory);
-			boolean targetMsg = plugin.getConfig().getBoolean("random-inv.do-target-msg");
-			String targetMessage = plugin.getConfig().getString("random-inv.target-msg");
-			if (targetMsg) {
-				target.sendMessage(FakeTrollPlus.col(targetMessage));
-			}
-
+	@Override
+	public boolean onCommand(final CommandSender sender, final Command cmd, final String label, final String[] args) {
+		if (!Message.getBool("random-inv.enable")) {
+			sender.sendMessage(Message.getString("message-for-disabled-cmds"));
+			return false;
+		}
+		if (!sender.hasPermission("faketroll.randominv")) {
+			sender.sendMessage(ChatColor.RED + "You do not have access to that command!");
+			return false;
+		}
+		if (args.length != 1) {
+			sender.sendMessage(ChatColor.GOLD + "Usage: /randominv <target>");
+			return false;
+		}
+		final Player target = plugin.getServer().getPlayer(args[0]);
+		if (target == null) {
+			sender.sendMessage(Message.getString("invalid-target"));
+			return false;
+		}
+		final Inventory playerInventory = target.getInventory();
+		target.openInventory(playerInventory);
+		final boolean targetMsg = Message.getBool("random-inv.do-target-msg");
+		final String targetMessage = Message.getString("random-inv.target-msg");
+		if (targetMsg) {
+			target.sendMessage(Message.col(targetMessage));
+		}
 		return true;
 	}
 

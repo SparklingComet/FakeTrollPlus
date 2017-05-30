@@ -16,22 +16,49 @@
 package org.shanerx.faketrollplus.core;
 
 /**
- * An enumerator containing all the trolling effects the plugin adds to the game.
+ * An enum containing all the trolling effects the plugin adds to the game.
  */
 public enum TrollEffect {
-	
-	BADFOOD,
-	
-	NO_PICKUP,
-	
-	FREEZE,
-	
-	GIBBERISH,
-	
-	INVENTORY_LOCK,
-	
-	EXPLODE_BLOCKS,
-	
-	BLACKLISTED;
+
+	BADFOOD("Badfood"),
+
+	NO_PICKUP("No-Pickup"),
+
+	FREEZE("Freeze"),
+
+	GIBBERISH("Gibberish"),
+
+	INVENTORY_LOCK("Inventory-Lock"),
+
+	EXPLODE_BLOCKS("Explode-Blocks"),
+
+	BLACKLISTED("Blacklist");
+
+	TrollEffect(String name) {
+		this.name = name;
+	}
+
+	private String name;
+	private String description;
+
+	/**
+	 * Gets the effect's name (Different from
+	 * {@link java.lang.Enum#toString()}).
+	 *
+	 * @return the name
+	 */
+	@Override
+	public String toString() {
+		return name;
+	}
+
+	/**
+	 * Gets the description of the effect.
+	 *
+	 * @return the description
+	 */
+	public final String getDescription() {
+		return description;
+	}
 
 }

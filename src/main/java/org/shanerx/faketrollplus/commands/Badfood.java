@@ -21,20 +21,21 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.shanerx.faketrollplus.FakeTrollPlus;
+import org.shanerx.faketrollplus.Message;
 import org.shanerx.faketrollplus.core.TrollPlayer;
 
 public class Badfood implements CommandExecutor {
 
 	FakeTrollPlus plugin;
 
-	public Badfood(FakeTrollPlus instance) {
+	public Badfood(final FakeTrollPlus instance) {
 		plugin = instance;
 	}
 
-	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-
-		if (!this.plugin.getConfig().getBoolean("badfood.enable")) {
-			sender.sendMessage(FakeTrollPlus.col(this.plugin.getConfig().getString("message-for-disabled-cmds")));
+	@Override
+	public boolean onCommand(final CommandSender sender, final Command cmd, final String label, final String[] args) {
+		if (!Message.getBool("badfood.enable")) {
+			sender.sendMessage(Message.getString("message-for-disabled-cmds"));
 			return false;
 		}
 		if (!sender.hasPermission("faketroll.badfood")) {
@@ -45,12 +46,12 @@ public class Badfood implements CommandExecutor {
 			sender.sendMessage(ChatColor.GOLD + "Usage: /badfood <target>");
 			return false;
 		}
-		Player target = this.plugin.getServer().getPlayer(args[0]);
+		final Player target = plugin.getServer().getPlayer(args[0]);
 		if (target == null) {
-			sender.sendMessage(FakeTrollPlus.col(this.plugin.getConfig().getString("invalid-target")));
+			sender.sendMessage(Message.getString("invalid-target"));
 			return false;
 		}
-		TrollPlayer tp = plugin.getUserCache().getTrollPlayer(target.getUniqueId());
+		final TrollPlayer tp = plugin.getUserCache().getTrollPlayer(target);
 		if (tp.hasBadfoodEffect()) {
 			tp.setBadfoodEffect(false);
 			sender.sendMessage(ChatColor.GOLD + "Removed effect from " + target.getName() + "!");

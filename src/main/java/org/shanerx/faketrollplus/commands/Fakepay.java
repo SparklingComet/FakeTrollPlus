@@ -21,43 +21,43 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.shanerx.faketrollplus.FakeTrollPlus;
+import org.shanerx.faketrollplus.Message;
 
 public class Fakepay implements CommandExecutor {
-	
+
 	FakeTrollPlus plugin;
-	
-	public Fakepay(FakeTrollPlus instance) {
+
+	public Fakepay(final FakeTrollPlus instance) {
 		plugin = instance;
 	}
 
-	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-
-			if (!this.plugin.getConfig().getBoolean("fake-pay.enable")) {
-				sender.sendMessage(FakeTrollPlus.col(this.plugin.getConfig().getString("message-for-disabled-cmds")));
-				return false;
-			}
-			if (!sender.hasPermission("faketroll.fakepay")) {
-				sender.sendMessage(ChatColor.RED + "You do not have access to that command!");
-				return false;
-			}
-			if (args.length != 2) {
-				sender.sendMessage(ChatColor.GOLD + "Usage: /fakepay <target> <amount>");
-				return false;
-			}
-			Player target = this.plugin.getServer().getPlayer(args[0]);
-			if (target == null) {
-				sender.sendMessage(FakeTrollPlus.col(this.plugin.getConfig().getString("invalid-target")));
-				return false;
-			}
-			Player troll = (Player)sender;
-			String trollName = troll.getDisplayName();
-			double amount = Double.parseDouble(args[1]);
-			String targetMsg = this.plugin.getConfig().getString("fake-pay.format");
-			targetMsg = targetMsg.replace("{SENDER}", trollName);
-			targetMsg = targetMsg.replace("{AMOUNT}", String.valueOf(amount));
-			target.sendMessage(FakeTrollPlus.col(targetMsg));
-			sender.sendMessage(ChatColor.GOLD + "Faked transaction of $" + amount + " to " + target.getName());
-
+	@Override
+	public boolean onCommand(final CommandSender sender, final Command cmd, final String label, final String[] args) {
+		if (!Message.getBool("fake-pay.enable")) {
+			sender.sendMessage(Message.getString("message-for-disabled-cmds"));
+			return false;
+		}
+		if (!sender.hasPermission("faketroll.fakepay")) {
+			sender.sendMessage(ChatColor.RED + "You do not have access to that command!");
+			return false;
+		}
+		if (args.length != 2) {
+			sender.sendMessage(ChatColor.GOLD + "Usage: /fakepay <target> <amount>");
+			return false;
+		}
+		final Player target = plugin.getServer().getPlayer(args[0]);
+		if (target == null) {
+			sender.sendMessage(Message.getString("invalid-target"));
+			return false;
+		}
+		final Player troll = (Player) sender;
+		final String trollName = troll.getDisplayName();
+		final double amount = Double.parseDouble(args[1]);
+		String targetMsg = plugin.getConfig().getString("fake-pay.format");
+		targetMsg = targetMsg.replace("{SENDER}", trollName);
+		targetMsg = targetMsg.replace("{AMOUNT}", String.valueOf(amount));
+		target.sendMessage(Message.col(targetMsg));
+		sender.sendMessage(ChatColor.GOLD + "Faked transaction of $" + amount + " to " + target.getName());
 		return true;
 	}
 

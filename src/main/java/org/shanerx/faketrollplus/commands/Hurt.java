@@ -21,41 +21,44 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.shanerx.faketrollplus.FakeTrollPlus;
+import org.shanerx.faketrollplus.Message;
 
-public class Hurt implements CommandExecutor{
-	
+public class Hurt implements CommandExecutor {
+
 	FakeTrollPlus plugin;
-	
-	public Hurt(FakeTrollPlus instance) {	
+
+	public Hurt(final FakeTrollPlus instance) {
 		plugin = instance;
 	}
 
-	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-
-			if (!this.plugin.getConfig().getBoolean("enable-hurt")) {
-				sender.sendMessage(FakeTrollPlus.col(this.plugin.getConfig().getString("message-for-disabled-cmds")));
-				return false;
-			}
-			if (!sender.hasPermission("faketroll.hurt")) {
-				sender.sendMessage(ChatColor.RED + "You do not have access to that command!");
-				return false;
-			}
-			if (args.length < 2) {
-				sender.sendMessage(ChatColor.GOLD + "Usage: /hurt <target> <HP>");
-				return false;
-			}
-			Player target = this.plugin.getServer().getPlayer(args[0]);
-			if (target == null) {
-				sender.sendMessage(FakeTrollPlus.col(this.plugin.getConfig().getString("invalid-target")));
-				return false;
-			}
-			String target_name = target.getName();
-			int hp_dmg = Integer.parseInt(args[1]);
-			int dmg = hp_dmg / 2;
-			if (target.getHealth() - hp_dmg <= 0.0D) target.setHealth(0.0D); else
-				target.setHealth(target.getHealth() - hp_dmg);
-			sender.sendMessage(ChatColor.GOLD + "Applied a " + dmg + " heart(s) damage to " + target_name + "!");
-
+	@Override
+	public boolean onCommand(final CommandSender sender, final Command cmd, final String label, final String[] args) {
+		if (!Message.getBool("enable-hurt")) {
+			sender.sendMessage(Message.getString("message-for-disabled-cmds"));
+			return false;
+		}
+		if (!sender.hasPermission("faketroll.hurt")) {
+			sender.sendMessage(ChatColor.RED + "You do not have access to that command!");
+			return false;
+		}
+		if (args.length < 2) {
+			sender.sendMessage(ChatColor.GOLD + "Usage: /hurt <target> <HP>");
+			return false;
+		}
+		final Player target = plugin.getServer().getPlayer(args[0]);
+		if (target == null) {
+			sender.sendMessage(Message.getString("invalid-target"));
+			return false;
+		}
+		final String target_name = target.getName();
+		final int hp_dmg = Integer.parseInt(args[1]);
+		final int dmg = hp_dmg / 2;
+		if (target.getHealth() - hp_dmg <= 0.0D) {
+			target.setHealth(0.0D);
+		} else {
+			target.setHealth(target.getHealth() - hp_dmg);
+		}
+		sender.sendMessage(ChatColor.GOLD + "Applied a " + dmg + " heart(s) damage to " + target_name + "!");
 		return true;
 	}
 

@@ -16,52 +16,49 @@
 package org.shanerx.faketrollplus.commands;
 
 import org.bukkit.ChatColor;
-import org.bukkit.World;
-import org.bukkit.block.Block;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.shanerx.faketrollplus.FakeTrollPlus;
+import org.shanerx.faketrollplus.Message;
 
 public class Forcecmd implements CommandExecutor {
-	
+
 	FakeTrollPlus plugin;
-	
-	public Forcecmd(FakeTrollPlus instance) {	
+
+	public Forcecmd(final FakeTrollPlus instance) {
 		plugin = instance;
 	}
 
 	@Override
-	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-
-			if (!this.plugin.getConfig().getBoolean("enable-force-cmd")) {
-				sender.sendMessage(FakeTrollPlus.col(this.plugin.getConfig().getString("message-for-disabled-cmds")));
-				return false;
+	public boolean onCommand(final CommandSender sender, final Command cmd, final String label, final String[] args) {
+		if (!Message.getBool("enable-force-cmd")) {
+			sender.sendMessage(Message.getString("message-for-disabled-cmds"));
+			return false;
+		}
+		if (!sender.hasPermission("faketroll.forcecmd")) {
+			sender.sendMessage(ChatColor.RED + "You do not have access to that command!");
+			return false;
+		}
+		if (args.length < 2) {
+			sender.sendMessage(ChatColor.GOLD + "Usage: /forcecmd <target> <command> [args]");
+			return false;
+		}
+		final Player target = plugin.getServer().getPlayer(args[0]);
+		if (target == null) {
+			sender.sendMessage(Message.getString("invalid-target"));
+			return false;
+		}
+		final String target_name = target.getName();
+		String forceCmd = args[1];
+		if (args.length > 2) {
+			for (int i = 2; i < args.length; i++) {
+				forceCmd = forceCmd + " " + args[i];
 			}
-			if (!sender.hasPermission("faketroll.forcecmd")) {
-				sender.sendMessage(ChatColor.RED + "You do not have access to that command!");
-				return false;
-			}
-			if (args.length < 2) {
-				sender.sendMessage(ChatColor.GOLD + "Usage: /forcecmd <target> <command> [args]");
-				return false;
-			}
-			Player target = this.plugin.getServer().getPlayer(args[0]);
-			if (target == null) {
-				sender.sendMessage(FakeTrollPlus.col(this.plugin.getConfig().getString("invalid-target")));
-				return false;
-			}
-			String target_name = target.getName();
-			String forceCmd = args[1];
-			if (args.length > 2) {
-				for (int i = 2; i < args.length; i++) {
-					forceCmd = forceCmd + " " + args[i];
-				}
-			}
-			sender.sendMessage(ChatColor.GOLD + "Forced " + target_name + " to run /" + forceCmd);
-			this.plugin.getServer().dispatchCommand(target, forceCmd);
-
+		}
+		sender.sendMessage(ChatColor.GOLD + "Forced " + target_name + " to run /" + forceCmd);
+		plugin.getServer().dispatchCommand(target, forceCmd);
 		return true;
 	}
 
