@@ -34,16 +34,7 @@ public class Fakeban implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(final CommandSender sender, final Command cmd, final String label, final String[] args) {
-		if (!Message.getBool("fake-ban.enable")) {
-			sender.sendMessage(Message.getString("message-for-disabled-cmds"));
-			return false;
-		}
-		if (!sender.hasPermission("faketroll.fakeban")) {
-			sender.sendMessage(ChatColor.RED + "You do not have access to that command!");
-			return false;
-		}
-		if (args.length < 2) {
-			sender.sendMessage(ChatColor.GOLD + "Usage: /fakeban <target> <reason>");
+		if (!Message.verifyCommandSender(cmd, sender, "faketroll.fakeban", Message.getBool("fake-ban.enable"), () -> args.length < 2)) {
 			return false;
 		}
 		final Player target = plugin.getServer().getPlayer(args[0]);

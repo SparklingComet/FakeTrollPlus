@@ -33,16 +33,7 @@ public class Fakeleave implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(final CommandSender sender, final Command cmd, final String label, final String[] args) {
-		if (!Message.getBool("fake-leave.enable")) {
-			sender.sendMessage(Message.getString("message-for-disabled-cmds"));
-			return false;
-		}
-		if (!sender.hasPermission("faketroll.fakeleave")) {
-			sender.sendMessage(ChatColor.RED + "You do not have access to that command!");
-			return false;
-		}
-		if (args.length != 1) {
-			sender.sendMessage(ChatColor.GOLD + "Usage: /fakeleave <target>");
+		if (!Message.verifyCommandSender(cmd, sender, "faketroll.fakeleave", Message.getBool("fake-leave.enable"), () -> args.length != 1)) {
 			return false;
 		}
 		Bukkit.broadcastMessage(Message.getString("fake-leave.message").replaceAll("%Player%", args[0]));

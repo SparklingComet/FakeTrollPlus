@@ -33,16 +33,7 @@ public class Fakemsg implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(final CommandSender sender, final Command cmd, final String label, final String[] args) {
-		if (Message.getBool("fake-msg.enable")) {
-			sender.sendMessage(Message.getString("message-for-disabled-cmds"));
-			return false;
-		}
-		if (!sender.hasPermission("faketroll.fakemsg")) {
-			sender.sendMessage(ChatColor.RED + "You do not have access to that command!");
-			return false;
-		}
-		if (args.length < 3) {
-			sender.sendMessage(ChatColor.GOLD + "Usage: /fakemsg <target> <fake-name> <message>");
+		if (!Message.verifyCommandSender(cmd, sender, "faketroll.fakemsg", Message.getBool("fake-msg.enable"), () -> args.length < 3)) {
 			return false;
 		}
 		final Player target = plugin.getServer().getPlayer(args[0]);

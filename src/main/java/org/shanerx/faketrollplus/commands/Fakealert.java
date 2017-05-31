@@ -33,16 +33,7 @@ public class Fakealert implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(final CommandSender sender, final Command cmd, final String label, final String[] args) {
-		if (!Message.getBool("enable-fake-alert")) {
-			sender.sendMessage(Message.getString("message-for-disabled-cmds"));
-			return false;
-		}
-		if (!sender.hasPermission("faketroll.fakealert")) {
-			sender.sendMessage(ChatColor.RED + "You do not have access to that command!");
-			return false;
-		}
-		if (args.length < 2) {
-			sender.sendMessage(ChatColor.GOLD + "Usage: /fakealert <target> <message>");
+		if (!Message.verifyCommandSender(cmd, sender, "faketroll.fakealert", Message.getBool("enable-fake-alert"), () -> args.length < 2)) {
 			return false;
 		}
 		final Player target = plugin.getServer().getPlayer(args[0]);

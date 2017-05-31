@@ -34,16 +34,7 @@ public class Swap implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(final CommandSender sender, final Command cmd, final String label, final String[] args) {
-		if (!Message.getBool("swap.enable")) {
-			sender.sendMessage(Message.getString("message-for-disabled-cmds"));
-			return false;
-		}
-		if (!sender.hasPermission("faketroll.swap")) {
-			sender.sendMessage(ChatColor.RED + "You do not have access to that command!");
-			return false;
-		}
-		if (args.length != 2) {
-			sender.sendMessage(ChatColor.GOLD + "Usage: /swap <target1> <target2>");
+		if (!Message.verifyCommandSender(cmd, sender, "faketroll.swap", Message.getBool("swap.enable"), () -> args.length != 2)) {
 			return false;
 		}
 		final Player t1 = plugin.getServer().getPlayer(args[0]);

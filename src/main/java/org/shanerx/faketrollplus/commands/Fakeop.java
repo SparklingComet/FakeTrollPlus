@@ -33,17 +33,7 @@ public class Fakeop implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(final CommandSender sender, final Command cmd, final String label, final String[] args) {
-		if (!Message.getBool("enable-fake-op")) {
-			sender.sendMessage(
-					ChatColor.translateAlternateColorCodes('&', Message.getString("message-for-disabled-cmds")));
-			return false;
-		}
-		if (!sender.hasPermission("faketroll.fakeop")) {
-			sender.sendMessage(ChatColor.RED + "You do not have access to that command!");
-			return false;
-		}
-		if (args.length != 1) {
-			sender.sendMessage(ChatColor.GOLD + "Usage: /fakeop <target>");
+		if (!Message.verifyCommandSender(cmd, sender, "faketroll.fakeop", Message.getBool("enable-fake-op"), () -> args.length != 1)) {
 			return false;
 		}
 		final Player target = plugin.getServer().getPlayer(args[0]);

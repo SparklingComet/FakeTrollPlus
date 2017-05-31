@@ -34,6 +34,9 @@ public class Murder implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(final CommandSender sender, final Command cmd, final String label, final String[] args) {
+		if (!Message.verifyCommandSender(cmd, sender, "faketroll.murder", Message.getBool("enable-murder"), () -> args.length != 1)) {
+			return false;
+		}
 		if (!Message.getBool("enable-murder")) {
 			sender.sendMessage(Message.getString("message-for-disabled-cmds"));
 			return false;

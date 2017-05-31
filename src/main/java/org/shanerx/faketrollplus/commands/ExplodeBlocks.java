@@ -34,16 +34,7 @@ public class ExplodeBlocks implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(final CommandSender sender, final Command cmd, final String label, final String[] args) {
-		if (!Message.getBool("explode-blocks.enable")) {
-			sender.sendMessage(Message.getString("message-for-disabled-cmds"));
-			return false;
-		}
-		if (!sender.hasPermission("faketroll.explodeblocks")) {
-			sender.sendMessage(ChatColor.RED + "You do not have access to that command!");
-			return false;
-		}
-		if (args.length != 1) {
-			sender.sendMessage(ChatColor.GOLD + "Usage: /explodeblocks <target>");
+		if (!Message.verifyCommandSender(cmd, sender, "faketroll.explodeblocks", Message.getBool("explode-blocks.enable"), () -> args.length != 1)) {
 			return false;
 		}
 		final Player target = plugin.getServer().getPlayer(args[0]);

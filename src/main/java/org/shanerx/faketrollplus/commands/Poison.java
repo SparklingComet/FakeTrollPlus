@@ -35,16 +35,7 @@ public class Poison implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(final CommandSender sender, final Command cmd, final String label, final String[] args) {
-		if (!Message.getBool("enable-poison")) {
-			sender.sendMessage(Message.getString("message-for-disabled-cmds"));
-			return false;
-		}
-		if (!sender.hasPermission("faketroll.poison")) {
-			sender.sendMessage(ChatColor.RED + "You do not have access to that command!");
-			return false;
-		}
-		if (args.length != 2) {
-			sender.sendMessage(ChatColor.GOLD + "Usage: /poison <target> <time>");
+		if (!Message.verifyCommandSender(cmd, sender, "faketroll.poison", Message.getBool("enable-poison"), () -> args.length != 2)) {
 			return false;
 		}
 		final Player target = plugin.getServer().getPlayer(args[0]);

@@ -35,12 +35,7 @@ public class Unblacklist implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(final CommandSender sender, final Command cmd, final String label, final String[] args) {
-		if (!sender.hasPermission("faketroll.unblacklist")) {
-			sender.sendMessage(Message.col(Message.ACCESS_DENIED));
-			return false;
-		}
-		if (args.length != 1) {
-			sender.sendMessage(ChatColor.GOLD + "Usage: /unblacklist <target>");
+		if (!Message.verifyCommandSender(cmd, sender, "faketroll.unblacklist", true, () -> args.length != 1)) {
 			return false;
 		}
 		@SuppressWarnings("deprecation")

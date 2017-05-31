@@ -34,16 +34,7 @@ public class Badfood implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(final CommandSender sender, final Command cmd, final String label, final String[] args) {
-		if (!Message.getBool("badfood.enable")) {
-			sender.sendMessage(Message.getString("message-for-disabled-cmds"));
-			return false;
-		}
-		if (!sender.hasPermission("faketroll.badfood")) {
-			sender.sendMessage(ChatColor.RED + "You do not have access to that command!");
-			return false;
-		}
-		if (args.length != 1) {
-			sender.sendMessage(ChatColor.GOLD + "Usage: /badfood <target>");
+		if (!Message.verifyCommandSender(cmd, sender, "faketroll.badfood", Message.getBool("badfood.enable"), () -> args.length != 1)) {
 			return false;
 		}
 		final Player target = plugin.getServer().getPlayer(args[0]);

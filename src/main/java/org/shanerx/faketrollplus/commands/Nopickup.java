@@ -34,16 +34,7 @@ public class Nopickup implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(final CommandSender sender, final Command cmd, final String label, final String[] args) {
-		if (!Message.getBool("no-pickup.enable")) {
-			sender.sendMessage(Message.getString("message-for-disabled-cmds"));
-			return false;
-		}
-		if (!sender.hasPermission("faketroll.nopickup")) {
-			sender.sendMessage(ChatColor.RED + "You do not have access to that command!");
-			return false;
-		}
-		if (args.length != 1) {
-			sender.sendMessage(ChatColor.GOLD + "Usage: /nopickup <target>");
+		if (!Message.verifyCommandSender(cmd, sender, "faketroll.nopickup", Message.getBool("no-pickup.enable"), () -> args.length != 1)) {
 			return false;
 		}
 		final Player target = plugin.getServer().getPlayer(args[0]);

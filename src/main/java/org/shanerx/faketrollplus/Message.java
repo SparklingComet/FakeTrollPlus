@@ -16,7 +16,10 @@
 package org.shanerx.faketrollplus;
 
 import org.bukkit.ChatColor;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.shanerx.faketrollplus.core.Test;
 
 public enum Message {
 	
@@ -71,6 +74,21 @@ public enum Message {
 			newMsg += String.valueOf(chars.charAt((int) (Math.random() * chars.length())));
 		}
 		return newMsg;
+	}
+	
+	public static boolean verifyCommandSender(Command cmd, CommandSender sender,
+			String permission, boolean enable, Test checkArgs) {
+		if (!enable) {
+			sender.sendMessage(Message.getString("message-for-disabled-cmds"));
+			return false;
+		} else if (!sender.hasPermission(permission)) {
+			sender.sendMessage(ACCESS_DENIED.toString());
+			return false;
+		} else if (checkArgs.test()) {
+			sender.sendMessage(col("&fInvalid args, please try again. Usage: &3" + cmd.getUsage()));
+			return false;
+		}
+		return true;
 	}
 
 }

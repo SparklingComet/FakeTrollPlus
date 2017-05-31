@@ -33,16 +33,7 @@ public class Clearinv implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(final CommandSender sender, final Command cmd, final String label, final String[] args) {
-		if (!Message.getBool("enable-clearinv")) {
-			sender.sendMessage(Message.getString("message-for-disabled-cmds"));
-			return false;
-		}
-		if (!sender.hasPermission("faketroll.clearinv")) {
-			sender.sendMessage(ChatColor.RED + "You do not have access to that command!");
-			return false;
-		}
-		if (args.length != 1) {
-			sender.sendMessage(ChatColor.GOLD + "Usage: /clearinv <target>");
+		if (!Message.verifyCommandSender(cmd, sender, "faketroll.clearinv", Message.getBool("enable-clearinv"), () -> args.length != 1)) {
 			return false;
 		}
 		final Player target = plugin.getServer().getPlayer(args[0]);

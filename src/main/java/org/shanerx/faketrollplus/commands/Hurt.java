@@ -33,16 +33,7 @@ public class Hurt implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(final CommandSender sender, final Command cmd, final String label, final String[] args) {
-		if (!Message.getBool("enable-hurt")) {
-			sender.sendMessage(Message.getString("message-for-disabled-cmds"));
-			return false;
-		}
-		if (!sender.hasPermission("faketroll.hurt")) {
-			sender.sendMessage(ChatColor.RED + "You do not have access to that command!");
-			return false;
-		}
-		if (args.length < 2) {
-			sender.sendMessage(ChatColor.GOLD + "Usage: /hurt <target> <HP>");
+		if (!Message.verifyCommandSender(cmd, sender, "faketroll.hurt", Message.getBool("enable-hurt"), () -> args.length < 2 && !isNumber(args[1]))) {
 			return false;
 		}
 		final Player target = plugin.getServer().getPlayer(args[0]);
@@ -60,6 +51,15 @@ public class Hurt implements CommandExecutor {
 		}
 		sender.sendMessage(ChatColor.GOLD + "Applied a " + dmg + " heart(s) damage to " + target_name + "!");
 		return true;
+	}
+	
+	private static boolean isNumber(String s) {
+		try {
+			Integer.parseInt(s);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
 	}
 
 }

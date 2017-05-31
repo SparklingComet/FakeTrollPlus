@@ -33,16 +33,7 @@ public class Fakepay implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(final CommandSender sender, final Command cmd, final String label, final String[] args) {
-		if (!Message.getBool("fake-pay.enable")) {
-			sender.sendMessage(Message.getString("message-for-disabled-cmds"));
-			return false;
-		}
-		if (!sender.hasPermission("faketroll.fakepay")) {
-			sender.sendMessage(ChatColor.RED + "You do not have access to that command!");
-			return false;
-		}
-		if (args.length != 2) {
-			sender.sendMessage(ChatColor.GOLD + "Usage: /fakepay <target> <amount>");
+		if (!Message.verifyCommandSender(cmd, sender, "faketroll.fakepay", Message.getBool("fake-pay.enable"), () -> args.length != 2)) {
 			return false;
 		}
 		final Player target = plugin.getServer().getPlayer(args[0]);

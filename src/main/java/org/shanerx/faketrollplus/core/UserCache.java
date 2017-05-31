@@ -154,8 +154,7 @@ public class UserCache {
 	 * {@code null} is returned, the player may still have joined once, they
 	 * have never been trolled.
 	 * 
-	 * @param uuid
-	 *            the uuid of the player.
+	 * @param op the {@link org.bukkit.OfflinePlayer} instance
 	 * @return the {@link org.json.simple.JSONObject} representing the data
 	 *         related to the {@link org.bukkit.OfflinePlayer}.
 	 */
@@ -170,8 +169,8 @@ public class UserCache {
 	 * {@code null} is returned, the player may still have joined once, they
 	 * have never been trolled.
 	 * 
-	 * @param uuid
-	 *            the player.
+	 * @param p
+	 *            the {@link org.bukkit.entity.Player} instance
 	 * @return the {@link org.json.simple.JSONObject} representing the data
 	 *         related to the {@link org.bukkit.entity.Player}.
 	 */

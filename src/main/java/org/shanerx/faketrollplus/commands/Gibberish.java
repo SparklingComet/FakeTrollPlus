@@ -35,16 +35,7 @@ public class Gibberish implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(final CommandSender sender, final Command cmd, final String label, final String[] args) {
-		if (!Message.getBool("enable-gibberish")) {
-			sender.sendMessage(Message.getString("message-for-disabled-cmds"));
-			return false;
-		}
-		if (!sender.hasPermission("faketroll.gibberish")) {
-			sender.sendMessage(ChatColor.RED + "You do not have access to that command!");
-			return false;
-		}
-		if (args.length != 1) {
-			sender.sendMessage(ChatColor.GOLD + "Usage: /gibberish <target>");
+		if (!Message.verifyCommandSender(cmd, sender, "faketroll.gibberish", Message.getBool("enable-gibberish"), () -> args.length != 1)) {
 			return false;
 		}
 		final Player p = Bukkit.getPlayer(args[0]);

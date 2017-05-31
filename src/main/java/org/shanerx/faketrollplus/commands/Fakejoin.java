@@ -33,16 +33,7 @@ public class Fakejoin implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(final CommandSender sender, final Command cmd, final String label, final String[] args) {
-		if (!Message.getBool("fake-join.enable")) {
-			sender.sendMessage(Message.getString("message-for-disabled-cmds"));
-			return false;
-		}
-		if (!sender.hasPermission("faketroll.fakejoin")) {
-			sender.sendMessage(ChatColor.RED + "You do not have access to that command!");
-			return false;
-		}
-		if (args.length != 1) {
-			sender.sendMessage(ChatColor.GOLD + "Usage: /fakejoin <target>");
+		if (!Message.verifyCommandSender(cmd, sender, "faketroll.fakejoin", Message.getBool("fake-join.enable"), () -> args.length != 1)) {
 			return false;
 		}
 		Bukkit.broadcastMessage(Message.getString("fake-join.message").replaceAll("%Player%", args[0]));

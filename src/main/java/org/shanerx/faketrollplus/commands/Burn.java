@@ -33,16 +33,7 @@ public class Burn implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(final CommandSender sender, final Command cmd, final String label, final String[] args) {
-		if (!Message.getBool("enable-burn")) {
-			sender.sendMessage(Message.getString("message-for-disabled-cmds"));
-			return false;
-		}
-		if (!sender.hasPermission("faketroll.burn")) {
-			sender.sendMessage(ChatColor.RED + "You do not have access to that command!");
-			return false;
-		}
-		if (args.length != 2) {
-			sender.sendMessage(ChatColor.GOLD + "Usage: /burn <target> <time>");
+		if (!Message.verifyCommandSender(cmd, sender, "faketroll.burn", Message.getBool("enable-burn"), () -> args.length != 2)) {
 			return false;
 		}
 		final Player target = plugin.getServer().getPlayer(args[0]);

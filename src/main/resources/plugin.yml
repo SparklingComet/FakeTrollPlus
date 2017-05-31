@@ -10,113 +10,156 @@ commands:
   faketrollplus:
     description: Show plugin help and version
     aliases: [faketroll, ftroll, troll, ftp]
+    usage: /ftp [help|reload|gui]
   fakeop:
     description: Make a player believe that they just got opped!
     aliases: [fop]
+    usage: /fakeop <target>
   fakedeop:
     description: Make a player believe that they just got de-opped!
     aliases: [fdeop]
+    usage: /fakedeop <target>
   fakealert:
     description: Send a BungeeCord alert message to a single player, making them believe it is a server-wide broadcast.
     aliases: [falert, fbungeealert, fbalert, fakebungeealert]
+    usage: /fakealert <target> <message>
   fakebroadcast:
     description: Send an Essentials broadcast message to a single player, making them believe it is a server-wide broadcast.
     aliases: [fbc, fbroad, fbroadcast]
+    usage: /fakebroadcast <target> <message>
   fakejoin:
     description: Pretend that a certain player joined the game.
     aliases: [fj, fjoin]
+    usage: /fakejoin <target>
   fakeleave:
     description: Pretend that a certain player left the game.
     aliases: [fl, fq, fakequit, fquit, fleave]
+    usage: /fakeleave <target>
   hurt:
     description: Be mean.
     aliases: [fhurt, fakehurt]
+    usage: /hurt <target> <HP>
   tprandom:
     description: Teleport a player to a random location.
     aliases: [tpr]
+    usage: /tprandom <target>
   portal:
     description: Banish the player by sending them very far away.
+    aliases: [end]
+    usage: /portal <target>
   spam:
     description: Annoy a player.
     aliases: [annoy, fakeannoy, fannoy, fspam, fakespam]
+    usage: /spam <target> <times> <message>
   clearinv:
     description: Clear someone's inventory.
+    aliases: [ci, clearinventory]
+    usage: /clearinv <target>
   fakecrash:
     description: Kick a player and show them a Java error message.
     aliases: [crash, fcrash]
+    usage: /fakecrash <target>
   murder:
     description: Please don't do such a horrible thing!
     aliases: [assassinate]
+    usage: /murder <target>
   fakegod:
     description: Make your target believe that they just got free god mode!
     aliases: [fg, fgod]
+    usage: /fakegod <target> <on|off>
   fakechat:
     description: Send a chat message pretending to be someone else.
     aliases: [fc, fchat]
+    usage: /fakechat <target> <message>
   fakemsg:
     description: Send a private message to someone pretending to be someone else.
     aliases: [fmsg, fpm, fakepm, faketell, ftell]
+    usage: /fakemsg <target> <fake-name> <message>
   fakeafk:
     description: Pretend to be afk or set another player afk.
     aliases: [fafk]
+    usage: /fakeafk <target> <on|off>
   burn:
     description: Be nasty.
     aliases: [fburn, fakeburn]
+    usage: /burn <target> <time>
   poison:
     description: Poison a player for x seconds.
     aliases: [fpoison, fakepoison]
+    usage: /poison <target> <time>
   fakeban:
     description: Make a player believe they just got banned.
     aliases: [fban, fb]
+    usage: /fakeban <target> <reason>
   anvil:
     description: Spawn an anvil on the target's head
     aliases: [fanvil, fakeanvil]
+    usage: /anvil <target>
   forcecmd:
     description: Force a player to run a command.
     aliases: [fcmd, fakecmd]
+    usage: /forcecmd <target> <command> [args]
   freeze:
     description: Freeze a player.
+    usage: /freeze <target>
   fakepay:
     description: Fake a transaction.
     aliases: [fpay]
+    usage: /fakepay <target> <amount>
   randominv:
     description: Randomly open a player's inventory.
     aliases: [openinv, oi, openinventory, randominventory, rinv]
+    usage: /randominv <target>
   gibberish:
     description: Change all the text a player types to gibberish!
+    usage: /gibberish <target>
   renameitems:
     description: Rename all the items of a player.
     aliases: [frename, fakerename, invrename]
+    usage: /renameitems <target> [string]
   launch:
     description: Launch a player in the air!
     aliases: [shoot]
+    usage: /launch <target> <height>
   swap:
     description: Make a player swap locations with another player.
     aliases: [switch]
+    usage: /swap <target1> <target2>
   replaceinv:
     description: Replace all items in a player's inventory with something else.
     aliases: [replaceinventory, ri, invreplace]
+    usage: /replaceinv <target> <item> [amount]
   bury:
     description: Bury a player.
+    usage: /bury <target>
   nopickup:
     description: Prevent a player from picking up items.
     aliases: [np]
+    usage: /nopickup <target>
   cobweb:
     description: Trap a player into a cobweb.
     aliases: [trap, ftrap]
+    usage: /cobweb <target>
   inventorylock:
     description: Lock a player out of their inventory.
     aliases: [invlock, lockinventory, lockinv, il, li]
+    usage: /invlock <target>"
   explode:
     description: Explode a player.
+    aliases: [deflagrate]
+    usage: /explode <target>
   badfood:
     description: Make a player get poisoned by everything they eat.
+    usage: /badfood <target>
   explodeblocks:
     description: Blow up every block a player mines.
     aliases: [eb, explodebl, blocksexplode]
+    usage: /explodeblocks <target>
   blacklist:
     description: Add a player's account to the blacklist.
     aliases: [bl]
+    usage: /blacklist <target>
   unblacklist:
     description: Pardon a player.
     aliases: [unbl]
+    usage: /unblacklist <target>

@@ -33,16 +33,7 @@ public class Fakegod implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(final CommandSender sender, final Command cmd, final String label, final String[] args) {
-		if (!Message.getBool("enable-fake-god")) {
-			sender.sendMessage(Message.getString("message-for-disabled-cmds"));
-			return false;
-		}
-		if (!sender.hasPermission("faketroll.fakegod")) {
-			sender.sendMessage(ChatColor.RED + "You do not have access to that command!");
-			return false;
-		}
-		if (args.length != 2) {
-			sender.sendMessage(ChatColor.GOLD + "Usage: /fakegod <target> <on|off>");
+		if (!Message.verifyCommandSender(cmd, sender, "faketroll.fakegod", Message.getBool("enable-fake-god"), () -> args.length != 2)) {
 			return false;
 		}
 		final Player target = plugin.getServer().getPlayer(args[0]);

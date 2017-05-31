@@ -37,16 +37,7 @@ public class RenameItems implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(final CommandSender sender, final Command cmd, final String label, final String[] args) {
-		if (!Message.getBool("rename-items.enable")) {
-			sender.sendMessage(Message.getString("message-for-disabled-cmds"));
-			return false;
-		}
-		if (!sender.hasPermission("faketroll.renameitems")) {
-			sender.sendMessage(ChatColor.RED + "You do not have access to that command!");
-			return false;
-		}
-		if (args.length < 1) {
-			sender.sendMessage(ChatColor.GOLD + "Usage: /renameitems <target> [string]");
+		if (!Message.verifyCommandSender(cmd, sender, "faketroll.renameitems", Message.getBool("rename-items.enable"), () -> args.length < 1)) {
 			return false;
 		}
 		final Player target = Bukkit.getServer().getPlayer(args[0]);

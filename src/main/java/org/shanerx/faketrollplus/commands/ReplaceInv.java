@@ -36,16 +36,7 @@ public class ReplaceInv implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(final CommandSender sender, final Command cmd, final String label, final String[] args) {
-		if (!Message.getBool("enable-replaceinv")) {
-			sender.sendMessage(Message.col(Message.getString("message-for-disabled-cmds")));
-			return false;
-		}
-		if (!sender.hasPermission("faketroll.replaceinv")) {
-			sender.sendMessage(ChatColor.RED + "You do not have access to that command!");
-			return false;
-		}
-		if (args.length != 2 && args.length != 3) {
-			sender.sendMessage(ChatColor.GOLD + "Usage: /replaceinv <target> <item> [amount]");
+		if (!Message.verifyCommandSender(cmd, sender, "faketroll.replaceinv", Message.getBool("enable-replaceinv"), () -> args.length != 2 && args.length != 3)) {
 			return false;
 		}
 		final Player target = plugin.getServer().getPlayer(args[0]);

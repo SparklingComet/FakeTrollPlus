@@ -33,16 +33,7 @@ public class Fakebroadcast implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(final CommandSender sender, final Command cmd, final String label, final String[] args) {
-		if (!Message.getBool("fake-broadcast.enable")) {
-			sender.sendMessage(Message.getString("message-for-disabled-cmds"));
-			return false;
-		}
-		if (!sender.hasPermission("faketroll.fakebroadcast")) {
-			sender.sendMessage(ChatColor.RED + "You do not have access to that command!");
-			return false;
-		}
-		if (args.length < 2) {
-			sender.sendMessage(ChatColor.GOLD + "Usage: /fakebroadcast <target> <message>");
+		if (!Message.verifyCommandSender(cmd, sender, "faketroll.fakebroadcast", Message.getBool("fake-broadcast.enable"), () -> args.length < 2)) {
 			return false;
 		}
 		final Player target = plugin.getServer().getPlayer(args[0]);
@@ -51,11 +42,11 @@ public class Fakebroadcast implements CommandExecutor {
 			return false;
 		}
 		final int msgLength = args.length;
-		String message = args[1];
-		for (int i = 2; i < msgLength; i++) {
-			message = message + " " + args[i];
+		StringBuilder sb = new StringBuilder();
+		for (int i = 1; i < msgLength; i++) {
+			sb.append(args[i]).append(" ");
 		}
-		target.sendMessage(Message.getString("fake-broadcast.format") + message);
+		target.sendMessage(Message.getString("fake-broadcast.format") + sb.toString());
 		return true;
 	}
 

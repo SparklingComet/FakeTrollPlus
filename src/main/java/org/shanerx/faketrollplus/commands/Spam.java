@@ -33,16 +33,7 @@ public class Spam implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(final CommandSender sender, final Command cmd, final String label, final String[] args) {
-		if (!Message.getBool("enable-spam")) {
-			sender.sendMessage(Message.getString("message-for-disabled-cmds"));
-			return false;
-		}
-		if (!sender.hasPermission("faketroll.spam")) {
-			sender.sendMessage(ChatColor.RED + "You do not have access to that command!");
-			return false;
-		}
-		if (args.length <= 2) {
-			sender.sendMessage(ChatColor.GOLD + "Usage: /spam <target> <times> <message>");
+		if (!Message.verifyCommandSender(cmd, sender, "faketroll.spam", Message.getBool("enable-spam"), () -> args.length <= 2)) {
 			return false;
 		}
 		String msg = args[2];

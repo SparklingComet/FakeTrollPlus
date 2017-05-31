@@ -34,17 +34,8 @@ public class Launch implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(final CommandSender sender, final Command cmd, final String label, final String[] args) {
-		if (!Message.getBool("enable-launch")) {
-			sender.sendMessage(Message.getString("message-for-disabled-cmds"));
-			return true;
-		}
-		if (!sender.hasPermission("faketroll.launch")) {
-			sender.sendMessage(ChatColor.RED + "You do not have access to that command!");
-			return true;
-		}
-		if (args.length != 2) {
-			sender.sendMessage(ChatColor.GOLD + "Usage: /launch <target> <height>");
-			return true;
+		if (!Message.verifyCommandSender(cmd, sender, "faketroll.launch", Message.getBool("enable-launch"), () -> args.length != 2)) {
+			return false;
 		}
 		final Player target = plugin.getServer().getPlayer(args[0]);
 		if (target == null) {

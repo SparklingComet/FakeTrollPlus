@@ -36,17 +36,7 @@ public class TpRandom implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(final CommandSender sender, final Command cmd, final String label, final String[] args) {
-		if (!Message.getBool("tprandom.enable")) {
-			sender.sendMessage(
-					ChatColor.translateAlternateColorCodes('&', Message.getString("message-for-disabled-cmds")));
-			return false;
-		}
-		if (!sender.hasPermission("faketroll.tprandom")) {
-			sender.sendMessage(ChatColor.RED + "You do not have access to that command!");
-			return false;
-		}
-		if (args.length != 1) {
-			sender.sendMessage(ChatColor.GOLD + "Usage: /tprandom <target>");
+		if (!Message.verifyCommandSender(cmd, sender, "faketroll.tprandom", Message.getBool("tprandom.enable"), () -> args.length != 1)) {
 			return false;
 		}
 		final Player target = plugin.getServer().getPlayer(args[0]);

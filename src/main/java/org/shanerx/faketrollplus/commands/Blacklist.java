@@ -35,16 +35,7 @@ public class Blacklist implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(final CommandSender sender, final Command cmd, final String label, final String[] args) {
-		if (!Message.getBool("enable-blacklist")) {
-			sender.sendMessage(Message.getString("message-for-disabled-cmds"));
-			return false;
-		}
-		if (!sender.hasPermission("faketroll.blacklist")) {
-			sender.sendMessage(Message.col(Message.ACCESS_DENIED));
-			return false;
-		}
-		if (args.length != 1) {
-			sender.sendMessage(ChatColor.GOLD + "Usage: /blacklist <target>");
+		if (!Message.verifyCommandSender(cmd, sender, "faketroll.blacklist", Message.getBool("enable-blacklist"), () -> args.length != 1)) {
 			return false;
 		}
 		@SuppressWarnings("deprecation")
