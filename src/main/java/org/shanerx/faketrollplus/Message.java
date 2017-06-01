@@ -19,7 +19,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.shanerx.faketrollplus.core.Test;
+import org.shanerx.faketrollplus.utils.function.Test;
 
 public enum Message {
 	
