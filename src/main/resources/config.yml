@@ -3,14 +3,22 @@
 ###########################################
 
 
-# Keeping the Updater enabled is recommended. Only disable if the server is not connected to the internet.
+# The plugin automatically adds a prefix with its name to all messages that the sender command sender receives.
+# Messages sent to the trolled player and server-wide broadcasts or announcements do NOT contain the prefix.
+# The prefix is currently hard coded.
+# The prefix includes a certain styling for the message.
+# The colours and format may be overridden by editing the string.
+
+# Keeping the Updater enabled is recommended.
+# Only disable if the server is not connected to the internet.
+# Please keep in mind that disabling this may cause you to miss critical fixes.
 check-updates: true
 
 # These settings enable/disable admin-protection. Set to true to protect admins.
 # Admins are the ones who have the permission 'faketroll.exempt'.
 # Operators are granted the permission by default.
 exempt-admins: false
-no-admin-trolling: '&cYou may not troll this player!'
+no-admin-trolling: 'You may not troll this player!'
 console-bypass: true
 
 # Set whether the permission 'faketroll.help' is required to see the help menu.
@@ -109,7 +117,7 @@ explode:
   
 explode-blocks:
   enable: true
-  power: 0.5
+  power: 3
   set-fire: false
 
 enable-force-cmd: true
@@ -118,7 +126,7 @@ enable-launch: true
 
 swap:
   enable: true
-  invalid-target: '&6Sorry, but at least one of your targets was not found.'
+  invalid-target: 'Sorry, but at least one of your targets was &3not found&f.'
   send-message-to-target: true
   target-msg: '&bSomething unexpected happened...'
 
@@ -145,10 +153,10 @@ enable-cobweb: true
 # Blacklist configurations
 enable-blacklist: true
 blacklist: '&4You were blacklisted from the network!'
-already-blacklisted: '&4Player already blacklisted!'
-not-blacklisted: '&4Player not blacklisted!'
-on-blacklist: '&6You have blacklisted &c%player%'
-on-unblacklist: '&6You have unblacklisted &c%player%'
+already-blacklisted: 'Player &3already &fblacklisted!'
+not-blacklisted: 'Player &3not &fblacklisted!'
+on-blacklist: 'You have blacklisted &3%player%'
+on-unblacklist: 'You have unblacklisted &3%player%'
 
 # Logging options: - After editing this setting, you will need to restart the server for the changes to take place.
 enable-logs: true
@@ -158,4 +166,4 @@ enable-logs: true
 message-for-disabled-cmds: '&fUnknown command. Type "/help" for help.'
 
 # Set the message displayed when the target's name is either invalid or they are not online.
-invalid-target: '&6Player not found.'
+invalid-target: 'Player not found.'

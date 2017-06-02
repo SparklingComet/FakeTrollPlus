@@ -52,7 +52,7 @@ public class EffectListeners implements Listener {
 			e.setCancelled(true);
 			if (!Message.getBool("freeze.do-move-attempt-msg"))
 				return;
-			p.sendMessage(ChatColor.translateAlternateColorCodes('&', Message.getString("freeze.move-attempt-msg")));
+			p.sendMessage(Message.getString("freeze.move-attempt-msg"));
 		}
 	}
 
@@ -106,6 +106,7 @@ public class EffectListeners implements Listener {
 			float power = (float) Message.getDouble("explode-blocks.power");
 			boolean setFire = Message.getBool("explode-blocks.set-fire");
 			loc.getWorld().createExplosion(loc, power, setFire);
+			e.setExpToDrop(0);
 		}
 	}
 
