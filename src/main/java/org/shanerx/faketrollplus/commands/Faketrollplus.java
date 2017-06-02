@@ -25,12 +25,17 @@ import org.shanerx.faketrollplus.Message;
 import org.shanerx.faketrollplus.core.GuiUser;
 import org.shanerx.faketrollplus.core.TrollPlayer;
 import org.shanerx.faketrollplus.core.UserCache;
-import org.shanerx.faketrollplus.utils.PluginBuild;
 
 public class Faketrollplus implements CommandExecutor {
+	
+	FakeTrollPlus plugin;
 
-	public static final String HELP = Message.col("\n \n &f----------&e[ &aHELP &e]&f---------- "
-			+ "\n&aFakeTrollPlus &e" + PluginBuild.getVersion() + " by Lori00 "
+	public Faketrollplus(final FakeTrollPlus instance) {
+		plugin = instance;
+	}
+
+	public final String HELP = Message.col("\n \n &f----------&e[ &aHELP &e]&f---------- "
+			+ "\n&aFakeTrollPlus &e" + plugin.VERSION.getVersion() + " by Lori00 "
 			+ "\n&bFor commands and permissions help go to &3&ngoo.gl/c8RL4G " + "\n&cCommands:"
 			+ "\n&e/faketrollplus &f- Display plugin help "
 			+ "\n&e/fakeop &f- Make a player believe that they just got opped! "
@@ -65,12 +70,6 @@ public class Faketrollplus implements CommandExecutor {
 			+ "\n&e/badfood &f - Make a player get poisoned by everything they eat."
 			+ "\n&e/explodeblocks &f - Blow up every block a player mines."
 			+ "\n&e/blacklist &f - Add a player's account to the blacklist." + "\n&e/unblacklist &f- Pardon a player.");
-
-	FakeTrollPlus plugin;
-
-	public Faketrollplus(final FakeTrollPlus instance) {
-		plugin = instance;
-	}
 
 	@Override
 	public boolean onCommand(final CommandSender sender, final Command cmd, final String label, final String[] args) {

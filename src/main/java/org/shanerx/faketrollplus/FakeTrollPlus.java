@@ -23,14 +23,13 @@ import java.util.Date;
 import java.util.logging.Logger;
 
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.command.Command;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.shanerx.faketrollplus.core.UserCache;
 import org.shanerx.faketrollplus.events.EffectListeners;
 import org.shanerx.faketrollplus.events.GuiListener;
-import org.shanerx.faketrollplus.utils.PluginBuild;
+import org.shanerx.faketrollplus.utils.Updater;
+import org.shanerx.faketrollplus.utils.Updater.RelationalStatus;
 
 public class FakeTrollPlus extends JavaPlugin {
 
@@ -39,19 +38,15 @@ public class FakeTrollPlus extends JavaPlugin {
 	public static PrintWriter log;
 	static boolean doLogging;
 
-	private static String version;
+	public final Updater VERSION = new Updater(getDescription(), Updater.BuildType.BETA);
+	private volatile RelationalStatus buildRelation;
 	public static Logger console;
 
 	private volatile UserCache usercache;
-	
-	public static String getVersion() {
-		return version;
-	}
 
 	@Override
 	@SuppressWarnings("deprecation")
 	public void onEnable() {
-		version = getDescription().getVersion();
 		console = getLogger();
 		Message.setConfig(getConfig());
 		saveDefaultConfig();
@@ -72,7 +67,7 @@ public class FakeTrollPlus extends JavaPlugin {
 		
 		if (!doLogging) {
 			if (getConfig().getBoolean("check-updates"))
-				new Thread(() -> PluginBuild.checkCurrentVersion()).start();
+				new Thread(() -> buildRelation = VERSION.checkCurrentVersion()).start();
 			return;
 		}
 
@@ -91,7 +86,7 @@ public class FakeTrollPlus extends JavaPlugin {
 			e.printStackTrace();
 		}
 
-		log.println("---------------------- { FakeTrollPlus " + PluginBuild.getVersion()
+		log.println("---------------------- { FakeTrollPlus " + VERSION.getVersion()
 				+ " by Lori00 } ----------------------");
 		log.println("\n");
 		log.println("[ " + date.toGMTString() + " ]");
@@ -100,7 +95,7 @@ public class FakeTrollPlus extends JavaPlugin {
 		usercache = UserCache.getInstance(new File(getDataFolder(), "usercache.json"), this);
 		
 		if (getConfig().getBoolean("check-updates"))
-			new Thread(() -> PluginBuild.checkCurrentVersion()).start();
+			new Thread(() -> VERSION.checkCurrentVersion()).start();
 	}
 
 	@Override
@@ -116,6 +111,10 @@ public class FakeTrollPlus extends JavaPlugin {
 
 	public UserCache getUserCache() {
 		return usercache;
+	}
+	
+	public RelationalStatus buildRelation() {
+		return buildRelation;
 	}
 
 }
