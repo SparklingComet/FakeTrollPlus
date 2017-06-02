@@ -34,6 +34,7 @@ public class Nopickup implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(final CommandSender sender, final Command cmd, final String label, final String[] args) {
+		System.out.println(Message.getBool("no-pickup.enable"));
 		if (!Message.verifyCommandSender(cmd, sender, "faketroll.nopickup", Message.getBool("no-pickup.enable"), () -> args.length != 1)) {
 			return false;
 		}
@@ -47,16 +48,16 @@ public class Nopickup implements CommandExecutor {
 			tp.setPickup(true);
 			sender.sendMessage(ChatColor.GOLD + "Player " + ChatColor.RED + target.getName() + ChatColor.GOLD
 					+ " can now pickup items!");
-			if (Message.getBool("alert-victim")) {
-				target.sendMessage(Message.getString("no-pickup.disable"));
+			if (Message.getBool("no-pickup.alert-victim")) {
+				target.sendMessage(Message.getString("no-pickup.on-disable"));
 			}
 			return true;
 		}
 		tp.setPickup(false);
 		sender.sendMessage(ChatColor.GOLD + "Player " + ChatColor.RED + target.getName() + ChatColor.GOLD
 				+ " can no longer pickup items!");
-		if (Message.getBool("alert-victim")) {
-			target.sendMessage(Message.getString("no-pickup.enable"));
+		if (Message.getBool("no-pickup.alert-victim")) {
+			target.sendMessage(Message.getString("on-enable"));
 		}
 		return true;
 	}

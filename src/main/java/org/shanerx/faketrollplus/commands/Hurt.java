@@ -33,7 +33,14 @@ public class Hurt implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(final CommandSender sender, final Command cmd, final String label, final String[] args) {
-		if (!Message.verifyCommandSender(cmd, sender, "faketroll.hurt", Message.getBool("enable-hurt"), () -> args.length < 2 && !isNumber(args[1]))) {
+		if (!Message.verifyCommandSender(cmd, sender, "faketroll.hurt", Message.getBool("enable-hurt"), () -> {
+			if (args.length < 2) {
+				return true;
+			} else if (!isNumber(args[1])) {
+				return true;
+			}
+			return false;
+		})) {
 			return false;
 		}
 		final Player target = plugin.getServer().getPlayer(args[0]);

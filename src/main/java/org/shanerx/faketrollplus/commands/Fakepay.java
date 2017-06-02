@@ -33,7 +33,18 @@ public class Fakepay implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(final CommandSender sender, final Command cmd, final String label, final String[] args) {
-		if (!Message.verifyCommandSender(cmd, sender, "faketroll.fakepay", Message.getBool("fake-pay.enable"), () -> args.length != 2)) {
+		if (!Message.verifyCommandSender(cmd, sender, "faketroll.fakepay", Message.getBool("fake-pay.enable"), () -> {
+			if (args.length != 2) {
+				return true;
+			} else {
+				try {
+					Double.parseDouble(args[1]);
+					return false;
+				} catch (NumberFormatException e) {
+					return true;
+				}
+			}
+		})) {
 			return false;
 		}
 		final Player target = plugin.getServer().getPlayer(args[0]);

@@ -41,13 +41,11 @@ public class TrollPlayer {
 	}
 
 	TrollPlayer(OfflinePlayer op, FakeTrollPlus plugin) {
-		this.uuid = op.getUniqueId();
-		ftp = plugin;
+		this(op.getUniqueId(), plugin);
 	}
 
 	TrollPlayer(Player p, FakeTrollPlus plugin) {
-		this.uuid = p.getUniqueId();
-		ftp = plugin;
+		this(p.getUniqueId(), plugin);
 	}
 
 	/**

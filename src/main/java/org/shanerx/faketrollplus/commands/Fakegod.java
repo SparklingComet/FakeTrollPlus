@@ -33,17 +33,20 @@ public class Fakegod implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(final CommandSender sender, final Command cmd, final String label, final String[] args) {
-		if (!Message.verifyCommandSender(cmd, sender, "faketroll.fakegod", Message.getBool("enable-fake-god"), () -> args.length != 2)) {
+		if (!Message.verifyCommandSender(cmd, sender, "faketroll.fakegod", Message.getBool("enable-fake-god"), () -> {
+			if (args.length != 2) {
+				return true;
+			} else if (args[0].equalsIgnoreCase("on") || args[0].equalsIgnoreCase("off")) {
+				return false;
+			}
+			return true;
+		})) {
 			return false;
 		}
 		final Player target = plugin.getServer().getPlayer(args[0]);
 		if (target == null) {
 			sender.sendMessage(Message.getString("invalid-target"));
 			return false;
-		}
-		if (!args[1].equalsIgnoreCase("on") && !args[1].equalsIgnoreCase("off")) {
-			sender.sendMessage(ChatColor.GOLD + "Usage: /fakegod <target> <on|off>");
-			return true;
 		}
 		if (args[1].equalsIgnoreCase("on")) {
 			target.sendMessage(ChatColor.GOLD + "God mode " + ChatColor.RED + "enabled" + ChatColor.GOLD + ".");

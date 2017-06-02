@@ -16,6 +16,7 @@
 package org.shanerx.faketrollplus.commands;
 
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -46,8 +47,12 @@ public class Poison implements CommandExecutor {
 		final String target_name = target.getName();
 		try {
 			final int time = Integer.parseInt(args[1]);
-			sender.sendMessage(ChatColor.GOLD + "Poisoned " + target_name + " for " + time / 20 + " seconds");
-			target.addPotionEffect(new PotionEffect(PotionEffectType.POISON, time, 2));
+			if (target.getGameMode() == GameMode.CREATIVE || target.getGameMode() == GameMode.SPECTATOR) {
+				sender.sendMessage(Message.col("&6Can't poison a player in creative or spectator mode!"));
+				return false;
+			}
+			sender.sendMessage(ChatColor.GOLD + "Poisoned " + target_name + " for " + time + " seconds");
+			target.addPotionEffect(new PotionEffect(PotionEffectType.POISON, time * 20, 2));
 
 		} catch (final NumberFormatException e) {
 			sender.sendMessage(ChatColor.GOLD + "Time must be in seconds.");

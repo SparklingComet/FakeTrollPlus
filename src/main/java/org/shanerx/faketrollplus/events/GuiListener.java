@@ -95,6 +95,7 @@ public class GuiListener implements Listener {
 			case IRON_DOOR:
 				tp.setBlacklisted(!tp.isBlacklisted());
 				p.sendMessage(col((tp.isBlacklisted() ? "&cBlacklisted": "&cUn-blacklisted") + "  &eplayer &6" + op.getName()));
+				Bukkit.getPlayer(op.getUniqueId()).kickPlayer(Message.getString("blacklist"));
 				return;
 				
 			default:

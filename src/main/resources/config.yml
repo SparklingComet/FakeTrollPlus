@@ -83,7 +83,7 @@ random-inv:
   
 fake-pay:
   enable: true
-  format: '&a${AMOUNT} has been received from {SENDER}&f.F'
+  format: '&a${AMOUNT} has been received from {SENDER}&f.'
 
 enable-fake-crash: true
 
@@ -131,8 +131,8 @@ bury:
 no-pickup:
   enable: true
   alert-victim: true
-  enable: '&3You may no longer pick up items from the ground!'
-  disable: '&3You may now pick up items from the ground!'
+  on-enable: '&3You may no longer pick up items from the ground!'
+  on-disable: '&3You may now pick up items from the ground!'
   
 badfood:
   enable: true

@@ -16,6 +16,7 @@
 package org.shanerx.faketrollplus.commands;
 
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -44,6 +45,10 @@ public class Burn implements CommandExecutor {
 		final String target_name = target.getName();
 		try {
 			final int time = Integer.parseInt(args[1]);
+			if (target.getGameMode() == GameMode.CREATIVE || target.getGameMode() == GameMode.SPECTATOR) {
+				sender.sendMessage(Message.col("&6Can't light a player in creative or spectator mode on fire!"));
+				return false;
+			}
 			sender.sendMessage(ChatColor.GOLD + "Set " + target_name + " on fire for " + time + " seconds");
 			target.setFireTicks(time * 20);
 

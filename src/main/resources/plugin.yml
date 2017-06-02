@@ -127,7 +127,7 @@ commands:
     usage: /swap <target1> <target2>
   replaceinv:
     description: Replace all items in a player's inventory with something else.
-    aliases: [replaceinventory, ri, invreplace]
+    aliases: [replaceinventory, invreplace]
     usage: /replaceinv <target> <item> [amount]
   bury:
     description: Bury a player.

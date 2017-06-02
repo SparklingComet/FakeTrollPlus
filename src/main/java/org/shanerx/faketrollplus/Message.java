@@ -23,14 +23,22 @@ import org.shanerx.faketrollplus.utils.function.Test;
 
 public enum Message {
 	
-	ACCESS_DENIED("&cYou do not have access to that command");
+	PREFIX("%PREFIX%[FakeTrollPlus] &f %PRIMARY% "),
+	
+	ACCESS_DENIED("You do not have %SECONDARY%access%PRIMARY% to that command!"),
+	
+	PLAYER_ONLY("Sorry, but this command is only available to %SECONDARY%players%PRIMARY%."),
+	
+	INVALID_ARGS("Invalid args, please try again. Usage: %SECONDARY%%usage%"),
+	
+	RELOAD_CONFIG("Configuration file has been reloaded!");
 	
 	public static String col(String x) {
 		return ChatColor.translateAlternateColorCodes('&', x);
 	}
 	
 	public static String col(Message x) {
-		return ChatColor.translateAlternateColorCodes('&', x.toString());
+		return ChatColor.translateAlternateColorCodes(Colour.COLOUR_SYMBOL, x.toString());
 	}
 	
 	private static FileConfiguration fc;
@@ -42,8 +50,10 @@ public enum Message {
 	
 	@Override
 	public String toString() {
-		return col(message);
+		return Colour.parse((this == PREFIX ? "" : PREFIX.toString()) + message);
 	}
+	
+// CONFIG UTILS
 	
 	public static String getString(String s) {
 		return col(fc.getString(s));
@@ -65,6 +75,8 @@ public enum Message {
 		Message.fc = fc;
 	}
 	
+// GENERAL UTILS
+	
 	public static String changeToGibberish(String initialMsg) {
 		final String chars = "abcdefghijklmnopqrstuvwxyz1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 		int msgLength = initialMsg.length();
@@ -82,13 +94,45 @@ public enum Message {
 			sender.sendMessage(Message.getString("message-for-disabled-cmds"));
 			return false;
 		} else if (!sender.hasPermission(permission)) {
-			sender.sendMessage(ACCESS_DENIED.toString());
+			sender.sendMessage(PREFIX.toString() + ACCESS_DENIED.toString());
 			return false;
 		} else if (checkArgs.test()) {
-			sender.sendMessage(col("&fInvalid args, please try again. Usage: &3" + cmd.getUsage()));
+			sender.sendMessage(col(PREFIX.toString() + INVALID_ARGS.toString().replace("%usage%", cmd.getUsage())));
 			return false;
 		}
 		return true;
+	}
+	
+	public enum Colour {
+		
+		PRIMARY('f'),
+		
+		SECONDARY('3'),
+		
+		PREFIX('a');
+		
+		private char colourCode;
+		public static final char COLOUR_SYMBOL = '&';
+		
+		Colour(char colourCode) {
+			this.colourCode = colourCode;
+		}
+		
+		public char colourCode() {
+			return colourCode;
+		}
+		
+		@Override
+		public String toString() {
+			return col(String.valueOf(colourCode));
+		}
+		
+		public static String parse(String msg) {
+			return col(msg
+					.replace("%PRIMARY%", COLOUR_SYMBOL + PRIMARY.toString())
+					.replace("%SECONDARY%", COLOUR_SYMBOL + SECONDARY.toString())
+					.replace("%PREFIX%", COLOUR_SYMBOL + PREFIX.toString()));
+		}
 	}
 
 }

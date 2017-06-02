@@ -76,26 +76,26 @@ public class Faketrollplus implements CommandExecutor {
 	public boolean onCommand(final CommandSender sender, final Command cmd, final String label, final String[] args) {
 		if (args.length == 0) {
 			if (!sender.hasPermission("faketroll.help") && Message.getBool("help.require-permission")) {
-				sender.sendMessage(ChatColor.RED + "You do not have access to that command");
+				sender.sendMessage(Message.ACCESS_DENIED.toString());
 				return false;
 			}
 			sender.sendMessage(HELP);
 			return true;
 		} else if (args[0].equalsIgnoreCase("reload")) {
 			if (!sender.hasPermission("faketroll.reload")) {
-				sender.sendMessage(ChatColor.RED + "You do not have access to that command");
+				sender.sendMessage(Message.ACCESS_DENIED.toString());
 				return false;
 			}
 			plugin.reloadConfig();
-			sender.sendMessage(ChatColor.AQUA + "Configuration file has been reloaded!");
+			sender.sendMessage(Message.RELOAD_CONFIG.toString());
 			return true;
 		} else if (args[0].equalsIgnoreCase("gui")) {
 			if (!sender.hasPermission("faketroll.gui")) {
-				sender.sendMessage(ChatColor.RED + "You do not have access to that command");
+				sender.sendMessage(Message.ACCESS_DENIED.toString());
 				return false;
 			}
 			if (!(sender instanceof Player)) {
-				sender.sendMessage("Sorry, but this command is only available to players.");
+				sender.sendMessage(Message.PLAYER_ONLY.toString());
 				return false;
 			}
 			final UserCache uc = plugin.getUserCache();
@@ -104,7 +104,7 @@ public class Faketrollplus implements CommandExecutor {
 			((Player) sender).openInventory(gui.getPlayerList(1));
 			return true;
 		} else if (!sender.hasPermission("faketroll.help") && Message.getBool("help.require-permission")) {
-			sender.sendMessage(ChatColor.RED + "You do not have access to that command");
+			sender.sendMessage(Message.ACCESS_DENIED.toString());
 			return false;
 		}
 		sender.sendMessage(HELP);
