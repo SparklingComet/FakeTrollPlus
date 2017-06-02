@@ -28,7 +28,7 @@ public enum PluginBuild {
 	DEV, BETA, STABLE, FINAL;
 
 	public static String getVersion() {
-		return FakeTrollPlus.getVersion() + "-" + PluginBuild.STABLE;
+		return FakeTrollPlus.getVersion() + "-" + PluginBuild.BETA;
 	}
 	
 	public static void checkCurrentVersion() {
