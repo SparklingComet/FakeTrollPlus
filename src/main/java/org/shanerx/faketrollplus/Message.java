@@ -30,7 +30,7 @@ public enum Message {
 	PLAYER_ONLY("Sorry, but this command is only available to %SECONDARY%players%PRIMARY%."),
 	
 	INVALID_ARGS("Invalid args, please try again. Usage: %SECONDARY%%usage%"),
-	
+		
 	RELOAD_CONFIG("Configuration file has been reloaded!");
 	
 	public static String col(String x) {

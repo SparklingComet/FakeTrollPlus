@@ -74,7 +74,8 @@ public class GuiUser {
 	 * @return an instance of {@link org.bukkit.inventory.Inventory}
 	 */
 	public Inventory getPlayerList(final int page) {
-		Inventory gui = Bukkit.createInventory(null, 54, Message.col("&eFakeTrollPlus - &cTroll GUI"));
+		int slots = Message.getInt("gui.rows") * 9 + 9;
+		Inventory gui = Bukkit.createInventory(null, slots, Message.getString("gui.title"));
 		Object[] list = Bukkit.getOnlinePlayers().toArray();
 
 		ItemStack slime = new ItemStack(Material.SLIME_BALL, list.length);
@@ -99,8 +100,8 @@ public class GuiUser {
 		gui.setItem(8, next);
 
 		try {
-			for (int i = 9; i < 54; i++) {
-				Player p = (Player) list[(page - 1) * 54 + (i - 9)];
+			for (int i = 9; i < slots; i++) {
+				Player p = (Player) list[(page - 1) * slots + (i - 9)];
 				ItemStack skull = new ItemStack(Material.SKULL_ITEM, 1);
 				SkullMeta sm = (SkullMeta) skull.getItemMeta();
 				sm.setDisplayName(p.getName());
@@ -121,7 +122,7 @@ public class GuiUser {
 	 * @return an instance of {@link org.bukkit.inventory.Inventory}
 	 */
 	public Inventory getEffects(final String player) {
-		Inventory gui = Bukkit.createInventory(null, 9, Message.col("&eFakeTrollPlus - &cTroll GUI"));
+		Inventory gui = Bukkit.createInventory(null, 9, Message.getString("gui.title"));
 
 		ItemStack p = new ItemStack(Material.SKULL_ITEM, 1);
 		SkullMeta skull = (SkullMeta) p.getItemMeta();

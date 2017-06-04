@@ -54,7 +54,7 @@ public class GuiListener implements Listener {
 		int size = e.getClickedInventory().getSize();
 		Player p = (Player) e.getWhoClicked();
 		
-		if (!ChatColor.stripColor(name).startsWith("FakeTrollPlus - Troll GUI") || item == null) {
+		if (!ChatColor.stripColor(name).equals(ChatColor.stripColor(Message.getString("gui.title"))) || item == null) {
 			return;
 		}
 		e.setCancelled(true);
@@ -116,7 +116,7 @@ public class GuiListener implements Listener {
 			default:
 				return;
 			}
-		} else if (size != 54) {
+		} else if (size != Message.getInt("gui.rows") * 9 + 9) {
 			return;
 			
 		} else if (item.getType() == Material.SKULL_ITEM) {

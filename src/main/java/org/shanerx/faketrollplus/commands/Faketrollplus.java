@@ -1,11 +1,11 @@
 /*
- *     Copyright 2016-2017 ShanerX @ http://shanerx.org
+ *     Copyright 2016-2017 SparklingComet @ http://shanerx.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ *          http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -33,9 +33,9 @@ public class Faketrollplus implements CommandExecutor {
 	public Faketrollplus(final FakeTrollPlus instance) {
 		plugin = instance;
 	}
-
+	
 	public final String HELP = Message.col("\n \n &f----------&e[ &aHELP &e]&f---------- "
-			+ "\n&aFakeTrollPlus &e" + plugin.VERSION.getVersion() + " by Lori00 "
+			+ "\n&aFakeTrollPlus &e%VERSION%&a by Lori00 "
 			+ "\n&bFor commands and permissions help go to &3&ngoo.gl/c8RL4G " + "\n&cCommands:"
 			+ "\n&e/faketrollplus &f- Display plugin help "
 			+ "\n&e/fakeop &f- Make a player believe that they just got opped! "
@@ -78,7 +78,7 @@ public class Faketrollplus implements CommandExecutor {
 				sender.sendMessage(Message.ACCESS_DENIED.toString());
 				return false;
 			}
-			sender.sendMessage(HELP);
+			sender.sendMessage(HELP.replace("%VERSION%", plugin.VERSION.getNakedVersion()));
 			return true;
 		} else if (args[0].equalsIgnoreCase("reload")) {
 			if (!sender.hasPermission("faketroll.reload")) {
@@ -92,11 +92,21 @@ public class Faketrollplus implements CommandExecutor {
 			if (!sender.hasPermission("faketroll.gui")) {
 				sender.sendMessage(Message.ACCESS_DENIED.toString());
 				return false;
-			}
-			if (!(sender instanceof Player)) {
+			} else if (!Message.getBool("gui.enable")) {
+				sender.sendMessage(Message.PREFIX.toString() + Message.getString("gui.disabled"));
+				return false;
+			} else if (!(sender instanceof Player)) {
 				sender.sendMessage(Message.PLAYER_ONLY.toString());
 				return false;
 			}
+			if (plugin == null)
+				System.out.println("plugin");
+			else if (plugin.VERSION == null)
+				System.out.println("version");
+			else if (plugin.VERSION.getVersion() == null)
+				System.out.println("getV");
+			else
+				System.out.println("nothing null");
 			final UserCache uc = plugin.getUserCache();
 			final TrollPlayer tp = uc.getTrollPlayer(((Player) sender).getUniqueId());
 			final GuiUser gui = new GuiUser(tp);
@@ -106,7 +116,7 @@ public class Faketrollplus implements CommandExecutor {
 			sender.sendMessage(Message.ACCESS_DENIED.toString());
 			return false;
 		}
-		sender.sendMessage(HELP);
+		sender.sendMessage(HELP.replace("%VERSION%", plugin.VERSION.getNakedVersion()));
 		return true;
 	}
 

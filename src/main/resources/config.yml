@@ -158,6 +158,14 @@ not-blacklisted: 'Player &3not &fblacklisted!'
 on-blacklist: 'You have blacklisted &3%player%'
 on-unblacklist: 'You have unblacklisted &3%player%'
 
+# GUI-Settings:
+# The rows count MUST be between (and including) 2 and 5. Any number higher or lower than that will break the GUI.
+gui:
+  enable: true
+  disabled: 'The GUI is currently disabled.'
+  title: '&eFakeTrollPlus - &cTroll GUI'
+  rows: 5
+
 # Logging options: - After editing this setting, you will need to restart the server for the changes to take place.
 enable-logs: true
 
