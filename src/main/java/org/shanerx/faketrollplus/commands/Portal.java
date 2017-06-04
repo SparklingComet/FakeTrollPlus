@@ -17,6 +17,7 @@ package org.shanerx.faketrollplus.commands;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -52,7 +53,8 @@ public class Portal implements CommandExecutor {
 			world = world.replace("_nether", "");
 		}
 		sender.sendMessage(ChatColor.GOLD + target_name + " has been warped far away!");
-		final Location spawn = plugin.getServer().getWorld(target.getWorld().getName() + "_the_end").getSpawnLocation();
+		World end = plugin.getServer().getWorld(target.getWorld().getName() + "_the_end");
+		final Location spawn = end.getHighestBlockAt(end.getSpawnLocation()).getLocation();
 		target.teleport(spawn);
 		return true;
 	}
