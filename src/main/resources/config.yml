@@ -186,7 +186,7 @@ explode-blocks:
 force-cmd:
   enable: true
   sender: 'Forced &3%player% &fto run: &3/%command%'
-
+git
 launch:
   enable: true
   sender: '&3%player% &fhas been launched in the air!'
