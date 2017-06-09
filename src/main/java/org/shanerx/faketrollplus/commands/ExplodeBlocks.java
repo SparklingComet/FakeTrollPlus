@@ -45,12 +45,12 @@ public class ExplodeBlocks implements CommandExecutor {
 		final TrollPlayer tp = plugin.getUserCache().getTrollPlayer(target.getUniqueId());
 		if (tp.hasExplodeMinedBlocksEffect()) {
 			tp.setExplodeMinedBlocksEffect(false);
-			sender.sendMessage(Message.PREFIX + Message.getString("explode-block.toggle-off").replace("%player%", target.getName()));
+			sender.sendMessage(Message.PREFIX + Message.getString("explode-blocks.sender.disabled").replace("%player%", target.getName()));
 			return true;
 		}
 		tp.setExplodeMinedBlocksEffect(true);
-		sender.sendMessage(Message.PREFIX + Message.getString("explode-block.toggle-on").replace("%player%", target.getName()));
+		sender.sendMessage(Message.PREFIX + Message.getString("explode-blocks.sender.enabled").replace("%player%", target.getName()));
 		return true;
 	}
-
+	
 }

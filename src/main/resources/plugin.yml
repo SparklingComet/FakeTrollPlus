@@ -6,7 +6,6 @@ name: FakeTrollPlus
 website: https://www.spigotmc.org/resources/30762/
 description: New large-range trolling plugin for server administrators.
 
-  fakedeop:
 commands:
   faketrollplus:
     description: Show plugin help and version
@@ -16,6 +15,7 @@ commands:
     description: Make a player believe that they just got opped!
     aliases: [fop]
     usage: /fakeop <target>
+  fakedeop:
     description: Make a player believe that they just got de-opped!
     aliases: [fdeop]
     usage: /fakedeop <target>

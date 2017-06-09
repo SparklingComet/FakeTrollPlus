@@ -180,13 +180,14 @@ explode-blocks:
   enable: true
   power: 3
   set-fire: false
-  toggle-on: 'Applied effect to &3%player%&f!'
-  toggle-off: 'Removed effect from &3%player%&f!'
+  sender:
+    enabled: 'Applied effect to &3%player%&f!'
+    disabled: 'Removed effect from &3%player%&f!'
 
 force-cmd:
   enable: true
   sender: 'Forced &3%player% &fto run: &3/%command%'
-git
+
 launch:
   enable: true
   sender: '&3%player% &fhas been launched in the air!'
