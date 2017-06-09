@@ -157,10 +157,6 @@ commands:
     aliases: [eb, expblocks, explblocks, explodebl, blocksexplode]
     usage: /explodeblocks <target>
   blacklist:
-    description: Add a player's account to the blacklist.
+    description: Add or remove a player's account to/from the blacklist.
     aliases: [bl]
     usage: /blacklist <target>
-  unblacklist:
-    description: Pardon a player.
-    aliases: [unbl]
-    usage: /unblacklist <target>

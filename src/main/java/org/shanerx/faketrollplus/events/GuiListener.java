@@ -30,7 +30,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.shanerx.faketrollplus.FakeTrollPlus;
 import org.shanerx.faketrollplus.Message;
-import org.shanerx.faketrollplus.core.GuiType;
 import org.shanerx.faketrollplus.core.GuiUser;
 import org.shanerx.faketrollplus.core.TrollEffect;
 import org.shanerx.faketrollplus.core.TrollPlayer;
@@ -68,7 +67,7 @@ public class GuiListener implements Listener {
 			case SKULL_ITEM:
 				Collection<TrollEffect> activeEffects = ftp.getUserCache().getTrollPlayer(op.getUniqueId()).activeEffects();
 
-				StringBuffer sb = new StringBuffer();
+				StringBuilder sb = new StringBuilder();
 				boolean hasEffects = activeEffects.size() > 0;
 				for (TrollEffect te : activeEffects) {
 					sb.append("&a").append(te.toString()).append("&e, ");
@@ -125,7 +124,6 @@ public class GuiListener implements Listener {
 			TrollPlayer troll = ftp.getUserCache().getTrollPlayer(p.getUniqueId());
 			GuiUser guiUser = new GuiUser(troll);
 			p.openInventory(guiUser.getEffects(victim));
-			return;
 			
 		} else if (item.getType() == Material.PAPER) {
 			int page = Integer.parseInt(e.getClickedInventory().getItem(4).getItemMeta()
@@ -133,13 +131,10 @@ public class GuiListener implements Listener {
 			
 			if (item.getItemMeta().getDisplayName().contains("Next")) {
 				p.openInventory(new GuiUser(ftp.getUserCache().getTrollPlayer(p.getUniqueId())).getPlayerList(++page));
-				return;
-				
 			} else {
-				if (page == 1)
-					return;
-				p.openInventory(new GuiUser(ftp.getUserCache().getTrollPlayer(p.getUniqueId())).getPlayerList(--page));
-				return;
+				if (page != 1) {
+					p.openInventory(new GuiUser(ftp.getUserCache().getTrollPlayer(p.getUniqueId())).getPlayerList(--page));
+				}
 			}
 		}
 	}

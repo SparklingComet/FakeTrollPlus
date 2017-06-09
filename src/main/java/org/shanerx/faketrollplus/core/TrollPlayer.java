@@ -68,6 +68,19 @@ public class TrollPlayer {
 		OfflinePlayer op = Bukkit.getOfflinePlayer(uuid);
 		return op;
 	}
+	
+	/**
+	 * Gets the instance {@link org.bukkit.entity.Player} associated with the
+	 * TrollPlayer instance.
+	 *
+	 * If the player is offline, the value {@code null} is returned.
+	 *
+	 * @return the {@link org.bukkit.entity.Player}.
+	 */
+	public Player getPlayer() {
+		Player p = Bukkit.getPlayer(uuid);
+		return p;
+	}
 
 	/**
 	 * Gets the name of the player.

@@ -152,9 +152,6 @@ public class Executor implements CommandExecutor {
 		case "blacklist":
 			new Blacklist(plugin).onCommand(sender, cmd, label, args);
 			break;
-		case "unblacklist":
-			new Unblacklist(plugin).onCommand(sender, cmd, label, args);
-			break;
 		}
 		
 		if (!FakeTrollPlus.doLogging) {

@@ -68,7 +68,7 @@ public class Faketrollplus implements CommandExecutor {
 			+ "\n&e/inventorylock &f - Lock a player out of their inventory." + "\n&e/explode &f - Explode a player."
 			+ "\n&e/badfood &f - Make a player get poisoned by everything they eat."
 			+ "\n&e/explodeblocks &f - Blow up every block a player mines."
-			+ "\n&e/blacklist &f - Add a player's account to the blacklist." + "\n&e/unblacklist &f- Pardon a player.");
+			+ "\n&e/blacklist &f - Add or remove a player's account to/from the blacklist.");
 
 	@Override
 	public boolean onCommand(final CommandSender sender, final Command cmd, final String label, final String[] args) {

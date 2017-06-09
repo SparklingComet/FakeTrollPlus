@@ -44,12 +44,9 @@ public class Blacklist implements CommandExecutor {
 			return false;
 		}
 		final TrollPlayer target = ftp.getUserCache().getTrollPlayer(op);
-		if (target.isBlacklisted()) {
-			sender.sendMessage(Message.PREFIX + Message.getString("already-blacklisted"));
-			return false;
-		}
-		target.setBlacklisted(true);
-		sender.sendMessage(Message.PREFIX + Message.getString("on-blacklist").replace("%player%", target.getName()));
+		target.setBlacklisted(!target.isBlacklisted());
+		
+		sender.sendMessage(Message.PREFIX + Message.col((target.isBlacklisted() ? "&3Blacklisted": "&3Un-blacklisted") + "  &fplayer &3" + op.getName() + "&f!"));
 		if (op.isOnline()) {
 			Bukkit.getPlayer(op.getUniqueId()).kickPlayer(Message.getString("blacklist"));
 		}
