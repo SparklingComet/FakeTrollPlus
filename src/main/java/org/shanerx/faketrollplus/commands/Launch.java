@@ -15,7 +15,6 @@
  */
 package org.shanerx.faketrollplus.commands;
 
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -34,7 +33,7 @@ public class Launch implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(final CommandSender sender, final Command cmd, final String label, final String[] args) {
-		if (!Message.verifyCommandSender(cmd, sender, "faketroll.launch", Message.getBool("enable-launch"), () -> {
+		if (!Message.verifyCommandSender(cmd, sender, "faketroll.launch", Message.getBool("launch.sender"), () -> {
 			if (args.length != 2) {
 				return true;
 			} else {
@@ -50,13 +49,13 @@ public class Launch implements CommandExecutor {
 		}
 		final Player target = plugin.getServer().getPlayer(args[0]);
 		if (target == null) {
-			sender.sendMessage(Message.getString("invalid-target"));
+			sender.sendMessage(Message.PREFIX + Message.getString("invalid-target"));
 			return true;
 		}
 		final double y = Double.parseDouble(args[1]);
 		target.setVelocity(new Vector(0, y, 0));
-		sender.sendMessage(Message.col("&c" + target.getName() + " &6has been launched in the air!"));
-		target.sendMessage(ChatColor.BLUE + "Whooshh!");
+		sender.sendMessage(Message.PREFIX + Message.getString("launch.sender")
+				.replace("%player%", target.getName()));
 		return true;
 	}
 

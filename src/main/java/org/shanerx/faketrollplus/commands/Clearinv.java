@@ -15,7 +15,6 @@
  */
 package org.shanerx.faketrollplus.commands;
 
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -33,17 +32,18 @@ public class Clearinv implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(final CommandSender sender, final Command cmd, final String label, final String[] args) {
-		if (!Message.verifyCommandSender(cmd, sender, "faketroll.clearinv", Message.getBool("enable-clearinv"), () -> args.length != 1)) {
+		if (!Message.verifyCommandSender(cmd, sender, "faketroll.clearinv", Message.getBool("clearinv.enable"), () -> args.length != 1)) {
 			return false;
 		}
+		
 		final Player target = plugin.getServer().getPlayer(args[0]);
 		if (target == null) {
-			sender.sendMessage(Message.getString("invalid-target"));
+			sender.sendMessage(Message.PREFIX + Message.getString("invalid-target"));
 			return false;
 		}
-		final String target_name = target.getName();
-		target.getInventory().clear();
-		sender.sendMessage(ChatColor.GOLD + "Cleared inventory of " + target_name);
+		
+		target.getInventory().clear();		
+		sender.sendMessage(Message.PREFIX + Message.getString("clearinv.sender").replace("%player%", target.getName()));
 		return true;
 	}
 

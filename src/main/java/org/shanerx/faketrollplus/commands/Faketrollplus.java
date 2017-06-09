@@ -15,7 +15,6 @@
  */
 package org.shanerx.faketrollplus.commands;
 
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -99,14 +98,7 @@ public class Faketrollplus implements CommandExecutor {
 				sender.sendMessage(Message.PLAYER_ONLY.toString());
 				return false;
 			}
-			if (plugin == null)
-				System.out.println("plugin");
-			else if (plugin.VERSION == null)
-				System.out.println("version");
-			else if (plugin.VERSION.getVersion() == null)
-				System.out.println("getV");
-			else
-				System.out.println("nothing null");
+
 			final UserCache uc = plugin.getUserCache();
 			final TrollPlayer tp = uc.getTrollPlayer(((Player) sender).getUniqueId());
 			final GuiUser gui = new GuiUser(tp);

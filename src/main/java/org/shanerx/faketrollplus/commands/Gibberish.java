@@ -35,22 +35,22 @@ public class Gibberish implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(final CommandSender sender, final Command cmd, final String label, final String[] args) {
-		if (!Message.verifyCommandSender(cmd, sender, "faketroll.gibberish", Message.getBool("enable-gibberish"), () -> args.length != 1)) {
+		if (!Message.verifyCommandSender(cmd, sender, "faketroll.gibberish", Message.getBool("gibberish.enable"), () -> args.length != 1)) {
 			return false;
 		}
 		final Player p = Bukkit.getPlayer(args[0]);
 		if (p == null) {
-			sender.sendMessage(Message.getString("invalid-target"));
+			sender.sendMessage(Message.PREFIX + Message.getString("invalid-target"));
 			return false;
 		}
 		final TrollPlayer tp = plugin.getUserCache().getTrollPlayer(p.getUniqueId());
 		if (tp.chatIsGibberish()) {
 			tp.setGibberishChat(false);
-			sender.sendMessage(ChatColor.RED + args[0] + ChatColor.GOLD + " will no longer talk gibberish!");
+			sender.sendMessage(Message.PREFIX + Message.getString("gibberish.sender.off"));
 			return true;
 		}
 		tp.setGibberishChat(true);
-		sender.sendMessage(ChatColor.RED + args[0] + ChatColor.GOLD + " will now talk gibberish!");
+		sender.sendMessage(Message.PREFIX + Message.getString("gibberish.sender.on"));
 		return true;
 	}
 

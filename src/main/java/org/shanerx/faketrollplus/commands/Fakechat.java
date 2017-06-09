@@ -16,7 +16,6 @@
 package org.shanerx.faketrollplus.commands;
 
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -43,7 +42,7 @@ public class Fakechat implements CommandExecutor {
 			targetIsReal = true;
 		}
 		if (target == null && !Message.getBool("fake-chat.allow-unexisting-nicks")) {
-			sender.sendMessage(Message.getString("invalid-target"));
+			sender.sendMessage(Message.PREFIX + Message.getString("invalid-target"));
 			return true;
 		}
 		String msg = args[1];

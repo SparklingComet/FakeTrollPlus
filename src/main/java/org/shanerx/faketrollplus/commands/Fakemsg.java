@@ -15,7 +15,6 @@
  */
 package org.shanerx.faketrollplus.commands;
 
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -38,7 +37,7 @@ public class Fakemsg implements CommandExecutor {
 		}
 		final Player target = plugin.getServer().getPlayer(args[0]);
 		if (target == null) {
-			sender.sendMessage(Message.getString("invalid-target"));
+			sender.sendMessage(Message.PREFIX + Message.getString("invalid-target"));
 			return false;
 		}
 		String fakeName;
@@ -48,14 +47,16 @@ public class Fakemsg implements CommandExecutor {
 		} catch (final NullPointerException e) {
 			fakeName = args[1];
 		}
-		String msg = args[2];
-		for (int i = 3; i < args.length; i++) {
-			msg = msg + " " + args[i];
+		StringBuilder sb = new StringBuilder();
+		for (int i = 2; i < args.length; i++) {
+			sb.append(args[i]).append(" ");
 		}
-		String fakeMsg = plugin.getConfig().getString("fake-msg.format");
+		String fakeMsg = Message.getString("fake-msg.format");
 		fakeMsg = fakeMsg.replace("{PLAYER}", fakeName);
-		fakeMsg = fakeMsg.replace("{MESSAGE}", msg);
+		fakeMsg = fakeMsg.replace("{MESSAGE}", sb.toString().trim());
+		
 		target.sendMessage(Message.col(fakeMsg));
+		sender.sendMessage(Message.PREFIX + Message.getString("fake-msg.sender").replace("%player%", target.getName()));
 		return true;
 	}
 

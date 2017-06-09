@@ -16,7 +16,6 @@
 package org.shanerx.faketrollplus.commands;
 
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -34,30 +33,29 @@ public class Fakeafk implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(final CommandSender sender, final Command cmd, final String label, final String[] args) {
-		if (!Message.verifyCommandSender(cmd, sender, "faketroll.fakeafk", Message.getBool("fake-afk.enable"), () -> checkArgs(args))) {
+		if (!Message.verifyCommandSender(cmd, sender, "faketroll.fakeafk", Message.getBool("fake-afk.enable"), () -> {
+			if (args.length != 2) {
+				return true;	
+			} else if (!args[1].equalsIgnoreCase("on") && !args[1].equalsIgnoreCase("off")) {
+				return true;
+			}
+			return false;
+		})) {
 			return false;
 		}
+		
 		final Player target = plugin.getServer().getPlayer(args[0]);
 		if (target == null) {
-			sender.sendMessage(Message.getString("invalid-target"));
+			sender.sendMessage(Message.PREFIX + Message.getString("invalid-target"));
 			return false;
 		}
-		String target_name = target.getDisplayName();
+		
 		if (args[1].equalsIgnoreCase("on")) {
-			Bukkit.broadcastMessage(Message.getString("fake-afk.format-on").replace("{PLAYER}", target_name));
+			Bukkit.broadcastMessage(Message.getString("fake-afk.on").replace("%player%", target.getName()));
 		} else if (args[1].equalsIgnoreCase("off")) {
-			Bukkit.broadcastMessage(Message.getString("fake-afk.format-off").replace("{PLAYER}", target_name));
+			Bukkit.broadcastMessage(Message.getString("fake-afk.off").replace("%player%", target.getName()));
 		}
 		return true;
-	}
-	
-	private boolean checkArgs(String[] args) {
-		if (args.length != 2) {
-			return true;	
-		} else if (!args[1].equalsIgnoreCase("on") && !args[1].equalsIgnoreCase("off")) {
-			return true;
-		}
-		return false;
 	}
 
 }

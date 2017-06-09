@@ -15,7 +15,6 @@
  */
 package org.shanerx.faketrollplus.commands;
 
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -49,17 +48,19 @@ public class Fakepay implements CommandExecutor {
 		}
 		final Player target = plugin.getServer().getPlayer(args[0]);
 		if (target == null) {
-			sender.sendMessage(Message.getString("invalid-target"));
+			sender.sendMessage(Message.PREFIX + Message.getString("invalid-target"));
 			return false;
 		}
-		final Player troll = (Player) sender;
-		final String trollName = troll.getDisplayName();
 		final double amount = Double.parseDouble(args[1]);
-		String targetMsg = plugin.getConfig().getString("fake-pay.format");
-		targetMsg = targetMsg.replace("{SENDER}", trollName);
+		String targetMsg = Message.getString("fake-pay.format");
+		targetMsg = targetMsg.replace("{SENDER}", sender.getName());
 		targetMsg = targetMsg.replace("{AMOUNT}", String.valueOf(amount));
+		
 		target.sendMessage(Message.col(targetMsg));
-		sender.sendMessage(ChatColor.GOLD + "Faked transaction of $" + amount + " to " + target.getName());
+		sender.sendMessage(Message.PREFIX + Message.getString("fake-pay.sender")
+				.replace("{SENDER}", sender.getName())
+				.replace("{AMOUNT}", Double.toString(amount))
+				.replace("%player%", target.getName()));
 		return true;
 	}
 

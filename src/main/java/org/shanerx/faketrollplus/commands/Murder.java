@@ -15,7 +15,6 @@
  */
 package org.shanerx.faketrollplus.commands;
 
-import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -34,27 +33,15 @@ public class Murder implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(final CommandSender sender, final Command cmd, final String label, final String[] args) {
-		if (!Message.verifyCommandSender(cmd, sender, "faketroll.murder", Message.getBool("enable-murder"), () -> args.length != 1)) {
+		if (!Message.verifyCommandSender(cmd, sender, "faketroll.murder", Message.getBool("murder.enable"), () -> args.length != 1)) {
 			return false;
 		}
-		if (!Message.getBool("enable-murder")) {
-			sender.sendMessage(Message.getString("message-for-disabled-cmds"));
-			return false;
-		}
-		if (!sender.hasPermission("faketroll.murder")) {
-			sender.sendMessage(ChatColor.RED + "You do not have access to that command!");
-			return false;
-		}
-		if (args.length != 1) {
-			sender.sendMessage(ChatColor.GOLD + "Usage: /murder <target>");
-			return false;
-		}
+
 		final Player target = plugin.getServer().getPlayer(args[0]);
 		if (target == null) {
-			sender.sendMessage(Message.getString("invalid-target"));
+			sender.sendMessage(Message.PREFIX + Message.getString("invalid-target"));
 			return false;
 		}
-		final String target_name = target.getName();
 		target.getGameMode();
 		if (GameMode.CREATIVE != null) {
 			target.setGameMode(GameMode.SURVIVAL);
@@ -63,7 +50,8 @@ public class Murder implements CommandExecutor {
 		} else {
 			target.damage(20.0D);
 		}
-		sender.sendMessage(ChatColor.GOLD + "Why did you do this to " + target_name + "?");
+		sender.sendMessage(Message.PREFIX + Message.getString("murder.sender")
+				.replace("%player%", target.getName()));
 		return true;
 	}
 

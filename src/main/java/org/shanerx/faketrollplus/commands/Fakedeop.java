@@ -15,7 +15,7 @@
  */
 package org.shanerx.faketrollplus.commands;
 
-import org.bukkit.ChatColor;
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -33,21 +33,22 @@ public class Fakedeop implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(final CommandSender sender, final Command cmd, final String label, final String[] args) {
-		if (!Message.verifyCommandSender(cmd, sender, "faketroll.fakedeop", Message.getBool("enable-fake-deop"), () -> args.length != 1)) {
+		if (!Message.verifyCommandSender(cmd, sender, "faketroll.fakedeop", Message.getBool("fake-deop.enable"), () -> args.length != 1)) {
 			return false;
 		}
+		
 		final Player target = plugin.getServer().getPlayer(args[0]);
 		if (target == null) {
-			sender.sendMessage(Message.getString("invalid-target"));
+			sender.sendMessage(Message.PREFIX + Message.getString("invalid-target"));
 			return false;
 		}
-		final String target_name = target.getName();
+		
 		if (!(sender instanceof Player)) {
-			target.sendMessage(Message.col("&7&o[Server: De-opped " + target_name + "]"));
-			return true;
+			Bukkit.broadcast(Message.col("&7&o[Server: De-opped " + target.getName() + "]"), "bukkit.command.op");
+			return false;
 		}
-		target.sendMessage(Message.col("&7&o[" + sender.getName() + ": De-opped " + target_name + "]"));
-		sender.sendMessage(ChatColor.GOLD + "Fake-opped " + target_name + "!");
+		Bukkit.broadcast(Message.col("&7&o[" + sender.getName() + ": De-opped " + target.getName() + "]"), "bukkit.command.op");
+		sender.sendMessage(Message.PREFIX + Message.getString("fake-deop.sender"));
 		return true;
 	}
 

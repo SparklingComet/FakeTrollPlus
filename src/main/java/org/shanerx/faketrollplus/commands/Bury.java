@@ -39,18 +39,19 @@ public class Bury implements CommandExecutor {
 		}
 		final Player target = plugin.getServer().getPlayer(args[0]);
 		if (target == null) {
-			sender.sendMessage(Message.getString("invalid-target"));
+			sender.sendMessage(Message.PREFIX + Message.getString("invalid-target"));
 			return false;
 		}
+		
 		final double depth = Message.getDouble("bury.depth");
 		Location loc = target.getLocation();
 		loc = target.getWorld().getHighestBlockAt(loc).getLocation();
 		target.teleport(new Location(loc.getWorld(), loc.getBlockX(), loc.getY() - depth, loc.getZ()));
-		sender.sendMessage(Message.col("&c" + target.getName() + " &6has been buried alive!"));
-		if (!plugin.getConfig().getBoolean("bury.do-msg-to-target")) {
-			return true;
+		
+		sender.sendMessage(Message.PREFIX + Message.getString("bury.sender").replace("%player%", target.getName()));
+		if (plugin.getConfig().getBoolean("bury.do-msg-to-target")) {
+			target.sendMessage(Message.getString("tprandom.msg-to-target"));
 		}
-		target.sendMessage(Message.getString("tprandom.msg-to-target"));
 		return true;
 	}
 

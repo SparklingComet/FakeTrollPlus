@@ -15,7 +15,6 @@
  */
 package org.shanerx.faketrollplus.commands;
 
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.command.Command;
@@ -35,25 +34,24 @@ public class Portal implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(final CommandSender sender, final Command cmd, final String label, final String[] args) {
-		if (!Message.verifyCommandSender(cmd, sender, "faketroll.portal", Message.getBool("enable-portal"), () -> args.length != 1)) {
+		if (!Message.verifyCommandSender(cmd, sender, "faketroll.portal", Message.getBool("portal.enable"), () -> args.length != 1)) {
 			return false;
 		}
 		final Player target = plugin.getServer().getPlayer(args[0]);
 		if (target == null) {
-			sender.sendMessage(Message.getString("invalid-target"));
+			sender.sendMessage(Message.PREFIX + Message.getString("invalid-target"));
 			return false;
 		}
-		final String target_name = target.getName();
 		String world = target.getLocation().getWorld().getName();
 		if (world.contains("_the_end")) {
-			sender.sendMessage(ChatColor.GOLD + "Player " + target_name + " is already there!");
+			sender.sendMessage(Message.PREFIX + Message.getString("portal.already-there").replace("%player%", target.getName()));
 			return false;
 		}
 		if (world.contains("_nether")) {
 			world = world.replace("_nether", "");
 		}
-		sender.sendMessage(ChatColor.GOLD + target_name + " has been warped far away!");
-		World end = plugin.getServer().getWorld(target.getWorld().getName() + "_the_end");
+		sender.sendMessage(Message.PREFIX + Message.getString("portal.warped").replace("%player%", target.getName()));
+		World end = plugin.getServer().getWorld(world + "_the_end");
 		final Location spawn = end.getHighestBlockAt(end.getSpawnLocation()).getLocation();
 		target.teleport(spawn);
 		return true;

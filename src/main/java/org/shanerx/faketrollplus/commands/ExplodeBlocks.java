@@ -15,7 +15,6 @@
  */
 package org.shanerx.faketrollplus.commands;
 
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -37,19 +36,20 @@ public class ExplodeBlocks implements CommandExecutor {
 		if (!Message.verifyCommandSender(cmd, sender, "faketroll.explodeblocks", Message.getBool("explode-blocks.enable"), () -> args.length != 1)) {
 			return false;
 		}
+		
 		final Player target = plugin.getServer().getPlayer(args[0]);
 		if (target == null) {
-			sender.sendMessage(Message.getString("invalid-target"));
+			sender.sendMessage(Message.PREFIX + Message.getString("invalid-target"));
 			return false;
 		}
 		final TrollPlayer tp = plugin.getUserCache().getTrollPlayer(target.getUniqueId());
 		if (tp.hasExplodeMinedBlocksEffect()) {
 			tp.setExplodeMinedBlocksEffect(false);
-			sender.sendMessage(ChatColor.GOLD + "Removed effect from " + target.getName() + "!");
+			sender.sendMessage(Message.PREFIX + Message.getString("explode-block.remove").replace("%player%", target.getName()));
 			return true;
 		}
 		tp.setExplodeMinedBlocksEffect(true);
-		sender.sendMessage(ChatColor.GOLD + "Applied effect on " + target.getName() + "!");
+		sender.sendMessage(Message.PREFIX + Message.getString("explode-block.apply").replace("%player%", target.getName()));
 		return true;
 	}
 

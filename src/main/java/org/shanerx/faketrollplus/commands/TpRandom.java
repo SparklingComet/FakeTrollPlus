@@ -16,7 +16,6 @@
 package org.shanerx.faketrollplus.commands;
 
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.command.Command;
@@ -39,23 +38,24 @@ public class TpRandom implements CommandExecutor {
 		if (!Message.verifyCommandSender(cmd, sender, "faketroll.tprandom", Message.getBool("tprandom.enable"), () -> args.length != 1)) {
 			return false;
 		}
+		
 		final Player target = plugin.getServer().getPlayer(args[0]);
 		if (target == null) {
-			sender.sendMessage(ChatColor.translateAlternateColorCodes('&', Message.getString("invalid-target")));
+			sender.sendMessage(Message.PREFIX + Message.getString("invalid-target"));
 			return false;
 		}
-		final String target_name = target.getName();
+		
 		final double bounds = Message.getDouble("tprandom.tp-bounds");
 		final double x = Math.random() * 2.0D * bounds - bounds;
 		final double y = target.getLocation().getY();
 		final double z = Math.random() * 2.0D * bounds - bounds;
 		final World w = Bukkit.getServer().getWorld("world");
 		target.teleport(new Location(w, x, y, z));
-		sender.sendMessage(ChatColor.GOLD + target_name + " has been teleported to a random location!");
-		if (!Message.getBool("tprandom.do-msg-to-target")) {
-			return true;
+		
+		sender.sendMessage(Message.PREFIX + Message.getString("tprandom.sender").replace("%player%", target.getName()));
+		if (Message.getBool("tprandom.do-msg-to-target")) {
+			target.sendMessage(Message.getString("tprandom.msg-to-target"));
 		}
-		target.sendMessage(ChatColor.translateAlternateColorCodes('&', Message.getString("tprandom.msg-to-target")));
 		return true;
 	}
 

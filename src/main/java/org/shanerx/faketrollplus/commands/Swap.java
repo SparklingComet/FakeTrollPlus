@@ -15,7 +15,6 @@
  */
 package org.shanerx.faketrollplus.commands;
 
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -37,12 +36,14 @@ public class Swap implements CommandExecutor {
 		if (!Message.verifyCommandSender(cmd, sender, "faketroll.swap", Message.getBool("swap.enable"), () -> args.length != 2)) {
 			return false;
 		}
+		
 		final Player t1 = plugin.getServer().getPlayer(args[0]);
 		final Player t2 = plugin.getServer().getPlayer(args[1]);
 		if (t1 == null || t2 == null) {
-			sender.sendMessage(Message.getString("swap.invalid-target"));
+			sender.sendMessage(Message.PREFIX + Message.getString("swap.invalid-target"));
 			return false;
 		}
+		
 		final Location loc1 = t1.getLocation();
 		final Location loc2 = t2.getLocation();
 		t1.teleport(loc2);
@@ -52,7 +53,8 @@ public class Swap implements CommandExecutor {
 			t1.sendMessage(Message.col(msg));
 			t2.sendMessage(Message.col(msg));
 		}
-		sender.sendMessage(Message.col("&6You made &c" + args[0] + " &6swap location with &c" + args[1] + "&6!"));
+		sender.sendMessage(Message.PREFIX + Message.getString("swap.sender").replace("%player1%",
+				t1.getName()).replace("%player2%", t2.getName()));
 		return true;
 	}
 

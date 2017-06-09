@@ -36,7 +36,7 @@ public class Fakejoin implements CommandExecutor {
 		if (!Message.verifyCommandSender(cmd, sender, "faketroll.fakejoin", Message.getBool("fake-join.enable"), () -> args.length != 1)) {
 			return false;
 		}
-		Bukkit.broadcastMessage(Message.getString("fake-join.message").replaceAll("%Player%", args[0]));
+		Bukkit.broadcastMessage(Message.getString("fake-join.message").replace("%player%", args[0]));
 		return true;
 	}
 

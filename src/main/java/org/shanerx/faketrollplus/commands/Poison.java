@@ -15,7 +15,6 @@
  */
 package org.shanerx.faketrollplus.commands;
 
-import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -36,26 +35,27 @@ public class Poison implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(final CommandSender sender, final Command cmd, final String label, final String[] args) {
-		if (!Message.verifyCommandSender(cmd, sender, "faketroll.poison", Message.getBool("enable-poison"), () -> args.length != 2)) {
+		if (!Message.verifyCommandSender(cmd, sender, "faketroll.poison", Message.getBool("poison.enable"), () -> args.length != 2)) {
 			return false;
 		}
 		final Player target = plugin.getServer().getPlayer(args[0]);
 		if (target == null) {
-			sender.sendMessage(Message.getString("invalid-target"));
+			sender.sendMessage(Message.PREFIX + Message.getString("invalid-target"));
 			return false;
 		}
-		final String target_name = target.getName();
 		try {
 			final int time = Integer.parseInt(args[1]);
 			if (target.getGameMode() == GameMode.CREATIVE || target.getGameMode() == GameMode.SPECTATOR) {
-				sender.sendMessage(Message.col("&6Can't poison a player in creative or spectator mode!"));
+				sender.sendMessage(Message.PREFIX + Message.getString("poison.failure"));
 				return false;
 			}
-			sender.sendMessage(ChatColor.GOLD + "Poisoned " + target_name + " for " + time + " seconds");
+			sender.sendMessage(Message.PREFIX + Message.getString("poison.sender")
+					.replace("%player%", target.getName())
+					.replace("%time%", Integer.toString(time)));
 			target.addPotionEffect(new PotionEffect(PotionEffectType.POISON, time * 20, 2));
 
 		} catch (final NumberFormatException e) {
-			sender.sendMessage(ChatColor.GOLD + "Time must be in seconds.");
+			sender.sendMessage(Message.PREFIX + Message.getString("poison.time"));
 			return false;
 		}
 		return true;

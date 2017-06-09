@@ -15,7 +15,6 @@
  */
 package org.shanerx.faketrollplus.commands;
 
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -39,19 +38,16 @@ public class Invlock implements CommandExecutor {
 		}
 		final Player target = plugin.getServer().getPlayer(args[0]);
 		if (target == null) {
-			sender.sendMessage(Message.getString("invalid-target"));
+			sender.sendMessage(Message.PREFIX + Message.getString("invalid-target"));
 			return false;
 		}
 		final TrollPlayer tp = plugin.getUserCache().getTrollPlayer(target.getUniqueId());
-		final String target_name = target.getName();
 		if (tp.invIsLocked()) {
-			sender.sendMessage(ChatColor.GOLD + "You have removed the lock on " + ChatColor.RED + target_name
-					+ ChatColor.GOLD + "'s inventory.");
+			sender.sendMessage(Message.PREFIX + Message.getString("inventory-lock.sender.off").replace("%player%", target.getName()));
 			tp.setInvLocked(false);
 			return true;
 		}
-		sender.sendMessage(ChatColor.GOLD + "You have locked " + ChatColor.RED + target_name + ChatColor.GOLD
-				+ " out of their inventory.");
+		sender.sendMessage(Message.PREFIX + Message.getString("inventory-lock.sender.on").replace("%player%", target.getName()));
 		tp.setInvLocked(true);
 		return true;
 	}

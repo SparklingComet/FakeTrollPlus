@@ -15,7 +15,6 @@
  */
 package org.shanerx.faketrollplus.commands;
 
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -33,7 +32,7 @@ public class Hurt implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(final CommandSender sender, final Command cmd, final String label, final String[] args) {
-		if (!Message.verifyCommandSender(cmd, sender, "faketroll.hurt", Message.getBool("enable-hurt"), () -> {
+		if (!Message.verifyCommandSender(cmd, sender, "faketroll.hurt", Message.getBool("hurt.enable"), () -> {
 			if (args.length < 2) {
 				return true;
 			} else if (!isNumber(args[1])) {
@@ -43,20 +42,22 @@ public class Hurt implements CommandExecutor {
 		})) {
 			return false;
 		}
+		
 		final Player target = plugin.getServer().getPlayer(args[0]);
 		if (target == null) {
-			sender.sendMessage(Message.getString("invalid-target"));
+			sender.sendMessage(Message.PREFIX + Message.getString("invalid-target"));
 			return false;
 		}
-		final String target_name = target.getName();
-		final int hp_dmg = Integer.parseInt(args[1]);
-		final int dmg = hp_dmg / 2;
-		if (target.getHealth() - hp_dmg <= 0.0D) {
+		final int hp = Integer.parseInt(args[1]);
+		final int hearts = hp / 2;
+		if (target.getHealth() - hp <= 0.0D) {
 			target.setHealth(0.0D);
 		} else {
-			target.setHealth(target.getHealth() - hp_dmg);
+			target.setHealth(target.getHealth() - hp);
 		}
-		sender.sendMessage(ChatColor.GOLD + "Applied a " + dmg + " heart(s) damage to " + target_name + "!");
+		sender.sendMessage(Message.PREFIX + Message.getString("hurt.sender")
+				.replace("%damage%", Integer.toString(hearts))
+				.replace("%player%", target.getName()));
 		return true;
 	}
 	

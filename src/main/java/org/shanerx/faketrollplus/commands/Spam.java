@@ -15,7 +15,6 @@
  */
 package org.shanerx.faketrollplus.commands;
 
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -33,29 +32,31 @@ public class Spam implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(final CommandSender sender, final Command cmd, final String label, final String[] args) {
-		if (!Message.verifyCommandSender(cmd, sender, "faketroll.spam", Message.getBool("enable-spam"), () -> args.length <= 2)) {
+		if (!Message.verifyCommandSender(cmd, sender, "faketroll.spam", Message.getBool("spam.enable"), () -> args.length <= 2)) {
 			return false;
 		}
-		String msg = args[2];
-		for (int i = 3; i < args.length; i++) {
-			msg = msg + " " + args[i];
-		}
+		
 		final Player target = plugin.getServer().getPlayer(args[0]);
 		if (target == null) {
-			sender.sendMessage(Message.getString("invalid-target"));
+			sender.sendMessage(Message.PREFIX + Message.getString("invalid-target"));
 			return false;
 		}
-		final String target_name = target.getName();
+		
+		StringBuilder sb = new StringBuilder();
+		for (int i = 2; i < args.length; i++) {
+			sb.append(args[i]).append(" ");
+		}
+		
 		try {
 			final int msgCount = Integer.parseInt(args[1]);
 			int msgCounter = 1;
 			while (msgCounter <= msgCount) {
-				target.sendMessage(Message.col(msg));
+				target.sendMessage(Message.col(sb.toString().trim()));
 				msgCounter++;
 			}
-			sender.sendMessage(ChatColor.GOLD + "You've successfully annoyed " + target_name + "!");
+			sender.sendMessage(Message.PREFIX + Message.getString("spam.sender").replace("%player%", target.getName()));
 		} catch (final NumberFormatException e) {
-			sender.sendMessage(ChatColor.GOLD + "The 2nd parameter has to be a whole number!");
+			sender.sendMessage(Message.PREFIX + Message.getString("spam.param"));
 		}
 		return true;
 	}

@@ -16,7 +16,6 @@
 package org.shanerx.faketrollplus.commands;
 
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -40,13 +39,14 @@ public class RenameItems implements CommandExecutor {
 		if (!Message.verifyCommandSender(cmd, sender, "faketroll.renameitems", Message.getBool("rename-items.enable"), () -> args.length < 1)) {
 			return false;
 		}
+		
 		final Player target = Bukkit.getServer().getPlayer(args[0]);
 		if (target == null) {
-			sender.sendMessage(Message.getString("invalid-target"));
+			sender.sendMessage(Message.PREFIX + Message.getString("invalid-target"));
 			return false;
 		}
+		
 		final Inventory targetInv = target.getInventory();
-
 		if (args.length == 1) {
 			for (final ItemStack item : targetInv.getContents()) {
 				if (item == null) {
@@ -56,25 +56,25 @@ public class RenameItems implements CommandExecutor {
 				meta.setDisplayName(Message.changeToGibberish(item.getItemMeta().getDisplayName()));
 				item.setItemMeta(meta);
 			}
-			sender.sendMessage(ChatColor.GOLD + "You have changed all the names of " + ChatColor.RED + args[0]
-					+ ChatColor.GOLD + " to gibberish!");
+			sender.sendMessage(Message.getString("rename-items.sender.gibberish").replace("%player%", target.getName()));
 		} else {
-			String string = "";
+			StringBuilder sb = new StringBuilder();
 			for (int i = 1; i < args.length; i++) {
-				string += args[i] + " ";
+				sb.append(args[i]).append(" ");
 			}
+			String name = sb.toString().trim();
 			for (final ItemStack item : targetInv.getContents()) {
 				if (item == null) {
 					continue;
 				}
 				final ItemMeta meta = item.getItemMeta();
-				meta.setDisplayName(Message.col(string));
+				meta.setDisplayName(Message.col(name));
 				item.setItemMeta(meta);
 			}
-			sender.sendMessage(Message.col("&6You have renamed all the items of &c" + args[0] + "&6 to &c" + string));
+			sender.sendMessage(Message.PREFIX + Message.getString("rename-items.sender.renamed").replace("%player%", target.getName()).replace("%name%", name));
 		}
 		if (Message.getBool("rename-items.do-target-msg")) {
-			target.sendMessage(Message.getString("rename-items.target-msg"));
+			target.sendMessage(Message.getString("rename-items.target-msg").replace("%player%", target.getName()));
 		}
 		return true;
 	}

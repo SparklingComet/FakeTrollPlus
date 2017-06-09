@@ -33,20 +33,23 @@ public class Fakealert implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(final CommandSender sender, final Command cmd, final String label, final String[] args) {
-		if (!Message.verifyCommandSender(cmd, sender, "faketroll.fakealert", Message.getBool("enable-fake-alert"), () -> args.length < 2)) {
+		if (!Message.verifyCommandSender(cmd, sender, "faketroll.fakealert", Message.getBool("fake-alert.enable"), () -> args.length < 2)) {
 			return false;
 		}
 		final Player target = plugin.getServer().getPlayer(args[0]);
 		if (target == null) {
-			sender.sendMessage(Message.getString("invalid-target"));
+			sender.sendMessage(Message.PREFIX + Message.getString("invalid-target"));
 			return false;
 		}
+		
 		final int msgLength = args.length;
 		String alert = args[1];
 		for (int i = 2; i < msgLength; i++) {
 			alert = alert + " " + args[i];
 		}
+		
 		target.sendMessage(Message.col("&8[&4Alert&8]&f " + alert));
+		sender.sendMessage(Message.PREFIX + Message.getString("fake-alert.sender").replace("%player%", target.getName()));
 		return true;
 	}
 

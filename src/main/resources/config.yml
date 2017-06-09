@@ -25,30 +25,57 @@ console-bypass: true
 help:
   require-permission: true
 
-enable-fake-op: true
-enable-fake-deop: true
+fake-op:
+  enable: true
+  sender: 'Fake-opped &3%player%&f!'
 
-enable-fake-alert: true
+fake-deop:
+  enable: true
+  sender: 'Fake-deopped &3%player%&f!'
+
+fake-alert:
+  enable: true
+  sender: 'Sent alert to &3%player%&f.'
+
 fake-broadcast:
   enable: true
   format: '&6[&4Broadcast&6]&a '
+  sender: 'Sent broadcast to &3%player%&f.'
 
 fake-join:
   enable: true
-  message: '&e%Player% joined the game'
+  message: '&e%player% joined the game'
 fake-leave:
   enable: true
-  message: '&e%Player% left the game'
+  message: '&e%player% left the game'
   
-enable-hurt: true
-enable-poison: true
-enable-murder: true
-enable-burn: true
+hurt:
+  enable: true
+  sender: 'Applied &3%damage% heart(s)&f damage to player &3%player%&f.'
+
+poison:
+  enable: true
+  sender: 'Poisoned &3%player% &ffor &3%time% &fseconds!'
+  time: 'Time must be in seconds. Decimals are not allowed.'
+  failure: 'Can''t poison a player in creative or spectator mode!'
+
+murder:
+  enable: true
+  sender: 'You just killed &3%player%&f!'
+
+burn:
+  enable: true
+  sender: 'Set &3%player%&f on fire for &3%time% seconds&f!'
+  failure: 'Cannot light a player in creative or spectator mode on fire!'
+  invalid-arg: 'Time must be in seconds!'
 
 inventory-lock:
   enable: true
   do-target-msg: true
   target-msg: '&3Sorry, but you are not allowed to access your inventory at the moment.'
+  sender:
+    on: 'You have locked player &3%player% &fout of their inventory.'
+    off: 'You have removed the lock on &3%player%&f''s inventory.'
 
 freeze:
   enable: true
@@ -56,99 +83,151 @@ freeze:
   unfreeze-msg: '&3You have been unfrozen and are free to log off!'
   do-move-attempt-msg: true
   move-attempt-msg: '&3You are not allowed to move!'
+  sender:
+    on: 'Player &3%player% &fhas ben frozen.'
+    off: 'Player &3%player% &fis now free to move.'
 
-enable-gibberish: true
+gibberish:
+  enable: true
+  sender:
+    on: 'Player &3%player% &fwill now talk gibberish!'
+    off: 'Player &3%player% &fwill no longer talk gibberish!'
 
 rename-items:
   enable: true
   do-target-msg: false
   target-msg: '&cOops! It seems that there is something wrong with your items!'
+  sender:
+    gibberish: 'You renamed all of &3%player%&f''s items to random characters!'
+    renamed: 'You have renamed all of &3%player%&f''s items to: &3%name%'
 
 tprandom:
   enable: true
   tp-bounds: 10000
   do-msg-to-target: false
   msg-to-target: '&6It seems that you have been teleported!'
+  sender: 'Player &3%player% &fhas been teleported to a random location.'
   
-enable-portal: true
+portal:
+  enable: true
+  already-there: 'Player &3%player% &fis already there!'
+  warped: 'Player &3%player% &fwas warped away.'
 
-enable-spam: true
+spam:
+  enable: true
+  sender: 'Annoying &3%player%&f.'
+  param: 'The second parameter must be an integer.'
+
 fake-msg:
   enable: true
   format: '&6[&r{PLAYER} &6-> &cme&6]&f {MESSAGE}'
   allow-fake-names: true
+  sender: 'Send private message to &3%player%&f.'
   
 fake-chat:
   enable: true
   allow-unexisting-nicks: true
   format: '<{PLAYER}> {MESSAGE}'
 
-enable-clearinv: true
+clearinv:
+  enable: true
+  sender: 'Cleared inventory of &3%player%&f!'
+
 random-inv:
   enable: true
   do-target-msg: false
   target-msg: '&3Something unexpected happened.'
+  sender: 'Executed action upon &3%player%&f.'
   
 fake-pay:
   enable: true
   format: '&a${AMOUNT} has been received from {SENDER}&f.'
+  sender: 'Faked transaction of &3${AMOUNT} &fto &3%player%&f.'
 
-enable-fake-crash: true
+fake-crash:
+  enable: true
+  sender: '&3%player% &fhas been kicked!'
 
 fake-ban:
   enable: true
   ban-message: 'You are banned from this server! Reason: {REASON}'
   do-broadcast: true
   broadcast-msg: '&cPlayer {PLAYER} has been banned by {STAFF} for {REASON}!'
+  sender: 'Fake-banned &3%player%&f for reason: &3%reason%'
 
-enable-fake-god: true
+fake-god:
+  enable: true
+  on: '&6God mode &cenabled&6.'
+  off: '&6God mode &cdisabled&6.'
+  sender: 'Toggled fake-god mode for &3%player%&f.'
 
 fake-afk:
   enable: true
-  format-on: '&7* {PLAYER} &7is now AFK.'
-  format-off: '&7* {PLAYER} &7is no longer AFK.'
+  on: '&7* %player% &7is now AFK.'
+  off: '&7* %player% &7is no longer AFK.'
 
-enable-anvil: true
+anvil:
+  enable: true
+  sender: 'You''ve hit &3%player%&f!'
 
 explode:
   enable: true
   power: 4
   set-fire: true
+  sender: 'Generated explosion at &3%player%&f''s location!'
   
 explode-blocks:
   enable: true
   power: 3
   set-fire: false
+  apply: 'Applied effect to &3%player%&f!'
+  remove: 'Removed effect from &3%player%&f!'
 
-enable-force-cmd: true
+force-cmd:
+  enable: true
+  sender: 'Forced &3%player% &fto run: &3/%command%'
 
-enable-launch: true
+launch:
+  enable: true
+  sender: '&3%player% &fhas been launched in the air!'
 
 swap:
   enable: true
   invalid-target: 'Sorry, but at least one of your targets was &3not found&f.'
   send-message-to-target: true
   target-msg: '&bSomething unexpected happened...'
+  sender: 'You made &3%player1% &fswap locations with &3%player2%&f'
 
 bury:
   enable: true
   depth: 6.0
   do-msg-to-target: true
   msg-to-target: '&bUh, oh: It appears that you have been buried alive!'
+  sender: '&3%player% &fhas been buried alive!'
   
 no-pickup:
   enable: true
   alert-victim: true
   on-enable: '&3You may no longer pick up items from the ground!'
   on-disable: '&3You may now pick up items from the ground!'
+  sender:
+    on: 'Player &3%player% &fcan no longer pickup items!'
+    off: 'Player &3%player% &fcan now pickup items!'
   
 badfood:
   enable: true
   duration: 10
+  apply: 'Applied effect to &3%player%&f!'
+  remove: 'Removed effect from &3%player%&f!'
   
-enable-replaceinv: true
-enable-push: true
-enable-cobweb: true
+replaceinv:
+  enable: true
+  sender: 'You have replaced all of &3%player%&f''s items with &3%item%'
+  invalid: 'Invalid item.'
+
+cobweb:
+  enable: true
+  sender: 'You have trapped &3%player%&f!'
 
 # Blacklist configurations
 enable-blacklist: true

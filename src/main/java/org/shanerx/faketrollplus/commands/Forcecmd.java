@@ -15,7 +15,6 @@
  */
 package org.shanerx.faketrollplus.commands;
 
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -33,23 +32,20 @@ public class Forcecmd implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(final CommandSender sender, final Command cmd, final String label, final String[] args) {
-		if (!Message.verifyCommandSender(cmd, sender, "faketroll.forcecmd", Message.getBool("enable-force-cmd"), () -> args.length < 2)) {
+		if (!Message.verifyCommandSender(cmd, sender, "faketroll.forcecmd", Message.getBool("force-cmd.enable"), () -> args.length < 2)) {
 			return false;
 		}
 		final Player target = plugin.getServer().getPlayer(args[0]);
 		if (target == null) {
-			sender.sendMessage(Message.getString("invalid-target"));
+			sender.sendMessage(Message.PREFIX + Message.getString("invalid-target"));
 			return false;
 		}
-		final String target_name = target.getName();
-		String forceCmd = args[1];
-		if (args.length > 2) {
-			for (int i = 2; i < args.length; i++) {
-				forceCmd = forceCmd + " " + args[i];
-			}
+		StringBuilder forceCmd = new StringBuilder();
+		for (int i = 1; i < args.length; i++) {
+			forceCmd.append(args[i]).append(" ");
 		}
-		sender.sendMessage(ChatColor.GOLD + "Forced " + target_name + " to run /" + forceCmd);
-		plugin.getServer().dispatchCommand(target, forceCmd);
+		sender.sendMessage(Message.PREFIX + Message.getString("force-cmd.sender").replace("%player%", target.getName()).replace("%command%", forceCmd.toString().trim()));
+		plugin.getServer().dispatchCommand(target, forceCmd.toString().trim());
 		return true;
 	}
 

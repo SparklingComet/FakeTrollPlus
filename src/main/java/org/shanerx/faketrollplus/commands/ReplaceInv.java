@@ -15,7 +15,6 @@
  */
 package org.shanerx.faketrollplus.commands;
 
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -36,12 +35,12 @@ public class ReplaceInv implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(final CommandSender sender, final Command cmd, final String label, final String[] args) {
-		if (!Message.verifyCommandSender(cmd, sender, "faketroll.replaceinv", Message.getBool("enable-replaceinv"), () -> args.length != 2 && args.length != 3)) {
+		if (!Message.verifyCommandSender(cmd, sender, "faketroll.replaceinv", Message.getBool("replaceinv.enable"), () -> args.length != 2 && args.length != 3)) {
 			return false;
 		}
 		final Player target = plugin.getServer().getPlayer(args[0]);
 		if (target == null) {
-			sender.sendMessage(Message.getString("invalid-target"));
+			sender.sendMessage(Message.PREFIX + Message.getString("invalid-target"));
 			return true;
 		}
 		ItemStack is = null;
@@ -50,7 +49,7 @@ public class ReplaceInv implements CommandExecutor {
 			amount = args.length == 3 ? Integer.parseInt(args[2]) : 1;
 			is = new ItemStack(Material.valueOf(args[1].toUpperCase()), amount);
 		} catch (final Exception e) {
-			sender.sendMessage(Message.col("&6Invalid item!"));
+			sender.sendMessage(Message.PREFIX + Message.getString("replaceinv.invalid"));
 			return false;
 		}
 		final Inventory inv = target.getInventory();
@@ -59,8 +58,7 @@ public class ReplaceInv implements CommandExecutor {
 				inv.setItem(i, is);
 			}
 		}
-		sender.sendMessage(Message.col("&6You replaced all &c" + args[0] + "&6's items with " + is.getType().name()
-				+ " x " + Integer.toString(amount) + "&6!"));
+		sender.sendMessage(Message.PREFIX + Message.getString("replaceinv.sender").replace("%player%", target.getName()).replace("%item%", is.toString()));
 		return true;
 	}
 

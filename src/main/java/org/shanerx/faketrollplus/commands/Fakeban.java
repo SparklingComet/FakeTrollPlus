@@ -16,7 +16,6 @@
 package org.shanerx.faketrollplus.commands;
 
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -39,24 +38,23 @@ public class Fakeban implements CommandExecutor {
 		}
 		final Player target = plugin.getServer().getPlayer(args[0]);
 		if (target == null) {
-			sender.sendMessage(Message.getString("invalid-target"));
+			sender.sendMessage(Message.PREFIX + Message.getString("invalid-target"));
 			return false;
 		}
-		final String target_name = target.getName();
+		
 		String reason = args[1];
 		for (int i = 2; i < args.length; i++) {
 			reason = reason + " " + args[i];
 		}
-		sender.sendMessage(ChatColor.GOLD + "Fake-banned " + target_name + " for \"" + reason + "\"");
+		sender.sendMessage(Message.PREFIX + Message.getString("fake-ban.sender").replace("%player%", target.getName()).replace("%reason%", reason));
 		final String banMessage = Message.getString("fake-ban.ban-message").replace("{REASON}", reason);
 		target.kickPlayer(banMessage);
 		final Player staff = (Player) sender;
-		final String staff_name = staff.getDisplayName();
 
 		if (Message.getBool("fake-ban.do-broadcast")) {
 			String fakebanMessage = Message.getString("fake-ban.broadcast-msg");
 			fakebanMessage = fakebanMessage.replace("{PLAYER}", target.getName());
-			fakebanMessage = fakebanMessage.replace("{STAFF}", staff_name);
+			fakebanMessage = fakebanMessage.replace("{STAFF}", staff.getDisplayName());
 			fakebanMessage = fakebanMessage.replace("{REASON}", reason);
 			Bukkit.broadcastMessage(fakebanMessage);
 		}

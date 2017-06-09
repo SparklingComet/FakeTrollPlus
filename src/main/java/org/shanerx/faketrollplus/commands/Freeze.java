@@ -15,7 +15,6 @@
  */
 package org.shanerx.faketrollplus.commands;
 
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -40,21 +39,21 @@ public class Freeze implements CommandExecutor {
 		if (!Message.verifyCommandSender(cmd, sender, "faketroll.freeze", Message.getBool("freeze.enable"), () -> args.length != 1)) {
 			return false;
 		}
+		
 		final Player target = plugin.getServer().getPlayer(args[0]);
 		if (target == null) {
-			sender.sendMessage(Message.getString("invalid-target"));
+			sender.sendMessage(Message.PREFIX + Message.getString("invalid-target"));
 			return false;
 		}
-		final String target_name = target.getName();
 		final TrollPlayer tp = uc.getTrollPlayer(target.getUniqueId());
 		if (tp.isFrozen()) {
 			tp.setFrozen(false);
-			sender.sendMessage(ChatColor.GOLD + "Player " + target_name + " has been unfrozen!");
+			sender.sendMessage(Message.PREFIX + Message.getString("freeze.sender.off"));
 			target.sendMessage(Message.getString("freeze.unfreeze-msg"));
 			return true;
 		}
 		tp.setFrozen(true);
-		sender.sendMessage(ChatColor.GOLD + "Player " + target_name + " has been frozen!");
+		sender.sendMessage(Message.PREFIX + Message.getString("freeze.sender.on"));
 		target.sendMessage(Message.getString("freeze.freeze-msg"));
 		return true;
 	}

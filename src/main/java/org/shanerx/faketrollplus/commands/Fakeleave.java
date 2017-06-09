@@ -16,7 +16,6 @@
 package org.shanerx.faketrollplus.commands;
 
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -36,7 +35,7 @@ public class Fakeleave implements CommandExecutor {
 		if (!Message.verifyCommandSender(cmd, sender, "faketroll.fakeleave", Message.getBool("fake-leave.enable"), () -> args.length != 1)) {
 			return false;
 		}
-		Bukkit.broadcastMessage(Message.getString("fake-leave.message").replaceAll("%Player%", args[0]));
+		Bukkit.broadcastMessage(Message.getString("fake-leave.message").replace("%player%", args[0]));
 		return true;
 	}
 }

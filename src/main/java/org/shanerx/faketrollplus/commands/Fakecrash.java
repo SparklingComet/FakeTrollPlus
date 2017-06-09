@@ -15,7 +15,6 @@
  */
 package org.shanerx.faketrollplus.commands;
 
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -33,18 +32,21 @@ public class Fakecrash implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(final CommandSender sender, final Command cmd, final String label, final String[] args) {
-		if (!Message.verifyCommandSender(cmd, sender, "faketroll.fakecrash", Message.getBool("enable-fake-crash"), () -> args.length != 1)) {
+		if (!Message.verifyCommandSender(cmd, sender, "faketroll.fakecrash", Message.getBool("fake-crash.enable"), () -> args.length != 1)) {
 			return false;
 		}
 		final Player target = plugin.getServer().getPlayer(args[0]);
 		if (target == null) {
-			sender.sendMessage(Message.getString("invalid-target"));
+			sender.sendMessage(Message.PREFIX + Message.getString("invalid-target"));
 			return false;
 		}
-		final String target_name = target.getName();
-		sender.sendMessage(ChatColor.GOLD + target_name + " has been kicked");
+
+		sender.sendMessage(Message.PREFIX + Message.getString("fake-crash.sender"));
 		target.kickPlayer(
-				"Internal Exception: io.netty.handler.codec.DecoderException: java.lang.IndexOutOfBoundsException: readerIndex(9) + length(1) exceeds writerIndex(9): UnpooledHeapByteBuf(ridx: 9,widx: 9, cap: 9)");
+				"Internal Exception: io.netty.handler.codec.DecoderException: "
+				+ "java.lang.IndexOutOfBoundsException: "
+				+ "readerIndex(9) + length(1) exceeds writerIndex(9): "
+				+ "UnpooledHeapByteBuf(ridx: 9,widx: 9, cap: 9)");
 		return true;
 	}
 

@@ -15,7 +15,6 @@
  */
 package org.shanerx.faketrollplus.commands;
 
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -33,7 +32,7 @@ public class Fakegod implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(final CommandSender sender, final Command cmd, final String label, final String[] args) {
-		if (!Message.verifyCommandSender(cmd, sender, "faketroll.fakegod", Message.getBool("enable-fake-god"), () -> {
+		if (!Message.verifyCommandSender(cmd, sender, "faketroll.fakegod", Message.getBool("fake-god.enable"), () -> {
 			if (args.length != 2) {
 				return true;
 			} else if (args[0].equalsIgnoreCase("on") || args[0].equalsIgnoreCase("off")) {
@@ -43,16 +42,18 @@ public class Fakegod implements CommandExecutor {
 		})) {
 			return false;
 		}
+		
 		final Player target = plugin.getServer().getPlayer(args[0]);
 		if (target == null) {
-			sender.sendMessage(Message.getString("invalid-target"));
+			sender.sendMessage(Message.PREFIX + Message.getString("invalid-target"));
 			return false;
 		}
 		if (args[1].equalsIgnoreCase("on")) {
-			target.sendMessage(ChatColor.GOLD + "God mode " + ChatColor.RED + "enabled" + ChatColor.GOLD + ".");
+			target.sendMessage(Message.getString("fake-god.on"));
 		} else {
-			target.sendMessage(ChatColor.GOLD + "God mode " + ChatColor.RED + "disabled" + ChatColor.GOLD + ".");
+			target.sendMessage(Message.getString("fake-god.off"));
 		}
+		sender.sendMessage(Message.PREFIX + Message.getString("fake-god.sender").replace("%player%", target.getName()));
 		return true;
 	}
 

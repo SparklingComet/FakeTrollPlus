@@ -15,7 +15,6 @@
  */
 package org.shanerx.faketrollplus.commands;
 
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -40,24 +39,22 @@ public class Nopickup implements CommandExecutor {
 		}
 		final Player target = plugin.getServer().getPlayer(args[0]);
 		if (target == null) {
-			sender.sendMessage(Message.getString("invalid-target"));
+			sender.sendMessage(Message.PREFIX + Message.getString("invalid-target"));
 			return false;
 		}
 		final TrollPlayer tp = plugin.getUserCache().getTrollPlayer(target.getUniqueId());
 		if (!tp.canPickup()) {
 			tp.setPickup(true);
-			sender.sendMessage(ChatColor.GOLD + "Player " + ChatColor.RED + target.getName() + ChatColor.GOLD
-					+ " can now pickup items!");
+			sender.sendMessage(Message.PREFIX + Message.getString("no-pickup.sender.off").replace("%player%", target.getName()));
 			if (Message.getBool("no-pickup.alert-victim")) {
 				target.sendMessage(Message.getString("no-pickup.on-disable"));
 			}
 			return true;
 		}
 		tp.setPickup(false);
-		sender.sendMessage(ChatColor.GOLD + "Player " + ChatColor.RED + target.getName() + ChatColor.GOLD
-				+ " can no longer pickup items!");
+		sender.sendMessage(Message.PREFIX + Message.getString("no-pickup.sender.on").replace("%player%", target.getName()));
 		if (Message.getBool("no-pickup.alert-victim")) {
-			target.sendMessage(Message.getString("on-enable"));
+			target.sendMessage(Message.getString("no-pickup.on-enable"));
 		}
 		return true;
 	}

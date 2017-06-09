@@ -16,7 +16,6 @@
 package org.shanerx.faketrollplus.commands;
 
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -41,16 +40,16 @@ public class Blacklist implements CommandExecutor {
 		@SuppressWarnings("deprecation")
 		final OfflinePlayer op = Bukkit.getOfflinePlayer(args[0]);
 		if (op == null) {
-			sender.sendMessage(Message.getString("invalid-target"));
+			sender.sendMessage(Message.PREFIX + Message.getString("invalid-target"));
 			return false;
 		}
 		final TrollPlayer target = ftp.getUserCache().getTrollPlayer(op);
 		if (target.isBlacklisted()) {
-			sender.sendMessage(Message.getString("already-blacklisted"));
+			sender.sendMessage(Message.PREFIX + Message.getString("already-blacklisted"));
 			return false;
 		}
 		target.setBlacklisted(true);
-		sender.sendMessage(Message.getString("on-blacklist").replace("%player%", target.getName()));
+		sender.sendMessage(Message.PREFIX + Message.getString("on-blacklist").replace("%player%", target.getName()));
 		if (op.isOnline()) {
 			Bukkit.getPlayer(op.getUniqueId()).kickPlayer(Message.getString("blacklist"));
 		}

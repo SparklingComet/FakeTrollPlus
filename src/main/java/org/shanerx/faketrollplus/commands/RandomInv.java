@@ -15,7 +15,6 @@
  */
 package org.shanerx.faketrollplus.commands;
 
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -39,16 +38,18 @@ public class RandomInv implements CommandExecutor {
 		}
 		final Player target = plugin.getServer().getPlayer(args[0]);
 		if (target == null) {
-			sender.sendMessage(Message.getString("invalid-target"));
+			sender.sendMessage(Message.PREFIX + Message.getString("invalid-target"));
 			return false;
 		}
 		final Inventory playerInventory = target.getInventory();
 		target.openInventory(playerInventory);
 		final boolean targetMsg = Message.getBool("random-inv.do-target-msg");
-		final String targetMessage = Message.getString("random-inv.target-msg");
+		
 		if (targetMsg) {
+			final String targetMessage = Message.getString("random-inv.target-msg").replace("%player%", target.getName());
 			target.sendMessage(Message.col(targetMessage));
 		}
+		sender.sendMessage(Message.PREFIX + Message.getString("random-inv.sender").replace("%player%", target.getName()));
 		return true;
 	}
 

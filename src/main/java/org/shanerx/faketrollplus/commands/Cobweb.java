@@ -15,7 +15,6 @@
  */
 package org.shanerx.faketrollplus.commands;
 
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -34,17 +33,17 @@ public class Cobweb implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(final CommandSender sender, final Command cmd, final String label, final String[] args) {
-		if (!Message.verifyCommandSender(cmd, sender, "faketroll.cobweb", Message.getBool("enable-cobweb"), () -> args.length != 1)) {
+		if (!Message.verifyCommandSender(cmd, sender, "faketroll.cobweb", Message.getBool("cobweb.enable"), () -> args.length != 1)) {
 			return false;
 		}
+		
 		final Player target = plugin.getServer().getPlayer(args[0]);
 		if (target == null) {
-			sender.sendMessage(Message.getString("invalid-target"));
+			sender.sendMessage(Message.PREFIX + Message.getString("invalid-target"));
 			return false;
 		}
-		final String target_name = target.getName();
-		sender.sendMessage(ChatColor.GOLD + "You have trapped " + ChatColor.RED + target_name);
 		target.getLocation().getBlock().setType(Material.WEB);
+		sender.sendMessage(Message.PREFIX + Message.getString("cobweb.sender").replace("%player%", target.getName()));
 		return true;
 	}
 
