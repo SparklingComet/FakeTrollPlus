@@ -51,9 +51,9 @@ public class Fakeafk implements CommandExecutor {
 		}
 		
 		if (args[1].equalsIgnoreCase("on")) {
-			Bukkit.broadcastMessage(Message.getString("fake-afk.on").replace("%player%", target.getName()));
+			Bukkit.broadcastMessage(Message.getString("fake-afk.toggle-on").replace("%player%", target.getName()));
 		} else if (args[1].equalsIgnoreCase("off")) {
-			Bukkit.broadcastMessage(Message.getString("fake-afk.off").replace("%player%", target.getName()));
+			Bukkit.broadcastMessage(Message.getString("fake-afk.toggle-off").replace("%player%", target.getName()));
 		}
 		return true;
 	}

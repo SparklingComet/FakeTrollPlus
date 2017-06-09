@@ -108,7 +108,7 @@ commands:
     usage: /fakepay <target> <amount>
   randominv:
     description: Randomly open a player's inventory.
-    aliases: [openinv, oi, openinventory, randominventory, rinv]
+    aliases: [openinv, oi, openinventory, randominventory]
     usage: /randominv <target>
   gibberish:
     description: Change all the text a player types to gibberish!
@@ -143,17 +143,18 @@ commands:
   inventorylock:
     description: Lock a player out of their inventory.
     aliases: [invlock, lockinventory, lockinv, il, li]
-    usage: /invlock <target>"
+    usage: /invlock <target>
   explode:
     description: Explode a player.
     aliases: [deflagrate]
     usage: /explode <target>
   badfood:
     description: Make a player get poisoned by everything they eat.
+    aliases: [bf]
     usage: /badfood <target>
   explodeblocks:
     description: Blow up every block a player mines.
-    aliases: [eb, explodebl, blocksexplode]
+    aliases: [eb, expblocks, explblocks, explodebl, blocksexplode]
     usage: /explodeblocks <target>
   blacklist:
     description: Add a player's account to the blacklist.

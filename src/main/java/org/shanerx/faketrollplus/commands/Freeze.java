@@ -48,12 +48,12 @@ public class Freeze implements CommandExecutor {
 		final TrollPlayer tp = uc.getTrollPlayer(target.getUniqueId());
 		if (tp.isFrozen()) {
 			tp.setFrozen(false);
-			sender.sendMessage(Message.PREFIX + Message.getString("freeze.sender.off"));
+			sender.sendMessage(Message.PREFIX + Message.getString("freeze.sender.toggle-off").replace("%player%", target.getName()));
 			target.sendMessage(Message.getString("freeze.unfreeze-msg"));
 			return true;
 		}
 		tp.setFrozen(true);
-		sender.sendMessage(Message.PREFIX + Message.getString("freeze.sender.on"));
+		sender.sendMessage(Message.PREFIX + Message.getString("freeze.sender.toggle-on").replace("%player%", target.getName()));
 		target.sendMessage(Message.getString("freeze.freeze-msg"));
 		return true;
 	}

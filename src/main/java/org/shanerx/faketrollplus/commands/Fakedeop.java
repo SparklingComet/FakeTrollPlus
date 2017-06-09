@@ -44,11 +44,11 @@ public class Fakedeop implements CommandExecutor {
 		}
 		
 		if (!(sender instanceof Player)) {
-			Bukkit.broadcast(Message.col("&7&o[Server: De-opped " + target.getName() + "]"), "bukkit.command.op");
+			target.sendMessage(Message.col("&7&o[Server: De-opped " + target.getName() + "]"));
 			return false;
 		}
-		Bukkit.broadcast(Message.col("&7&o[" + sender.getName() + ": De-opped " + target.getName() + "]"), "bukkit.command.op");
-		sender.sendMessage(Message.PREFIX + Message.getString("fake-deop.sender"));
+		target.sendMessage(Message.col("&7&o[" + sender.getName() + ": De-opped " + target.getName() + "]"));
+		sender.sendMessage(Message.PREFIX + Message.getString("fake-deop.sender").replace("%player%", target.getName()));
 		return true;
 	}
 

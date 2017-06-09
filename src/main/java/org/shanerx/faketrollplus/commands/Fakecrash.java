@@ -41,7 +41,7 @@ public class Fakecrash implements CommandExecutor {
 			return false;
 		}
 
-		sender.sendMessage(Message.PREFIX + Message.getString("fake-crash.sender"));
+		sender.sendMessage(Message.PREFIX + Message.getString("fake-crash.sender").replace("%player%", target.getName()));
 		target.kickPlayer(
 				"Internal Exception: io.netty.handler.codec.DecoderException: "
 				+ "java.lang.IndexOutOfBoundsException: "

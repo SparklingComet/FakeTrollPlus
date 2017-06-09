@@ -33,7 +33,7 @@ public class Faketrollplus implements CommandExecutor {
 		plugin = instance;
 	}
 	
-	public final String HELP = Message.col("\n \n &f----------&e[ &aHELP &e]&f---------- "
+	public final String HELP = Message.col("\n \n &f&m----------&e[ &aHELP &e]&f&m---------- "
 			+ "\n&aFakeTrollPlus &e%VERSION%&a by Lori00 "
 			+ "\n&bFor commands and permissions help go to &3&ngoo.gl/c8RL4G " + "\n&cCommands:"
 			+ "\n&e/faketrollplus &f- Display plugin help "

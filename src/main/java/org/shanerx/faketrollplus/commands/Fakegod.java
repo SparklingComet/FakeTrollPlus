@@ -35,7 +35,7 @@ public class Fakegod implements CommandExecutor {
 		if (!Message.verifyCommandSender(cmd, sender, "faketroll.fakegod", Message.getBool("fake-god.enable"), () -> {
 			if (args.length != 2) {
 				return true;
-			} else if (args[0].equalsIgnoreCase("on") || args[0].equalsIgnoreCase("off")) {
+			} else if (args[1].equalsIgnoreCase("on") || args[1].equalsIgnoreCase("off")) {
 				return false;
 			}
 			return true;
@@ -49,9 +49,9 @@ public class Fakegod implements CommandExecutor {
 			return false;
 		}
 		if (args[1].equalsIgnoreCase("on")) {
-			target.sendMessage(Message.getString("fake-god.on"));
+			target.sendMessage(Message.getString("fake-god.toggle-on"));
 		} else {
-			target.sendMessage(Message.getString("fake-god.off"));
+			target.sendMessage(Message.getString("fake-god.toggle-off"));
 		}
 		sender.sendMessage(Message.PREFIX + Message.getString("fake-god.sender").replace("%player%", target.getName()));
 		return true;

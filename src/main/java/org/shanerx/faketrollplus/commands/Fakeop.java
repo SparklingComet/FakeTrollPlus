@@ -42,11 +42,11 @@ public class Fakeop implements CommandExecutor {
 			return false;
 		}
 		if (!(sender instanceof Player)) {
-			Bukkit.broadcast(Message.col("&7&o[Server: Opped " + target.getName() + "]"), "bukkit.command.op");
+			target.sendMessage(Message.col("&7&o[Server: Opped " + target.getName() + "]"));
 			return false;
 		}
-		Bukkit.broadcast(Message.col("&7&o[" + sender.getName() + ": Opped " + target.getName() + "]"), "bukkit.command.op");
-		sender.sendMessage(Message.PREFIX + Message.getString("fake-op.sender"));
+		target.sendMessage(Message.col("&7&o[" + sender.getName() + ": Opped " + target.getName() + "]"));
+		sender.sendMessage(Message.PREFIX + Message.getString("fake-op.sender").replace("%player%", target.getName()));
 		return true;
 	}
 

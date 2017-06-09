@@ -74,8 +74,8 @@ inventory-lock:
   do-target-msg: true
   target-msg: '&3Sorry, but you are not allowed to access your inventory at the moment.'
   sender:
-    on: 'You have locked player &3%player% &fout of their inventory.'
-    off: 'You have removed the lock on &3%player%&f''s inventory.'
+    toggle-on: 'You have locked player &3%player% &fout of their inventory.'
+    toggle-off: 'You have removed the lock on &3%player%&f''s inventory.'
 
 freeze:
   enable: true
@@ -84,14 +84,14 @@ freeze:
   do-move-attempt-msg: true
   move-attempt-msg: '&3You are not allowed to move!'
   sender:
-    on: 'Player &3%player% &fhas ben frozen.'
-    off: 'Player &3%player% &fis now free to move.'
+    toggle-on: 'Player &3%player% &fhas ben frozen.'
+    toggle-off: 'Player &3%player% &fis now free to move.'
 
 gibberish:
   enable: true
   sender:
-    on: 'Player &3%player% &fwill now talk gibberish!'
-    off: 'Player &3%player% &fwill no longer talk gibberish!'
+    toggle-on: 'Player &3%player% &fwill now talk gibberish!'
+    toggle-off: 'Player &3%player% &fwill no longer talk gibberish!'
 
 rename-items:
   enable: true
@@ -157,14 +157,14 @@ fake-ban:
 
 fake-god:
   enable: true
-  on: '&6God mode &cenabled&6.'
-  off: '&6God mode &cdisabled&6.'
+  toggle-on: '&6God mode &cenabled&6.'
+  toggle-off: '&6God mode &cdisabled&6.'
   sender: 'Toggled fake-god mode for &3%player%&f.'
 
 fake-afk:
   enable: true
-  on: '&7* %player% &7is now AFK.'
-  off: '&7* %player% &7is no longer AFK.'
+  toggle-on: '&7* %player% &7is now AFK.'
+  toggle-off: '&7* %player% &7is no longer AFK.'
 
 anvil:
   enable: true
@@ -180,8 +180,8 @@ explode-blocks:
   enable: true
   power: 3
   set-fire: false
-  apply: 'Applied effect to &3%player%&f!'
-  remove: 'Removed effect from &3%player%&f!'
+  toggle-on: 'Applied effect to &3%player%&f!'
+  toggle-off: 'Removed effect from &3%player%&f!'
 
 force-cmd:
   enable: true
@@ -204,16 +204,16 @@ bury:
   do-msg-to-target: true
   msg-to-target: '&bUh, oh: It appears that you have been buried alive!'
   sender: '&3%player% &fhas been buried alive!'
-  
+
 no-pickup:
   enable: true
   alert-victim: true
   on-enable: '&3You may no longer pick up items from the ground!'
   on-disable: '&3You may now pick up items from the ground!'
   sender:
-    on: 'Player &3%player% &fcan no longer pickup items!'
-    off: 'Player &3%player% &fcan now pickup items!'
-  
+    toggle-on: 'Player &3%player% &fcan no longer pickup items!'
+    toggle-off: 'Player &3%player% &fcan now pickup items!'
+
 badfood:
   enable: true
   duration: 10

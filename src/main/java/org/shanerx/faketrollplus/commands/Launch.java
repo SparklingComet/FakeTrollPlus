@@ -33,7 +33,7 @@ public class Launch implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(final CommandSender sender, final Command cmd, final String label, final String[] args) {
-		if (!Message.verifyCommandSender(cmd, sender, "faketroll.launch", Message.getBool("launch.sender"), () -> {
+		if (!Message.verifyCommandSender(cmd, sender, "faketroll.launch", Message.getBool("launch.enable"), () -> {
 			if (args.length != 2) {
 				return true;
 			} else {
@@ -52,6 +52,7 @@ public class Launch implements CommandExecutor {
 			sender.sendMessage(Message.PREFIX + Message.getString("invalid-target"));
 			return true;
 		}
+		
 		final double y = Double.parseDouble(args[1]);
 		target.setVelocity(new Vector(0, y, 0));
 		sender.sendMessage(Message.PREFIX + Message.getString("launch.sender")

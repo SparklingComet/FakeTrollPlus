@@ -46,11 +46,11 @@ public class Gibberish implements CommandExecutor {
 		final TrollPlayer tp = plugin.getUserCache().getTrollPlayer(p.getUniqueId());
 		if (tp.chatIsGibberish()) {
 			tp.setGibberishChat(false);
-			sender.sendMessage(Message.PREFIX + Message.getString("gibberish.sender.off"));
+			sender.sendMessage(Message.PREFIX + Message.getString("gibberish.sender.toggle-off").replace("%player%", p.getName()));
 			return true;
 		}
 		tp.setGibberishChat(true);
-		sender.sendMessage(Message.PREFIX + Message.getString("gibberish.sender.on"));
+		sender.sendMessage(Message.PREFIX + Message.getString("gibberish.sender.toggle-on").replace("%player%", p.getName()));
 		return true;
 	}
 

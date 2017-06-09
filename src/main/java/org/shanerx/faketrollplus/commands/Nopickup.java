@@ -45,14 +45,14 @@ public class Nopickup implements CommandExecutor {
 		final TrollPlayer tp = plugin.getUserCache().getTrollPlayer(target.getUniqueId());
 		if (!tp.canPickup()) {
 			tp.setPickup(true);
-			sender.sendMessage(Message.PREFIX + Message.getString("no-pickup.sender.off").replace("%player%", target.getName()));
+			sender.sendMessage(Message.PREFIX + Message.getString("no-pickup.sender.toggle-off").replace("%player%", target.getName()));
 			if (Message.getBool("no-pickup.alert-victim")) {
 				target.sendMessage(Message.getString("no-pickup.on-disable"));
 			}
 			return true;
 		}
 		tp.setPickup(false);
-		sender.sendMessage(Message.PREFIX + Message.getString("no-pickup.sender.on").replace("%player%", target.getName()));
+		sender.sendMessage(Message.PREFIX + Message.getString("no-pickup.sender.toggle-on").replace("%player%", target.getName()));
 		if (Message.getBool("no-pickup.alert-victim")) {
 			target.sendMessage(Message.getString("no-pickup.on-enable"));
 		}

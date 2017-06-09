@@ -43,11 +43,11 @@ public class Invlock implements CommandExecutor {
 		}
 		final TrollPlayer tp = plugin.getUserCache().getTrollPlayer(target.getUniqueId());
 		if (tp.invIsLocked()) {
-			sender.sendMessage(Message.PREFIX + Message.getString("inventory-lock.sender.off").replace("%player%", target.getName()));
+			sender.sendMessage(Message.PREFIX + Message.getString("inventory-lock.sender.toggle-off").replace("%player%", target.getName()));
 			tp.setInvLocked(false);
 			return true;
 		}
-		sender.sendMessage(Message.PREFIX + Message.getString("inventory-lock.sender.on").replace("%player%", target.getName()));
+		sender.sendMessage(Message.PREFIX + Message.getString("inventory-lock.sender.toggle-on").replace("%player%", target.getName()));
 		tp.setInvLocked(true);
 		return true;
 	}
