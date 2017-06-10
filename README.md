@@ -27,12 +27,8 @@ The plugin configuration is extremely simple and self-explanatory. Every feature
 This plugin provides a set of over 38 commands to admins who wish to have a bit of fun.This plugin aims to allow full customisability, so more configuration settings are being worked on.
 
 
-## To be added:
-A to-do can be found under the Project tab at the [top](https://github.com/SparklingComet/FakeTrollPlus/projects/1?fullscreen=true).
-
-
-## Bugs and TO-DOs:
-All known bugs are entered in the Issue tracker.Other To-Do entries are entered in the project manager.
+## Bugs and TO-DO:
+All known bugs are entered in the Issue tracker. A to-do can be found under the [Project manager](https://github.com/SparklingComet/FakeTrollPlus/projects/1?fullscreen=true).
 
 
 ## Terms and License:
