@@ -28,7 +28,7 @@ This plugin provides a set of over 38 commands to admins who wish to have a bit 
 
 
 ## To be added:
-A to-do can be found under the Project tab at the top (https://github.com/SparklingComet/FakeTrollPlus/projects/1?fullscreen=true).
+A to-do can be found under the Project tab at the [top](https://github.com/SparklingComet/FakeTrollPlus/projects/1?fullscreen=true).
 
 
 ## Bugs and TO-DOs:
@@ -37,6 +37,6 @@ All known bugs are entered in the Issue tracker.Other To-Do entries are entered 
 
 ## Terms and License:
 
-The project is licensed under the Apache License v2.0. ([Click](https://github.com/SparklingComet/FakeTrollPlus/blob/master/LICENSE.txt))
+The project is licensed under [the Apache License v2.0](https://github.com/SparklingComet/FakeTrollPlus/blob/master/LICENSE.txt).
 
 =======================================================
