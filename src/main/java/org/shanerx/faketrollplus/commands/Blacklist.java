@@ -39,7 +39,7 @@ public class Blacklist implements CommandExecutor {
 		}
 		@SuppressWarnings("deprecation")
 		final OfflinePlayer op = Bukkit.getOfflinePlayer(args[0]);
-		if (op == null) {
+		if (!op.hasPlayedBefore()) {
 			sender.sendMessage(Message.PREFIX + Message.getString("invalid-target"));
 			return false;
 		}
