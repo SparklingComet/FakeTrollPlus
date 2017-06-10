@@ -18,12 +18,12 @@ Should you find any bugs please post them in the resource's discussion section o
 For a complete list of commands visit the [wiki](https://github.com/SparklingComet/FakeTrollPlus/wiki).
 
 
-Configuration:
+## Configuration:
 
 The plugin configuration is extremely simple and self-explanatory. Every feature can be disabled, so that your server administrators don't get access to potentially "dangerous" commands. Some of the messages the plugin will output are fully customisable while the ones which are left will be added to the config file very soon. The configuration allows full '&'-colour codes support. The default settings have been moved to src/main/resources/config.yml.
 
 
-Features:
+## Features:
 This plugin provides a set of over 38 commands to admins who wish to have a bit of fun.This plugin aims to allow full customisability, so more configuration settings are being worked on.
 
 
