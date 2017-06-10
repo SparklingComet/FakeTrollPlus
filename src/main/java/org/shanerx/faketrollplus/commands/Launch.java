@@ -52,9 +52,9 @@ public class Launch implements CommandExecutor {
 			sender.sendMessage(Message.PREFIX + Message.getString("invalid-target"));
 			return true;
 		}
-		
+
 		final double y = Double.parseDouble(args[1]);
-		target.setVelocity(new Vector(0, y, 0));
+		target.setVelocity(target.getVelocity().add(new Vector(0, y, 0)));
 		sender.sendMessage(Message.PREFIX + Message.getString("launch.sender")
 				.replace("%player%", target.getName()));
 		return true;

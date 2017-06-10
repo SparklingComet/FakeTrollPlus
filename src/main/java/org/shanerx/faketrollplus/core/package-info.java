@@ -16,5 +16,9 @@
 /**
  * Root package containing all wrapper classes 
  * and subpackages the plugin makes use of.
+ *
+ * A javadoc documentation can be downloaded from
+ * <a href="https://github.com/SparklingComet/FakeTrollPlus/tree/master/doc">here</a>
+ * or can be found live <a href="https://sparklingcomet.github.io/FakeTrollPlus/doc">here.</a>
  */
 package org.shanerx.faketrollplus.core;
