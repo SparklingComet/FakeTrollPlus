@@ -28,7 +28,7 @@ This plugin provides a set of over 38 commands to admins who wish to have a bit 
 
 
 ## To be added:
-A todo can be found under the Project tab at the top.
+A to-do can be found under the Project tab at the top (https://github.com/SparklingComet/FakeTrollPlus/projects/1?fullscreen=true).
 
 
 ## Bugs and TO-DOs:
