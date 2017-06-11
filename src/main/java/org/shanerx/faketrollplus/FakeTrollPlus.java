@@ -20,14 +20,15 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
-import java.util.logging.Logger;
 
+import org.bstats.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.shanerx.faketrollplus.core.UserCache;
 import org.shanerx.faketrollplus.events.EffectListeners;
 import org.shanerx.faketrollplus.events.GuiListener;
+import org.shanerx.faketrollplus.utils.MetricsManager;
 import org.shanerx.faketrollplus.utils.Updater;
 import org.shanerx.faketrollplus.utils.Updater.RelationalStatus;
 
@@ -42,6 +43,8 @@ public class FakeTrollPlus extends JavaPlugin {
 	private volatile RelationalStatus buildRelation;
 
 	private volatile UserCache usercache;
+	
+	private MetricsManager metMan;
 
 	@Override
 	@SuppressWarnings("deprecation")
@@ -66,8 +69,10 @@ public class FakeTrollPlus extends JavaPlugin {
 		Updater.setLogger(getLogger());
 		
 		if (!doLogging) {
-			if (getConfig().getBoolean("check-updates"))
+			if (getConfig().getBoolean("check-updates")) {
 				new Thread(() -> buildRelation = VERSION.checkCurrentVersion()).start();
+			}
+			this.metMan = new MetricsManager(this);
 			return;
 		}
 
@@ -94,8 +99,10 @@ public class FakeTrollPlus extends JavaPlugin {
 
 		usercache = UserCache.getInstance(new File(getDataFolder(), "usercache.json"), this);
 		
-		if (getConfig().getBoolean("check-updates"))
+		if (getConfig().getBoolean("check-updates")) {
 			new Thread(() -> VERSION.checkCurrentVersion()).start();
+		}
+		this.metMan = new MetricsManager(this);
 	}
 
 	@Override
