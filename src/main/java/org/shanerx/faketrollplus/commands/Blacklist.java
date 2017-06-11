@@ -21,7 +21,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.shanerx.faketrollplus.FakeTrollPlus;
-import org.shanerx.faketrollplus.Message;
+import org.shanerx.faketrollplus.utils.Message;
 import org.shanerx.faketrollplus.core.TrollPlayer;
 
 public class Blacklist implements CommandExecutor {

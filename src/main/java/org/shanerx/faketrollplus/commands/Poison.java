@@ -23,7 +23,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.shanerx.faketrollplus.FakeTrollPlus;
-import org.shanerx.faketrollplus.Message;
+import org.shanerx.faketrollplus.utils.Message;
 
 public class Poison implements CommandExecutor {
 	

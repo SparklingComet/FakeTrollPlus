@@ -15,7 +15,6 @@
  */
 package org.shanerx.faketrollplus.events;
 
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -31,7 +30,7 @@ import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.shanerx.faketrollplus.FakeTrollPlus;
-import org.shanerx.faketrollplus.Message;
+import org.shanerx.faketrollplus.utils.Message;
 import org.shanerx.faketrollplus.core.TrollPlayer;
 
 public class EffectListeners implements Listener {

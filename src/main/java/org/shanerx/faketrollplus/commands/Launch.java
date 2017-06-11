@@ -21,7 +21,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 import org.shanerx.faketrollplus.FakeTrollPlus;
-import org.shanerx.faketrollplus.Message;
+import org.shanerx.faketrollplus.utils.Message;
 
 public class Launch implements CommandExecutor {
 	

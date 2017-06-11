@@ -21,13 +21,13 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
 
-import org.bstats.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.shanerx.faketrollplus.core.UserCache;
 import org.shanerx.faketrollplus.events.EffectListeners;
 import org.shanerx.faketrollplus.events.GuiListener;
+import org.shanerx.faketrollplus.utils.Message;
 import org.shanerx.faketrollplus.utils.MetricsManager;
 import org.shanerx.faketrollplus.utils.Updater;
 import org.shanerx.faketrollplus.utils.Updater.RelationalStatus;

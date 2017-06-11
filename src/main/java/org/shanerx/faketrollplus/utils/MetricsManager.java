@@ -15,7 +15,6 @@
  *  * limitations under the License.
  *
  */
-
 package org.shanerx.faketrollplus.utils;
 
 import org.bstats.Metrics;
@@ -44,11 +43,10 @@ public class MetricsManager {
 				return valueMap;
 			}
 		});
-		metrics.addCustomChart(new Metrics.AdvancedPie("servers_using_the_updater") {
+		metrics.addCustomChart(new Metrics.SimplePie("servers_using_the_updater") {
 			@Override
-			public HashMap<String, Integer> getValues(HashMap<String, Integer> values) {
-				values.put("servers", plugin.getConfig().getBoolean("check-updates") ? 1 : 0);
-				return values;
+			public String getValue() {
+				return plugin.getConfig().getBoolean("check-updates") ? "yes" : "no";
 			}
 		});
 	}

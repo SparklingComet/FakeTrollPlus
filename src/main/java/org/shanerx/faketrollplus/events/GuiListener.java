@@ -29,7 +29,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.shanerx.faketrollplus.FakeTrollPlus;
-import org.shanerx.faketrollplus.Message;
+import org.shanerx.faketrollplus.utils.Message;
 import org.shanerx.faketrollplus.core.GuiUser;
 import org.shanerx.faketrollplus.core.TrollEffect;
 import org.shanerx.faketrollplus.core.TrollPlayer;

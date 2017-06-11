@@ -1,7 +1,17 @@
+/target/
+*.class
+/bin/
+
+/.gradle/
+/build/
+
 /.idea/
 *.iml
 
-/target/
-*.class
+/.settings/
+.classpath
+.project
+
+dependency-reduced-pom.xml
 
 **/temp.**
