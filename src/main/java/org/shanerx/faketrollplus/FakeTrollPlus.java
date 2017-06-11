@@ -21,10 +21,14 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
 
+import com.comphenix.protocol.ProtocolLibrary;
+import com.comphenix.protocol.ProtocolManager;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.shanerx.faketrollplus.core.TrollEffect;
 import org.shanerx.faketrollplus.core.UserCache;
+import org.shanerx.faketrollplus.events.ChatListener;
 import org.shanerx.faketrollplus.events.EffectListeners;
 import org.shanerx.faketrollplus.events.GuiListener;
 import org.shanerx.faketrollplus.utils.Message;
@@ -43,15 +47,20 @@ public class FakeTrollPlus extends JavaPlugin {
 
 	private volatile UserCache usercache;
 	
+	private ProtocolManager protMan;
 	
 	@Override
 	@SuppressWarnings("deprecation")
 	public void onEnable() {
 		Message.setConfig(getConfig());
+		TrollEffect.setPlugin(this);
 		saveDefaultConfig();
 		PluginManager pm = Bukkit.getServer().getPluginManager();
 		pm.registerEvents(new EffectListeners(this), this);
 		pm.registerEvents(new GuiListener(this), this);
+		
+		protMan = ProtocolLibrary.getProtocolManager();
+		protMan.addPacketListener(new ChatListener(this));
 
 		Executor ex = new Executor(this);		
 		for (String cmd : getDescription().getCommands().keySet()) {

@@ -6,6 +6,8 @@ name: FakeTrollPlus
 website: https://www.spigotmc.org/resources/30762/
 description: New large-range trolling plugin for server administrators.
 
+softdepend: [ProtocolLib]
+
 commands:
   faketrollplus:
     description: Show plugin help and version
