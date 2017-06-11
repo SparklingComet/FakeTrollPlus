@@ -1,5 +1,5 @@
 # +------------------------------------+ #
-# FakeTrollPlus config v3.4.2 by Lori00. #
+# FakeTrollPlus config v3.5.0 by Lori00. #
 # +------------------------------------+ #
 
 
@@ -229,6 +229,15 @@ replaceinv:
 cobweb:
   enable: true
   sender: 'You have trapped &3%player%&f!'
+
+freeze-chat:
+  enable: true
+  sender: 'You have frozen &3%player%&f''s chat!'
+  target:
+    do-target-msg: false
+    toggle-on: '&3Your chat has been frozen!'
+    toggle-off: '&3Your chat has been unfrozen!'
+
 
 # Blacklist configurations
 enable-blacklist: true

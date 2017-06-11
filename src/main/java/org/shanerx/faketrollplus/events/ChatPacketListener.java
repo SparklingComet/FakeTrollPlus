@@ -24,11 +24,11 @@ import com.comphenix.protocol.events.PacketEvent;
 import org.shanerx.faketrollplus.FakeTrollPlus;
 import org.shanerx.faketrollplus.core.TrollPlayer;
 
-public class ChatListener extends PacketAdapter {
+public class ChatPacketListener extends PacketAdapter {
 	
 	private FakeTrollPlus plugin;
 	
-	public ChatListener(FakeTrollPlus plugin) {
+	public ChatPacketListener(FakeTrollPlus plugin) {
 		super(plugin, ListenerPriority.NORMAL, PacketType.Play.Server.CHAT);
 		this.plugin = plugin;
 	}

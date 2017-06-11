@@ -45,9 +45,10 @@ public class GuiListener implements Listener {
 	@SuppressWarnings("deprecation")
 	@EventHandler(priority=EventPriority.HIGH)
 	public void onInventoryClick(InventoryClickEvent e) {
-		if (e.getClickedInventory() == null) {
+		if (e.getClickedInventory() == null || e.getCurrentItem() == null) {
 			return;
 		}
+		
 		String name = e.getClickedInventory().getTitle();
 		ItemStack item = e.getCurrentItem();
 		int size = e.getClickedInventory().getSize();
@@ -56,6 +57,7 @@ public class GuiListener implements Listener {
 		if (!ChatColor.stripColor(name).equals(ChatColor.stripColor(Message.getString("gui.title"))) || item == null) {
 			return;
 		}
+		
 		e.setCancelled(true);
 		
 		if (size == 9) {

@@ -1,5 +1,5 @@
 main: org.shanerx.faketrollplus.FakeTrollPlus
-version: 3.4.2
+version: 3.5.0
 author: Lori00
 name: FakeTrollPlus
 
@@ -71,7 +71,7 @@ commands:
     usage: /fakegod <target> <on|off>
   fakechat:
     description: Send a chat message pretending to be someone else.
-    aliases: [fc, fchat]
+    aliases: [fchat]
     usage: /fakechat <target> <message>
   fakemsg:
     description: Send a private message to someone pretending to be someone else.
@@ -162,3 +162,7 @@ commands:
     description: Add or remove a player's account to/from the blacklist.
     aliases: [bl]
     usage: /blacklist <target>
+  freezechat:
+    description: Cancel all outgoing messages for a player and reject all of the player's input in a silent way.
+    aliases: [chatfreeze]
+    usage: /freezechat <player>

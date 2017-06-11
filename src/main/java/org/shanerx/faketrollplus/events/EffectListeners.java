@@ -35,7 +35,7 @@ import org.shanerx.faketrollplus.core.TrollPlayer;
 
 public class EffectListeners implements Listener {
 
-	FakeTrollPlus plugin;
+	private FakeTrollPlus plugin;
 
 	public EffectListeners(FakeTrollPlus instance) {
 
@@ -59,7 +59,10 @@ public class EffectListeners implements Listener {
 	public void onAsyncChatEvent(AsyncPlayerChatEvent e) {
 		Player p = e.getPlayer();
 		TrollPlayer tp = plugin.getUserCache().getTrollPlayer(p.getUniqueId());
-		if (tp.chatIsGibberish()) {
+		if (tp.chatIsFrozen()) {
+			e.setCancelled(true);
+
+		} else if (tp.chatIsGibberish()) {
 			String randomString = Message.changeToGibberish(e.getMessage());
 			e.setMessage(randomString);
 		}
