@@ -41,6 +41,11 @@ public class Freezechat implements CommandExecutor {
 			return false;
 		}
 		
+		if (!plugin.USE_PROTOCOL_LIB) {
+			sender.sendMessage(Message.NO_PROTOCOL_LIB.toString());
+			return false;
+		}
+		
 		final Player target = Bukkit.getPlayer(args[0]);
 		if (target == null) {
 			sender.sendMessage(Message.PREFIX + Message.getString("invalid-target"));

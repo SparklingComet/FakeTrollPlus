@@ -21,12 +21,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
-import org.bukkit.event.player.PlayerItemConsumeEvent;
-import org.bukkit.event.player.PlayerLoginEvent;
+import org.bukkit.event.player.*;
 import org.bukkit.event.player.PlayerLoginEvent.Result;
-import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.shanerx.faketrollplus.FakeTrollPlus;
@@ -59,7 +55,7 @@ public class EffectListeners implements Listener {
 	public void onAsyncChatEvent(AsyncPlayerChatEvent e) {
 		Player p = e.getPlayer();
 		TrollPlayer tp = plugin.getUserCache().getTrollPlayer(p.getUniqueId());
-		if (tp.chatIsFrozen()) {
+		if (tp.chatIsFrozen() && plugin.USE_PROTOCOL_LIB) {
 			e.setCancelled(true);
 
 		} else if (tp.chatIsGibberish()) {
@@ -117,6 +113,15 @@ public class EffectListeners implements Listener {
 		TrollPlayer tp = plugin.getUserCache().getTrollPlayer(e.getPlayer().getUniqueId());
 		if (tp.isBlacklisted()) {
 			e.disallow(Result.KICK_BANNED, Message.getString("blacklist"));
+		}
+	}
+	
+	@EventHandler
+	public void onPlayerCommandPreprocess(PlayerCommandPreprocessEvent e) {
+		Player p = e.getPlayer();
+		TrollPlayer tp = plugin.getUserCache().getTrollPlayer(p.getUniqueId());
+		if (tp.chatIsFrozen() && plugin.USE_PROTOCOL_LIB) {
+			e.setCancelled(true);
 		}
 	}
 

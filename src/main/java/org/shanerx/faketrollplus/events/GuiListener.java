@@ -114,6 +114,15 @@ public class GuiListener implements Listener {
 				Bukkit.getPlayer(op.getUniqueId()).kickPlayer(Message.getString("blacklist"));
 				return;
 				
+			case LEASH:
+				if (ftp.USE_PROTOCOL_LIB) {
+					tp.freezeChat(!tp.chatIsFrozen());
+					p.sendMessage(col((tp.chatIsFrozen() ? "&cEnabled": "&cDisabled") + "  &6Chat-Freeze &eeffect for &6" + op.getName()));
+					return;
+				} else {
+					p.sendMessage(col("You need to install ProtocolLib for this effect to worj!"));
+					return;
+				}
 			default:
 				return;
 			}
@@ -143,7 +152,7 @@ public class GuiListener implements Listener {
 	
 	// Just to shorten the Message.col(x) method.
 	private String col(String msg) {
-		return Message.col(msg);
+		return Message.PREFIX + Message.col(msg);
 	}
 
 }

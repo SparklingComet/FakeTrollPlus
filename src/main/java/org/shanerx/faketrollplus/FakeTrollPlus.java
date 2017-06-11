@@ -47,7 +47,7 @@ public class FakeTrollPlus extends JavaPlugin {
 
 	private volatile UserCache usercache;
 	
-	private ProtocolManager protMan;
+	public final boolean USE_PROTOCOL_LIB = Bukkit.getPluginManager().getPlugin("ProtocolLib").isEnabled();
 	
 	@Override
 	@SuppressWarnings("deprecation")
@@ -59,8 +59,10 @@ public class FakeTrollPlus extends JavaPlugin {
 		pm.registerEvents(new EffectListeners(this), this);
 		pm.registerEvents(new GuiListener(this), this);
 		
-		protMan = ProtocolLibrary.getProtocolManager();
-		protMan.addPacketListener(new ChatPacketListener(this));
+		if (USE_PROTOCOL_LIB) {
+			ProtocolManager protMan = ProtocolLibrary.getProtocolManager();
+			protMan.addPacketListener(new ChatPacketListener(this));
+		}
 
 		Executor ex = new Executor(this);		
 		for (String cmd : getDescription().getCommands().keySet()) {

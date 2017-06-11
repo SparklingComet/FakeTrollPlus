@@ -32,6 +32,8 @@ public enum Message {
 	PLAYER_ONLY("Sorry, but this command is only available to %SECONDARY%players%PRIMARY%."),
 	
 	INVALID_ARGS("Invalid args, please try again. Usage: %SECONDARY%%usage%"),
+	
+	NO_PROTOCOL_LIB("%SECONDARY%ProtocolLib %PRIMARY%is required to perform this action. Please install it and retry."),
 		
 	RELOAD_CONFIG("Configuration file has been reloaded!");
 	
