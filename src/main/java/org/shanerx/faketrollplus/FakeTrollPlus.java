@@ -28,7 +28,6 @@ import org.shanerx.faketrollplus.core.UserCache;
 import org.shanerx.faketrollplus.events.EffectListeners;
 import org.shanerx.faketrollplus.events.GuiListener;
 import org.shanerx.faketrollplus.utils.Message;
-import org.shanerx.faketrollplus.utils.MetricsManager;
 import org.shanerx.faketrollplus.utils.Updater;
 import org.shanerx.faketrollplus.utils.Updater.RelationalStatus;
 
@@ -44,8 +43,7 @@ public class FakeTrollPlus extends JavaPlugin {
 
 	private volatile UserCache usercache;
 	
-	private MetricsManager metMan;
-
+	
 	@Override
 	@SuppressWarnings("deprecation")
 	public void onEnable() {
@@ -72,7 +70,6 @@ public class FakeTrollPlus extends JavaPlugin {
 			if (getConfig().getBoolean("check-updates")) {
 				new Thread(() -> buildRelation = VERSION.checkCurrentVersion()).start();
 			}
-			this.metMan = new MetricsManager(this);
 			return;
 		}
 
@@ -102,7 +99,6 @@ public class FakeTrollPlus extends JavaPlugin {
 		if (getConfig().getBoolean("check-updates")) {
 			new Thread(() -> VERSION.checkCurrentVersion()).start();
 		}
-		this.metMan = new MetricsManager(this);
 	}
 
 	@Override
