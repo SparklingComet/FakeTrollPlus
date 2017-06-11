@@ -20,26 +20,28 @@ package org.shanerx.faketrollplus.core;
  */
 public enum TrollEffect {
 
-	BADFOOD("Badfood"),
+	BADFOOD((short) 1, "Badfood"),
 
-	NO_PICKUP("No-Pickup"),
+	NO_PICKUP((short) 2, "No-Pickup"),
 
-	FREEZE("Freeze"),
+	FREEZE((short) 3, "Freeze"),
 
-	GIBBERISH("Gibberish"),
+	GIBBERISH((short) 4, "Gibberish"),
 
-	INVENTORY_LOCK("Inventory-Lock"),
+	INVENTORY_LOCK((short) 5, "Inventory-Lock"),
 
-	EXPLODE_BLOCKS("Explode-Blocks"),
+	EXPLODE_BLOCKS((short) 6, "Explode-Blocks"),
 
-	BLACKLISTED("Blacklist");
+	BLACKLISTED((short) 7, "Blacklist");
 
-	TrollEffect(String name) {
+	TrollEffect(short key,String name) {
+		this.key = key;
 		this.name = name;
 	}
 
 	private String name;
 	private String description;
+	private short key;
 
 	/**
 	 * Gets the effect's name (Different from
@@ -57,8 +59,34 @@ public enum TrollEffect {
 	 *
 	 * @return the description
 	 */
-	public final String getDescription() {
+	public String getDescription() {
 		return description;
+	}
+	
+	/**
+	 * Returns a short unique to the effect, which can be used to identify or store the effect in memory.
+	 * @return the key.
+	 */
+	public short key() {
+		return key;
+	}
+	
+	/**
+	 * Identifies the effect that this key belongs to. Useful when storing keys in maps, lists or as serialized data.
+	 * @param key the key
+	 * @return the effect
+	 */
+	public static TrollEffect fromKey(short key) {
+		switch (key) {
+			case 1: return BADFOOD;
+			case 2: return NO_PICKUP;
+			case 3: return FREEZE;
+			case 4: return GIBBERISH;
+			case 5: return INVENTORY_LOCK;
+			case 6: return EXPLODE_BLOCKS;
+			case 7: return BLACKLISTED;
+			default: return null;
+		}
 	}
 
 }

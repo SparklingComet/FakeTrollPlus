@@ -27,7 +27,7 @@ import org.shanerx.faketrollplus.core.UserCache;
 
 public class Faketrollplus implements CommandExecutor {
 	
-	FakeTrollPlus plugin;
+	private FakeTrollPlus plugin;
 
 	public Faketrollplus(final FakeTrollPlus instance) {
 		plugin = instance;
@@ -76,27 +76,34 @@ public class Faketrollplus implements CommandExecutor {
 			if (!sender.hasPermission("faketroll.help") && Message.getBool("help.require-permission")) {
 				sender.sendMessage(Message.ACCESS_DENIED.toString());
 				return false;
+				
 			}
 			sender.sendMessage(HELP.replace("%VERSION%", plugin.VERSION.getNakedVersion()));
 			return true;
+			
 		} else if (args[0].equalsIgnoreCase("reload")) {
 			if (!sender.hasPermission("faketroll.reload")) {
 				sender.sendMessage(Message.ACCESS_DENIED.toString());
 				return false;
+				
 			}
 			plugin.reloadConfig();
 			sender.sendMessage(Message.RELOAD_CONFIG.toString());
 			return true;
+			
 		} else if (args[0].equalsIgnoreCase("gui")) {
 			if (!sender.hasPermission("faketroll.gui")) {
 				sender.sendMessage(Message.ACCESS_DENIED.toString());
 				return false;
+				
 			} else if (!Message.getBool("gui.enable")) {
 				sender.sendMessage(Message.PREFIX.toString() + Message.getString("gui.disabled"));
 				return false;
+				
 			} else if (!(sender instanceof Player)) {
 				sender.sendMessage(Message.PLAYER_ONLY.toString());
 				return false;
+				
 			}
 
 			final UserCache uc = plugin.getUserCache();
@@ -104,9 +111,11 @@ public class Faketrollplus implements CommandExecutor {
 			final GuiUser gui = new GuiUser(tp);
 			((Player) sender).openInventory(gui.getPlayerList(1));
 			return true;
+			
 		} else if (!sender.hasPermission("faketroll.help") && Message.getBool("help.require-permission")) {
 			sender.sendMessage(Message.ACCESS_DENIED.toString());
 			return false;
+			
 		}
 		sender.sendMessage(HELP.replace("%VERSION%", plugin.VERSION.getNakedVersion()));
 		return true;

@@ -26,8 +26,8 @@ import org.shanerx.faketrollplus.Message;
 import org.shanerx.faketrollplus.core.TrollPlayer;
 
 public class Gibberish implements CommandExecutor {
-
-	FakeTrollPlus plugin;
+	
+	private FakeTrollPlus plugin;
 
 	public Gibberish(final FakeTrollPlus instance) {
 		plugin = instance;
@@ -38,17 +38,20 @@ public class Gibberish implements CommandExecutor {
 		if (!Message.verifyCommandSender(cmd, sender, "faketroll.gibberish", Message.getBool("gibberish.enable"), () -> args.length != 1)) {
 			return false;
 		}
+		
 		final Player p = Bukkit.getPlayer(args[0]);
 		if (p == null) {
 			sender.sendMessage(Message.PREFIX + Message.getString("invalid-target"));
 			return false;
 		}
+		
 		final TrollPlayer tp = plugin.getUserCache().getTrollPlayer(p.getUniqueId());
 		if (tp.chatIsGibberish()) {
 			tp.setGibberishChat(false);
 			sender.sendMessage(Message.PREFIX + Message.getString("gibberish.sender.toggle-off").replace("%player%", p.getName()));
 			return true;
 		}
+		
 		tp.setGibberishChat(true);
 		sender.sendMessage(Message.PREFIX + Message.getString("gibberish.sender.toggle-on").replace("%player%", p.getName()));
 		return true;

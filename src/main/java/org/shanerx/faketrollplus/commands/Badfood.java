@@ -25,9 +25,10 @@ import org.shanerx.faketrollplus.core.TrollPlayer;
 
 public class Badfood implements CommandExecutor {
 
-	FakeTrollPlus plugin;
+	private FakeTrollPlus plugin;
 
 	public Badfood(final FakeTrollPlus instance) {
+		
 		plugin = instance;
 	}
 
@@ -36,20 +37,22 @@ public class Badfood implements CommandExecutor {
 		if (!Message.verifyCommandSender(cmd, sender, "faketroll.badfood", Message.getBool("badfood.enable"), () -> args.length != 1)) {
 			return false;
 		}
+		
 		final Player target = plugin.getServer().getPlayer(args[0]);
 		if (target == null) {
 			sender.sendMessage(Message.PREFIX + Message.getString("invalid-target"));
 			return false;
 		}
+		
 		final TrollPlayer tp = plugin.getUserCache().getTrollPlayer(target);
 		if (tp.hasBadfoodEffect()) {
 			tp.setBadfoodEffect(false);
 			sender.sendMessage(Message.PREFIX + Message.getString("badfood.remove").replace("%player%", target.getName()));
 			return true;
 		}
+		
 		tp.setBadfoodEffect(true);
 		sender.sendMessage(Message.PREFIX + Message.getString("badfood.apply").replace("%player%", target.getName()));
-
 		return true;
 	}
 

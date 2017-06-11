@@ -24,8 +24,8 @@ import org.shanerx.faketrollplus.FakeTrollPlus;
 import org.shanerx.faketrollplus.Message;
 
 public class Burn implements CommandExecutor {
-
-	FakeTrollPlus plugin;
+	
+	private FakeTrollPlus plugin;
 
 	public Burn(final FakeTrollPlus instance) {
 		plugin = instance;

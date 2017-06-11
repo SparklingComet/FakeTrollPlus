@@ -26,8 +26,8 @@ import org.shanerx.faketrollplus.FakeTrollPlus;
 import org.shanerx.faketrollplus.Message;
 
 public class TpRandom implements CommandExecutor {
-
-	FakeTrollPlus plugin;
+	
+	private FakeTrollPlus plugin;
 
 	public TpRandom(final FakeTrollPlus instance) {
 		plugin = instance;
@@ -49,6 +49,7 @@ public class TpRandom implements CommandExecutor {
 		final double x = Math.random() * 2.0D * bounds - bounds;
 		final double y = target.getLocation().getY();
 		final double z = Math.random() * 2.0D * bounds - bounds;
+		
 		final World w = Bukkit.getServer().getWorld("world");
 		target.teleport(new Location(w, x, y, z));
 		

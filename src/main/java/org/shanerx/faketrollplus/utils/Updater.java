@@ -59,6 +59,8 @@ public class Updater {
 		UNKNOWN;
 	}
 
+	private static Logger log;
+	
 	private PluginDescriptionFile pdf;
 	private BuildType build;
 
@@ -94,7 +96,6 @@ public class Updater {
 	}
 
 	public RelationalStatus checkCurrentVersion() {
-		Logger log = FakeTrollPlus.console;
 		try {
 			URL url = new URL("https://pastebin.com/raw/UuUcn7SM");
 
@@ -169,6 +170,10 @@ public class Updater {
 		} catch (NumberFormatException e) {
 			throw new IllegalArgumentException("All arguments must be numbers!");
 		}
+	}
+	
+	public static void setLogger(Logger log) {
+		Updater.log = log;
 	}
 
 }

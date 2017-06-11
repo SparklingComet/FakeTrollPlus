@@ -24,8 +24,8 @@ import org.shanerx.faketrollplus.FakeTrollPlus;
 import org.shanerx.faketrollplus.Message;
 
 public class Fakejoin implements CommandExecutor {
-
-	FakeTrollPlus plugin;
+	
+	private FakeTrollPlus plugin;
 
 	public Fakejoin(final FakeTrollPlus instance) {
 		plugin = instance;
@@ -36,6 +36,7 @@ public class Fakejoin implements CommandExecutor {
 		if (!Message.verifyCommandSender(cmd, sender, "faketroll.fakejoin", Message.getBool("fake-join.enable"), () -> args.length != 1)) {
 			return false;
 		}
+		
 		Bukkit.broadcastMessage(Message.getString("fake-join.message").replace("%player%", args[0]));
 		return true;
 	}

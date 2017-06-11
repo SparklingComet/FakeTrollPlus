@@ -23,8 +23,8 @@ import org.shanerx.faketrollplus.FakeTrollPlus;
 import org.shanerx.faketrollplus.Message;
 
 public class Fakemsg implements CommandExecutor {
-
-	FakeTrollPlus plugin;
+	
+	private FakeTrollPlus plugin;
 
 	public Fakemsg(final FakeTrollPlus instance) {
 		plugin = instance;
@@ -35,11 +35,13 @@ public class Fakemsg implements CommandExecutor {
 		if (!Message.verifyCommandSender(cmd, sender, "faketroll.fakemsg", Message.getBool("fake-msg.enable"), () -> args.length < 3)) {
 			return false;
 		}
+		
 		final Player target = plugin.getServer().getPlayer(args[0]);
 		if (target == null) {
 			sender.sendMessage(Message.PREFIX + Message.getString("invalid-target"));
 			return false;
 		}
+		
 		String fakeName;
 		try {
 			final Player fakePlayer = plugin.getServer().getPlayer(args[1]);
@@ -47,10 +49,12 @@ public class Fakemsg implements CommandExecutor {
 		} catch (final NullPointerException e) {
 			fakeName = args[1];
 		}
+		
 		StringBuilder sb = new StringBuilder();
 		for (int i = 2; i < args.length; i++) {
 			sb.append(args[i]).append(" ");
 		}
+		
 		String fakeMsg = Message.getString("fake-msg.format");
 		fakeMsg = fakeMsg.replace("{PLAYER}", fakeName);
 		fakeMsg = fakeMsg.replace("{MESSAGE}", sb.toString().trim());

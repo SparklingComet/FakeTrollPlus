@@ -23,8 +23,8 @@ import org.shanerx.faketrollplus.FakeTrollPlus;
 import org.shanerx.faketrollplus.Message;
 
 public class Fakebroadcast implements CommandExecutor {
-
-	FakeTrollPlus plugin;
+	
+	private FakeTrollPlus plugin;
 
 	public Fakebroadcast(final FakeTrollPlus instance) {
 		plugin = instance;
@@ -35,11 +35,13 @@ public class Fakebroadcast implements CommandExecutor {
 		if (!Message.verifyCommandSender(cmd, sender, "faketroll.fakebroadcast", Message.getBool("fake-broadcast.enable"), () -> args.length < 2)) {
 			return false;
 		}
+		
 		final Player target = plugin.getServer().getPlayer(args[0]);
 		if (target == null) {
 			sender.sendMessage(Message.PREFIX + Message.getString("invalid-target"));
 			return false;
 		}
+		
 		final int msgLength = args.length;
 		StringBuilder sb = new StringBuilder();
 		for (int i = 1; i < msgLength; i++) {

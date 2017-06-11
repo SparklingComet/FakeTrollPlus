@@ -24,7 +24,7 @@ import org.shanerx.faketrollplus.commands.*;
 
 public class Executor implements CommandExecutor {
 	
-	FakeTrollPlus plugin;
+	private FakeTrollPlus plugin;
 	
 	public Executor(FakeTrollPlus instance) {
 		plugin = instance;
@@ -162,8 +162,8 @@ public class Executor implements CommandExecutor {
 		for (String arg : args) {
 			sb.append(" ").append(arg);
 		}
-		FakeTrollPlus.log.write("<" + new Date().toGMTString() + "> [ " + sender.getName() + " ] ran  ->   " + cmd.getName() + sb.toString() + "\n");
-		FakeTrollPlus.log.flush();
+		plugin.getLog().write("<" + new Date().toGMTString() + "> [ " + sender.getName() + " ] ran  ->   " + cmd.getName() + sb.toString() + "\n");
+		plugin.getLog().flush();
 		return true;
 	}
 

@@ -24,8 +24,8 @@ import org.shanerx.faketrollplus.Message;
 import org.shanerx.faketrollplus.core.TrollPlayer;
 
 public class Invlock implements CommandExecutor {
-
-	FakeTrollPlus plugin;
+	
+	private FakeTrollPlus plugin;
 
 	public Invlock(final FakeTrollPlus instance) {
 		plugin = instance;
@@ -36,17 +36,20 @@ public class Invlock implements CommandExecutor {
 		if (!Message.verifyCommandSender(cmd, sender, "faketroll.invlock", Message.getBool("inventory-lock.enable"), () -> args.length != 1)) {
 			return false;
 		}
+		
 		final Player target = plugin.getServer().getPlayer(args[0]);
 		if (target == null) {
 			sender.sendMessage(Message.PREFIX + Message.getString("invalid-target"));
 			return false;
 		}
+		
 		final TrollPlayer tp = plugin.getUserCache().getTrollPlayer(target.getUniqueId());
 		if (tp.invIsLocked()) {
 			sender.sendMessage(Message.PREFIX + Message.getString("inventory-lock.sender.toggle-off").replace("%player%", target.getName()));
 			tp.setInvLocked(false);
 			return true;
 		}
+		
 		sender.sendMessage(Message.PREFIX + Message.getString("inventory-lock.sender.toggle-on").replace("%player%", target.getName()));
 		tp.setInvLocked(true);
 		return true;

@@ -23,11 +23,34 @@ public enum GuiType {
 	/**
 	 * Identifies the GUI containing a list of all online players.
 	 */
-	PLAYERS,
+	PLAYERS((byte) 0),
 	
 	/**
 	 * Identifies the GUI containing the effects available for execution.
 	 */
-	EFFECTS
+	EFFECTS((byte) 1);
+	
+	private byte key;
+	
+	GuiType(byte key) {
+		this.key = key;
+	}
+	
+	/**
+	 * Returns a short unique to the gui type, which can be used to identify or store the effect in memory.
+	 * @return the key.
+	 */
+	public byte key() {
+		return key;
+	}
+	
+	/**
+	 * Identifies the effect that this key belongs to. Useful when storing keys in maps, lists or as serialized data.
+	 * @param key the key
+	 * @return the GuiType
+	 */
+	public static GuiType fromKey(byte key) {
+		return (key == 0) ? PLAYERS : ((key == 1) ? EFFECTS : null);
+	}
 
 }

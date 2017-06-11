@@ -37,12 +37,14 @@ public class Blacklist implements CommandExecutor {
 		if (!Message.verifyCommandSender(cmd, sender, "faketroll.blacklist", Message.getBool("enable-blacklist"), () -> args.length != 1)) {
 			return false;
 		}
+		
 		@SuppressWarnings("deprecation")
 		final OfflinePlayer op = Bukkit.getOfflinePlayer(args[0]);
 		if (!op.hasPlayedBefore()) {
 			sender.sendMessage(Message.PREFIX + Message.getString("invalid-target"));
 			return false;
 		}
+		
 		final TrollPlayer target = ftp.getUserCache().getTrollPlayer(op);
 		target.setBlacklisted(!target.isBlacklisted());
 		

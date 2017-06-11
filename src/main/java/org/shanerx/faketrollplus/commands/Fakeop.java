@@ -24,8 +24,8 @@ import org.shanerx.faketrollplus.FakeTrollPlus;
 import org.shanerx.faketrollplus.Message;
 
 public class Fakeop implements CommandExecutor {
-
-	FakeTrollPlus plugin;
+	
+	private FakeTrollPlus plugin;
 
 	public Fakeop(final FakeTrollPlus instance) {
 		plugin = instance;
@@ -36,15 +36,18 @@ public class Fakeop implements CommandExecutor {
 		if (!Message.verifyCommandSender(cmd, sender, "faketroll.fakeop", Message.getBool("fake-op.enable"), () -> args.length != 1)) {
 			return false;
 		}
+		
 		final Player target = plugin.getServer().getPlayer(args[0]);
 		if (target == null) {
 			sender.sendMessage(Message.PREFIX + Message.getString("invalid-target"));
 			return false;
 		}
+		
 		if (!(sender instanceof Player)) {
 			target.sendMessage(Message.col("&7&o[Server: Opped " + target.getName() + "]"));
 			return false;
 		}
+		
 		target.sendMessage(Message.col("&7&o[" + sender.getName() + ": Opped " + target.getName() + "]"));
 		sender.sendMessage(Message.PREFIX + Message.getString("fake-op.sender").replace("%player%", target.getName()));
 		return true;

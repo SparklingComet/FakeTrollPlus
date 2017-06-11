@@ -25,8 +25,8 @@ import org.shanerx.faketrollplus.FakeTrollPlus;
 import org.shanerx.faketrollplus.Message;
 
 public class Portal implements CommandExecutor {
-
-	FakeTrollPlus plugin;
+	
+	private FakeTrollPlus plugin;
 
 	public Portal(final FakeTrollPlus instance) {
 		plugin = instance;
@@ -37,23 +37,26 @@ public class Portal implements CommandExecutor {
 		if (!Message.verifyCommandSender(cmd, sender, "faketroll.portal", Message.getBool("portal.enable"), () -> args.length != 1)) {
 			return false;
 		}
+		
 		final Player target = plugin.getServer().getPlayer(args[0]);
 		if (target == null) {
 			sender.sendMessage(Message.PREFIX + Message.getString("invalid-target"));
 			return false;
 		}
+		
 		String world = target.getLocation().getWorld().getName();
 		if (world.contains("_the_end")) {
 			sender.sendMessage(Message.PREFIX + Message.getString("portal.already-there").replace("%player%", target.getName()));
 			return false;
-		}
-		if (world.contains("_nether")) {
+		} else if (world.contains("_nether")) {
 			world = world.replace("_nether", "");
 		}
-		sender.sendMessage(Message.PREFIX + Message.getString("portal.warped").replace("%player%", target.getName()));
+		
 		World end = plugin.getServer().getWorld(world + "_the_end");
 		final Location spawn = end.getHighestBlockAt(end.getSpawnLocation()).getLocation();
 		target.teleport(spawn);
+		
+		sender.sendMessage(Message.PREFIX + Message.getString("portal.warped").replace("%player%", target.getName()));
 		return true;
 	}
 

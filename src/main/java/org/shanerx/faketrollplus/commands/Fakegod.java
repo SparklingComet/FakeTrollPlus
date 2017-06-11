@@ -23,8 +23,8 @@ import org.shanerx.faketrollplus.FakeTrollPlus;
 import org.shanerx.faketrollplus.Message;
 
 public class Fakegod implements CommandExecutor {
-
-	FakeTrollPlus plugin;
+	
+	private FakeTrollPlus plugin;
 
 	public Fakegod(final FakeTrollPlus instance) {
 		plugin = instance;
@@ -48,11 +48,13 @@ public class Fakegod implements CommandExecutor {
 			sender.sendMessage(Message.PREFIX + Message.getString("invalid-target"));
 			return false;
 		}
+		
 		if (args[1].equalsIgnoreCase("on")) {
 			target.sendMessage(Message.getString("fake-god.toggle-on"));
 		} else {
 			target.sendMessage(Message.getString("fake-god.toggle-off"));
 		}
+		
 		sender.sendMessage(Message.PREFIX + Message.getString("fake-god.sender").replace("%player%", target.getName()));
 		return true;
 	}

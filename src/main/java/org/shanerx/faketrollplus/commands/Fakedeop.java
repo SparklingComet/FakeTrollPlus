@@ -24,8 +24,8 @@ import org.shanerx.faketrollplus.FakeTrollPlus;
 import org.shanerx.faketrollplus.Message;
 
 public class Fakedeop implements CommandExecutor {
-
-	FakeTrollPlus plugin;
+	
+	private FakeTrollPlus plugin;
 
 	public Fakedeop(final FakeTrollPlus instance) {
 		plugin = instance;
@@ -47,6 +47,7 @@ public class Fakedeop implements CommandExecutor {
 			target.sendMessage(Message.col("&7&o[Server: De-opped " + target.getName() + "]"));
 			return false;
 		}
+		
 		target.sendMessage(Message.col("&7&o[" + sender.getName() + ": De-opped " + target.getName() + "]"));
 		sender.sendMessage(Message.PREFIX + Message.getString("fake-deop.sender").replace("%player%", target.getName()));
 		return true;

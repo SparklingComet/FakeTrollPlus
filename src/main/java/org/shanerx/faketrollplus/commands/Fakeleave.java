@@ -23,8 +23,8 @@ import org.shanerx.faketrollplus.FakeTrollPlus;
 import org.shanerx.faketrollplus.Message;
 
 public class Fakeleave implements CommandExecutor {
-
-	FakeTrollPlus plugin;
+	
+	private FakeTrollPlus plugin;
 
 	public Fakeleave(final FakeTrollPlus instance) {
 		plugin = instance;
@@ -35,6 +35,7 @@ public class Fakeleave implements CommandExecutor {
 		if (!Message.verifyCommandSender(cmd, sender, "faketroll.fakeleave", Message.getBool("fake-leave.enable"), () -> args.length != 1)) {
 			return false;
 		}
+		
 		Bukkit.broadcastMessage(Message.getString("fake-leave.message").replace("%player%", args[0]));
 		return true;
 	}

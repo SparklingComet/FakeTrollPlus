@@ -26,8 +26,8 @@ import org.shanerx.faketrollplus.FakeTrollPlus;
 import org.shanerx.faketrollplus.Message;
 
 public class Poison implements CommandExecutor {
-
-	FakeTrollPlus plugin;
+	
+	private FakeTrollPlus plugin;
 
 	public Poison(final FakeTrollPlus instance) {
 		plugin = instance;
@@ -38,11 +38,13 @@ public class Poison implements CommandExecutor {
 		if (!Message.verifyCommandSender(cmd, sender, "faketroll.poison", Message.getBool("poison.enable"), () -> args.length != 2)) {
 			return false;
 		}
+		
 		final Player target = plugin.getServer().getPlayer(args[0]);
 		if (target == null) {
 			sender.sendMessage(Message.PREFIX + Message.getString("invalid-target"));
 			return false;
 		}
+		
 		try {
 			final int time = Integer.parseInt(args[1]);
 			if (target.getGameMode() == GameMode.CREATIVE || target.getGameMode() == GameMode.SPECTATOR) {

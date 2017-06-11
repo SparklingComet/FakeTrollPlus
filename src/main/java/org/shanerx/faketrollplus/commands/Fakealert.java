@@ -24,8 +24,8 @@ import org.shanerx.faketrollplus.FakeTrollPlus;
 import org.shanerx.faketrollplus.Message;
 
 public class Fakealert implements CommandExecutor {
-
-	FakeTrollPlus plugin;
+	
+	private FakeTrollPlus plugin;
 
 	public Fakealert(final FakeTrollPlus instance) {
 		plugin = instance;
@@ -36,6 +36,7 @@ public class Fakealert implements CommandExecutor {
 		if (!Message.verifyCommandSender(cmd, sender, "faketroll.fakealert", Message.getBool("fake-alert.enable"), () -> args.length < 2)) {
 			return false;
 		}
+		
 		final Player target = plugin.getServer().getPlayer(args[0]);
 		if (target == null) {
 			sender.sendMessage(Message.PREFIX + Message.getString("invalid-target"));

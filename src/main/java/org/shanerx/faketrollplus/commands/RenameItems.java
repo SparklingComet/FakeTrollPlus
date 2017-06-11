@@ -27,8 +27,8 @@ import org.shanerx.faketrollplus.FakeTrollPlus;
 import org.shanerx.faketrollplus.Message;
 
 public class RenameItems implements CommandExecutor {
-
-	FakeTrollPlus plugin;
+	
+	private FakeTrollPlus plugin;
 
 	public RenameItems(final FakeTrollPlus instance) {
 		plugin = instance;
@@ -47,22 +47,27 @@ public class RenameItems implements CommandExecutor {
 		}
 		
 		final Inventory targetInv = target.getInventory();
+		
 		if (args.length == 1) {
 			for (final ItemStack item : targetInv.getContents()) {
 				if (item == null) {
 					continue;
 				}
+				
 				final ItemMeta meta = item.getItemMeta();
 				meta.setDisplayName(Message.changeToGibberish(item.getItemMeta().getDisplayName()));
 				item.setItemMeta(meta);
 			}
 			sender.sendMessage(Message.getString("rename-items.sender.gibberish").replace("%player%", target.getName()));
+			
 		} else {
 			StringBuilder sb = new StringBuilder();
 			for (int i = 1; i < args.length; i++) {
 				sb.append(args[i]).append(" ");
 			}
+			
 			String name = sb.toString().trim();
+			
 			for (final ItemStack item : targetInv.getContents()) {
 				if (item == null) {
 					continue;
@@ -73,6 +78,7 @@ public class RenameItems implements CommandExecutor {
 			}
 			sender.sendMessage(Message.PREFIX + Message.getString("rename-items.sender.renamed").replace("%player%", target.getName()).replace("%name%", name));
 		}
+		
 		if (Message.getBool("rename-items.do-target-msg")) {
 			target.sendMessage(Message.getString("rename-items.target-msg").replace("%player%", target.getName()));
 		}

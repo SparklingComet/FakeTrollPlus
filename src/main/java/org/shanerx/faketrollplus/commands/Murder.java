@@ -24,8 +24,8 @@ import org.shanerx.faketrollplus.FakeTrollPlus;
 import org.shanerx.faketrollplus.Message;
 
 public class Murder implements CommandExecutor {
-
-	FakeTrollPlus plugin;
+	
+	private FakeTrollPlus plugin;
 
 	public Murder(final FakeTrollPlus instance) {
 		plugin = instance;
@@ -42,8 +42,8 @@ public class Murder implements CommandExecutor {
 			sender.sendMessage(Message.PREFIX + Message.getString("invalid-target"));
 			return false;
 		}
-		target.getGameMode();
-		if (GameMode.CREATIVE != null) {
+		
+		if (target.getGameMode() != GameMode.CREATIVE) {
 			target.setGameMode(GameMode.SURVIVAL);
 			target.damage(20.0D);
 			target.setGameMode(GameMode.CREATIVE);

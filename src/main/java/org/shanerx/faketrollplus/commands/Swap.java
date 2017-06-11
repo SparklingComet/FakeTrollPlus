@@ -39,6 +39,7 @@ public class Swap implements CommandExecutor {
 		
 		final Player t1 = plugin.getServer().getPlayer(args[0]);
 		final Player t2 = plugin.getServer().getPlayer(args[1]);
+		
 		if (t1 == null || t2 == null) {
 			sender.sendMessage(Message.PREFIX + Message.getString("swap.invalid-target"));
 			return false;
@@ -46,13 +47,16 @@ public class Swap implements CommandExecutor {
 		
 		final Location loc1 = t1.getLocation();
 		final Location loc2 = t2.getLocation();
+		
 		t1.teleport(loc2);
 		t2.teleport(loc1);
+		
 		if (Message.getBool("swap.send-message-to-target")) {
 			final String msg = Message.getString("swap.target-msg");
 			t1.sendMessage(Message.col(msg));
 			t2.sendMessage(Message.col(msg));
 		}
+		
 		sender.sendMessage(Message.PREFIX + Message.getString("swap.sender").replace("%player1%",
 				t1.getName()).replace("%player2%", t2.getName()));
 		return true;

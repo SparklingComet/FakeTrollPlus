@@ -26,7 +26,7 @@ import org.shanerx.faketrollplus.Message;
 
 public class Anvil implements CommandExecutor {
 
-	FakeTrollPlus plugin;
+	private FakeTrollPlus plugin;
 
 	public Anvil(final FakeTrollPlus instance) {
 		plugin = instance;
@@ -38,16 +38,20 @@ public class Anvil implements CommandExecutor {
 		if (!Message.verifyCommandSender(cmd, sender, "faketroll.anvil", Message.getBool("anvil.enable"), () -> args.length != 1)) {
 			return false;
 		}
+		
 		final Player target = plugin.getServer().getPlayer(args[0]);
 		if (target == null) {
 			sender.sendMessage(Message.PREFIX + Message.getString("invalid-target"));
 			return false;
 		}
+		
 		final int x = target.getLocation().getBlockX();
 		final int y = target.getLocation().getBlockY();
 		final int z = target.getLocation().getBlockZ();
+		
 		final World world = target.getLocation().getWorld();
 		final Block block = world.getBlockAt(x, y + 2, z);
+		
 		block.setTypeId(145);
 		sender.sendMessage(Message.PREFIX + Message.getString("anvil.sender").replace("%player%", target.getName()));
 		return true;

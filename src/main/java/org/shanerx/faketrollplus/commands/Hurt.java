@@ -23,8 +23,8 @@ import org.shanerx.faketrollplus.FakeTrollPlus;
 import org.shanerx.faketrollplus.Message;
 
 public class Hurt implements CommandExecutor {
-
-	FakeTrollPlus plugin;
+	
+	private FakeTrollPlus plugin;
 
 	public Hurt(final FakeTrollPlus instance) {
 		plugin = instance;
@@ -48,6 +48,7 @@ public class Hurt implements CommandExecutor {
 			sender.sendMessage(Message.PREFIX + Message.getString("invalid-target"));
 			return false;
 		}
+		
 		final int hp = Integer.parseInt(args[1]);
 		final int hearts = hp / 2;
 		if (target.getHealth() - hp <= 0.0D) {
@@ -55,6 +56,7 @@ public class Hurt implements CommandExecutor {
 		} else {
 			target.setHealth(target.getHealth() - hp);
 		}
+		
 		sender.sendMessage(Message.PREFIX + Message.getString("hurt.sender")
 				.replace("%damage%", Integer.toString(hearts))
 				.replace("%player%", target.getName()));

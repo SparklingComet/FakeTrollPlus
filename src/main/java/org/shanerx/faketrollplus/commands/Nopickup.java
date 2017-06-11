@@ -24,8 +24,8 @@ import org.shanerx.faketrollplus.Message;
 import org.shanerx.faketrollplus.core.TrollPlayer;
 
 public class Nopickup implements CommandExecutor {
-
-	FakeTrollPlus plugin;
+	
+	private FakeTrollPlus plugin;
 
 	public Nopickup(final FakeTrollPlus instance) {
 		plugin = instance;
@@ -33,15 +33,16 @@ public class Nopickup implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(final CommandSender sender, final Command cmd, final String label, final String[] args) {
-		System.out.println(Message.getBool("no-pickup.enable"));
 		if (!Message.verifyCommandSender(cmd, sender, "faketroll.nopickup", Message.getBool("no-pickup.enable"), () -> args.length != 1)) {
 			return false;
 		}
+		
 		final Player target = plugin.getServer().getPlayer(args[0]);
 		if (target == null) {
 			sender.sendMessage(Message.PREFIX + Message.getString("invalid-target"));
 			return false;
 		}
+		
 		final TrollPlayer tp = plugin.getUserCache().getTrollPlayer(target.getUniqueId());
 		if (!tp.canPickup()) {
 			tp.setPickup(true);
@@ -52,6 +53,7 @@ public class Nopickup implements CommandExecutor {
 			return true;
 		}
 		tp.setPickup(false);
+		
 		sender.sendMessage(Message.PREFIX + Message.getString("no-pickup.sender.toggle-on").replace("%player%", target.getName()));
 		if (Message.getBool("no-pickup.alert-victim")) {
 			target.sendMessage(Message.getString("no-pickup.on-enable"));

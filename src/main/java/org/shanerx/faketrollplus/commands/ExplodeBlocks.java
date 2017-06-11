@@ -24,8 +24,8 @@ import org.shanerx.faketrollplus.Message;
 import org.shanerx.faketrollplus.core.TrollPlayer;
 
 public class ExplodeBlocks implements CommandExecutor {
-
-	FakeTrollPlus plugin;
+	
+	private FakeTrollPlus plugin;
 
 	public ExplodeBlocks(final FakeTrollPlus instance) {
 		plugin = instance;

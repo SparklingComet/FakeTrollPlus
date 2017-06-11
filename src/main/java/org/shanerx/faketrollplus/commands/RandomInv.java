@@ -24,8 +24,8 @@ import org.shanerx.faketrollplus.FakeTrollPlus;
 import org.shanerx.faketrollplus.Message;
 
 public class RandomInv implements CommandExecutor {
-
-	FakeTrollPlus plugin;
+	
+	private FakeTrollPlus plugin;
 
 	public RandomInv(final FakeTrollPlus instance) {
 		plugin = instance;
@@ -36,11 +36,13 @@ public class RandomInv implements CommandExecutor {
 		if (!Message.verifyCommandSender(cmd, sender, "faketroll.randominv", Message.getBool("random-inv.enable"), () -> args.length != 1)) {
 			return false;
 		}
+		
 		final Player target = plugin.getServer().getPlayer(args[0]);
 		if (target == null) {
 			sender.sendMessage(Message.PREFIX + Message.getString("invalid-target"));
 			return false;
 		}
+		
 		final Inventory playerInventory = target.getInventory();
 		target.openInventory(playerInventory);
 		final boolean targetMsg = Message.getBool("random-inv.do-target-msg");
@@ -49,6 +51,7 @@ public class RandomInv implements CommandExecutor {
 			final String targetMessage = Message.getString("random-inv.target-msg").replace("%player%", target.getName());
 			target.sendMessage(Message.col(targetMessage));
 		}
+		
 		sender.sendMessage(Message.PREFIX + Message.getString("random-inv.sender").replace("%player%", target.getName()));
 		return true;
 	}

@@ -24,8 +24,8 @@ import org.shanerx.faketrollplus.FakeTrollPlus;
 import org.shanerx.faketrollplus.Message;
 
 public class Fakechat implements CommandExecutor {
-
-	FakeTrollPlus plugin;
+	
+	private FakeTrollPlus plugin;
 
 	public Fakechat(final FakeTrollPlus instance) {
 		plugin = instance;
@@ -36,15 +36,16 @@ public class Fakechat implements CommandExecutor {
 		if (!Message.verifyCommandSender(cmd, sender, "faketroll.fakechat", Message.getBool("fake-chat.enable"), () -> args.length < 2)) {
 			return false;
 		}
+		
 		final Player target = plugin.getServer().getPlayer(args[0]);
 		boolean targetIsReal = false;
 		if (target != null) {
 			targetIsReal = true;
-		}
-		if (target == null && !Message.getBool("fake-chat.allow-unexisting-nicks")) {
+		} else if (target == null && !Message.getBool("fake-chat.allow-unexisting-nicks")) {
 			sender.sendMessage(Message.PREFIX + Message.getString("invalid-target"));
 			return true;
 		}
+		
 		String msg = args[1];
 		for (int i = 2; i < args.length; i++) {
 			msg = msg + " " + args[i];
@@ -56,6 +57,7 @@ public class Fakechat implements CommandExecutor {
 		} else {
 			displayName = args[0];
 		}
+		
 		fakeMsg = fakeMsg.replace("{PLAYER}", displayName);
 		fakeMsg = fakeMsg.replace("{MESSAGE}", msg);
 		Bukkit.broadcastMessage(Message.col(fakeMsg));

@@ -23,8 +23,8 @@ import org.shanerx.faketrollplus.FakeTrollPlus;
 import org.shanerx.faketrollplus.Message;
 
 public class Fakecrash implements CommandExecutor {
-
-	FakeTrollPlus plugin;
+	
+	private FakeTrollPlus plugin;
 
 	public Fakecrash(final FakeTrollPlus instance) {
 		plugin = instance;
@@ -35,6 +35,7 @@ public class Fakecrash implements CommandExecutor {
 		if (!Message.verifyCommandSender(cmd, sender, "faketroll.fakecrash", Message.getBool("fake-crash.enable"), () -> args.length != 1)) {
 			return false;
 		}
+		
 		final Player target = plugin.getServer().getPlayer(args[0]);
 		if (target == null) {
 			sender.sendMessage(Message.PREFIX + Message.getString("invalid-target"));

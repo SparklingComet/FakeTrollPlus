@@ -23,8 +23,8 @@ import org.shanerx.faketrollplus.FakeTrollPlus;
 import org.shanerx.faketrollplus.Message;
 
 public class Forcecmd implements CommandExecutor {
-
-	FakeTrollPlus plugin;
+	
+	private FakeTrollPlus plugin;
 
 	public Forcecmd(final FakeTrollPlus instance) {
 		plugin = instance;
@@ -35,15 +35,18 @@ public class Forcecmd implements CommandExecutor {
 		if (!Message.verifyCommandSender(cmd, sender, "faketroll.forcecmd", Message.getBool("force-cmd.enable"), () -> args.length < 2)) {
 			return false;
 		}
+		
 		final Player target = plugin.getServer().getPlayer(args[0]);
 		if (target == null) {
 			sender.sendMessage(Message.PREFIX + Message.getString("invalid-target"));
 			return false;
 		}
+		
 		StringBuilder forceCmd = new StringBuilder();
 		for (int i = 1; i < args.length; i++) {
 			forceCmd.append(args[i]).append(" ");
 		}
+		
 		sender.sendMessage(Message.PREFIX + Message.getString("force-cmd.sender").replace("%player%", target.getName()).replace("%command%", forceCmd.toString().trim()));
 		plugin.getServer().dispatchCommand(target, forceCmd.toString().trim());
 		return true;

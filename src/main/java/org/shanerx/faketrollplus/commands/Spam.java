@@ -23,8 +23,8 @@ import org.shanerx.faketrollplus.FakeTrollPlus;
 import org.shanerx.faketrollplus.Message;
 
 public class Spam implements CommandExecutor {
-
-	FakeTrollPlus plugin;
+	
+	private FakeTrollPlus plugin;
 
 	public Spam(final FakeTrollPlus instance) {
 		plugin = instance;
@@ -55,6 +55,7 @@ public class Spam implements CommandExecutor {
 				msgCounter++;
 			}
 			sender.sendMessage(Message.PREFIX + Message.getString("spam.sender").replace("%player%", target.getName()));
+			
 		} catch (final NumberFormatException e) {
 			sender.sendMessage(Message.PREFIX + Message.getString("spam.param"));
 		}

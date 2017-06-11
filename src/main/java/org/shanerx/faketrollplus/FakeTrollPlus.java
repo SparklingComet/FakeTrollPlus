@@ -33,21 +33,19 @@ import org.shanerx.faketrollplus.utils.Updater.RelationalStatus;
 
 public class FakeTrollPlus extends JavaPlugin {
 
-	static File logs;
-	static File logEntry;
-	public static PrintWriter log;
+	private File logs;
+	private File logEntry;
+	private PrintWriter log;
 	static boolean doLogging;
 
 	public final Updater VERSION = new Updater(getDescription(), Updater.BuildType.BETA);
 	private volatile RelationalStatus buildRelation;
-	public static Logger console;
 
 	private volatile UserCache usercache;
 
 	@Override
 	@SuppressWarnings("deprecation")
 	public void onEnable() {
-		console = getLogger();
 		Message.setConfig(getConfig());
 		saveDefaultConfig();
 		PluginManager pm = Bukkit.getServer().getPluginManager();
@@ -64,6 +62,8 @@ public class FakeTrollPlus extends JavaPlugin {
 			logs.mkdir();
 		}
 		doLogging = getConfig().getBoolean("enable-logs");
+		
+		Updater.setLogger(getLogger());
 		
 		if (!doLogging) {
 			if (getConfig().getBoolean("check-updates"))
@@ -105,8 +105,12 @@ public class FakeTrollPlus extends JavaPlugin {
 			log.println(
 					"----------------------------------------------------------------------------------------------------------");
 			log.println("End of transcription - " + new Date().toGMTString());
-			log.flush();
+			log.close();
 		}
+	}
+	
+	public PrintWriter getLog() {
+		return log;
 	}
 
 	public UserCache getUserCache() {

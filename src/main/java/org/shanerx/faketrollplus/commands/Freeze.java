@@ -25,9 +25,9 @@ import org.shanerx.faketrollplus.core.TrollPlayer;
 import org.shanerx.faketrollplus.core.UserCache;
 
 public class Freeze implements CommandExecutor {
-
-	FakeTrollPlus plugin;
-	UserCache uc;
+	
+	private FakeTrollPlus plugin;
+	private UserCache uc;
 
 	public Freeze(final FakeTrollPlus instance) {
 		plugin = instance;

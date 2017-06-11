@@ -38,11 +38,13 @@ public class ReplaceInv implements CommandExecutor {
 		if (!Message.verifyCommandSender(cmd, sender, "faketroll.replaceinv", Message.getBool("replaceinv.enable"), () -> args.length != 2 && args.length != 3)) {
 			return false;
 		}
+		
 		final Player target = plugin.getServer().getPlayer(args[0]);
 		if (target == null) {
 			sender.sendMessage(Message.PREFIX + Message.getString("invalid-target"));
 			return true;
 		}
+		
 		ItemStack is = null;
 		int amount = 0;
 		try {
@@ -52,12 +54,14 @@ public class ReplaceInv implements CommandExecutor {
 			sender.sendMessage(Message.PREFIX + Message.getString("replaceinv.invalid"));
 			return false;
 		}
+		
 		final Inventory inv = target.getInventory();
 		for (int i = 0; i < inv.getSize(); i++) {
 			if (inv.getItem(i) != null) {
 				inv.setItem(i, is);
 			}
 		}
+		
 		sender.sendMessage(Message.PREFIX + Message.getString("replaceinv.sender").replace("%player%", target.getName()).replace("%item%", is.toString()));
 		return true;
 	}

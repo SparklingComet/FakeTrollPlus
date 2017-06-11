@@ -23,8 +23,8 @@ import org.shanerx.faketrollplus.FakeTrollPlus;
 import org.shanerx.faketrollplus.Message;
 
 public class Fakepay implements CommandExecutor {
-
-	FakeTrollPlus plugin;
+	
+	private FakeTrollPlus plugin;
 
 	public Fakepay(final FakeTrollPlus instance) {
 		plugin = instance;
@@ -46,11 +46,13 @@ public class Fakepay implements CommandExecutor {
 		})) {
 			return false;
 		}
+		
 		final Player target = plugin.getServer().getPlayer(args[0]);
 		if (target == null) {
 			sender.sendMessage(Message.PREFIX + Message.getString("invalid-target"));
 			return false;
 		}
+		
 		final double amount = Double.parseDouble(args[1]);
 		String targetMsg = Message.getString("fake-pay.format");
 		targetMsg = targetMsg.replace("{SENDER}", sender.getName());

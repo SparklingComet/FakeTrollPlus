@@ -24,8 +24,8 @@ import org.shanerx.faketrollplus.FakeTrollPlus;
 import org.shanerx.faketrollplus.Message;
 
 public class Fakeban implements CommandExecutor {
-
-	FakeTrollPlus plugin;
+	
+	private FakeTrollPlus plugin;
 
 	public Fakeban(final FakeTrollPlus instance) {
 		plugin = instance;
@@ -36,6 +36,7 @@ public class Fakeban implements CommandExecutor {
 		if (!Message.verifyCommandSender(cmd, sender, "faketroll.fakeban", Message.getBool("fake-ban.enable"), () -> args.length < 2)) {
 			return false;
 		}
+		
 		final Player target = plugin.getServer().getPlayer(args[0]);
 		if (target == null) {
 			sender.sendMessage(Message.PREFIX + Message.getString("invalid-target"));

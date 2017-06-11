@@ -24,8 +24,8 @@ import org.shanerx.faketrollplus.FakeTrollPlus;
 import org.shanerx.faketrollplus.Message;
 
 public class Launch implements CommandExecutor {
-
-	FakeTrollPlus plugin;
+	
+	private FakeTrollPlus plugin;
 
 	public Launch(final FakeTrollPlus plugin) {
 		this.plugin = plugin;
@@ -47,6 +47,7 @@ public class Launch implements CommandExecutor {
 		})) {
 			return false;
 		}
+		
 		final Player target = plugin.getServer().getPlayer(args[0]);
 		if (target == null) {
 			sender.sendMessage(Message.PREFIX + Message.getString("invalid-target"));
@@ -55,6 +56,7 @@ public class Launch implements CommandExecutor {
 
 		final double y = Double.parseDouble(args[1]);
 		target.setVelocity(target.getVelocity().add(new Vector(0, y, 0)));
+		
 		sender.sendMessage(Message.PREFIX + Message.getString("launch.sender")
 				.replace("%player%", target.getName()));
 		return true;
