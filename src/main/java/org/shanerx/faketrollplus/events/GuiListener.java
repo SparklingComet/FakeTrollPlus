@@ -15,7 +15,7 @@
  */
 package org.shanerx.faketrollplus.events;
 
-import java.util.Collection;
+import java.util.Set;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -67,7 +67,7 @@ public class GuiListener implements Listener {
 			
 			switch(item.getType()) {
 			case SKULL_ITEM:
-				Collection<TrollEffect> activeEffects = ftp.getUserCache().getTrollPlayer(op.getUniqueId()).activeEffects();
+				Set<TrollEffect> activeEffects = ftp.getUserCache().getTrollPlayer(op.getUniqueId()).activeEffects();
 
 				StringBuilder sb = new StringBuilder();
 				boolean hasEffects = activeEffects.size() > 0;
