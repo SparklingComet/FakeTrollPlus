@@ -38,7 +38,7 @@ public class Gibberish implements CommandExecutor {
 			return false;
 		}
 		
-		final Player p = Bukkit.getPlayer(args[0]);
+		final Player p = plugin.getTarget(args[0]);
 		if (p == null) {
 			sender.sendMessage(Message.PREFIX + Message.getString("invalid-target"));
 			return false;

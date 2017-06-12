@@ -40,7 +40,7 @@ public class RenameItems implements CommandExecutor {
 			return false;
 		}
 		
-		final Player target = Bukkit.getServer().getPlayer(args[0]);
+		final Player target = plugin.getTarget(args[0]);
 		if (target == null) {
 			sender.sendMessage(Message.PREFIX + Message.getString("invalid-target"));
 			return false;

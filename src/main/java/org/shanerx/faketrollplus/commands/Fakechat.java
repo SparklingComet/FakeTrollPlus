@@ -37,7 +37,7 @@ public class Fakechat implements CommandExecutor {
 			return false;
 		}
 		
-		final Player target = plugin.getServer().getPlayer(args[0]);
+		final Player target = plugin.getTarget(args[0]);
 		boolean targetIsReal = false;
 		if (target != null) {
 			targetIsReal = true;
