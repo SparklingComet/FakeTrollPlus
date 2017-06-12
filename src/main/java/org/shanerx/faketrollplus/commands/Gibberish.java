@@ -15,7 +15,6 @@
  */
 package org.shanerx.faketrollplus.commands;
 
-import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -38,7 +37,7 @@ public class Gibberish implements CommandExecutor {
 			return false;
 		}
 		
-		final Player p = Bukkit.getPlayer(args[0]);
+		final Player p = plugin.getTarget(args[0]);
 		if (p == null) {
 			sender.sendMessage(Message.PREFIX + Message.getString("invalid-target"));
 			return false;

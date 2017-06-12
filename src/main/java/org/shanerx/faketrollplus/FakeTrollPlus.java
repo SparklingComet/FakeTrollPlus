@@ -24,6 +24,7 @@ import java.util.Date;
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.shanerx.faketrollplus.core.TrollEffect;
@@ -134,5 +135,10 @@ public class FakeTrollPlus extends JavaPlugin {
 	public RelationalStatus buildRelation() {
 		return buildRelation;
 	}
-
+	
+// UTILS
+	public Player getTarget(String arg) {
+		return getConfig().getBoolean("exact-target") ? Bukkit.getPlayerExact(arg) : Bukkit.getPlayer(arg);
+	}
+	
 }

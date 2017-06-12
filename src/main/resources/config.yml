@@ -8,6 +8,8 @@
 # The prefix is currently hard coded, but WILL be made configurable in the next release (v#3.4.2).
 # The prefix includes a certain styling for the message.
 # The colours and format may be overridden by editing the string.
+use-prefix: true
+prefix: '&a[FakeTrollPlus] &f '
 
 # Keeping the Updater enabled is recommended.
 # Only disable if the server is not connected to the internet.
@@ -260,3 +262,8 @@ message-for-disabled-cmds: '&fUnknown command. Type "/help" for help.'
 
 # Set the message displayed when the target's name is either invalid or they are not online.
 invalid-target: 'Player not found.'
+
+# Set to true if the plugin should try to find the player with the most similar name, instead
+# of sending an error message if the name entered does not 100% match the target.
+# Recommended setting: false
+exact-target: false

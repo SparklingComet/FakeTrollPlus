@@ -37,8 +37,8 @@ public class Swap implements CommandExecutor {
 			return false;
 		}
 		
-		final Player t1 = plugin.getServer().getPlayer(args[0]);
-		final Player t2 = plugin.getServer().getPlayer(args[1]);
+		final Player t1 = plugin.getTarget(args[0]);
+		final Player t2 = plugin.getTarget(args[1]);
 		
 		if (t1 == null || t2 == null) {
 			sender.sendMessage(Message.PREFIX + Message.getString("swap.invalid-target"));
