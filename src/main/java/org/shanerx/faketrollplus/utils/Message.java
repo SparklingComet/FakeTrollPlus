@@ -33,6 +33,8 @@ public enum Message {
 	
 	NO_PROTOCOL_LIB("&3ProtocolLib &fis required to perform this action. Please install it and retry."),
 
+	GUI_EFFECT_DISABLED("&3Sorry, but this effect has been &3disabled &fin the config."),
+	
 	RELOAD_CONFIG("Configuration file has been &3reloaded&f!");
 	
 	public static char COLOUR_SYMBOL = '&';

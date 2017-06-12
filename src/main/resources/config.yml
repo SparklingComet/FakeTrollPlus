@@ -5,9 +5,8 @@
 
 # The plugin automatically adds a prefix with its name to all messages that the sender command sender receives.
 # Messages sent to the trolled player and server-wide broadcasts or announcements do NOT contain the prefix.
-# The prefix is currently hard coded, but WILL be made configurable in the next release (v#3.4.2).
 # The prefix includes a certain styling for the message.
-# The colours and format may be overridden by editing the string.
+# The colours and format may be overridden by editing the string in the configuration.
 use-prefix: true
 prefix: '&a[FakeTrollPlus] &f '
 
