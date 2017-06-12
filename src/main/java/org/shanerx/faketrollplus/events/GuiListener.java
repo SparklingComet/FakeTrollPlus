@@ -32,6 +32,7 @@ import org.shanerx.faketrollplus.FakeTrollPlus;
 import org.shanerx.faketrollplus.utils.Message;
 import org.shanerx.faketrollplus.core.GuiUser;
 import org.shanerx.faketrollplus.core.TrollEffect;
+import static org.shanerx.faketrollplus.core.TrollEffect.*;
 import org.shanerx.faketrollplus.core.TrollPlayer;
 
 public class GuiListener implements Listener {
@@ -79,42 +80,74 @@ public class GuiListener implements Listener {
 				return;
 				
 			case ROTTEN_FLESH:
+				if (!BADFOOD.isEnabled()) {
+					p.sendMessage(Message.GUI_EFFECT_DISABLED.toString());
+					return;
+				}
 				tp.setBadfoodEffect(!tp.hasBadfoodEffect());
 				p.sendMessage(col((tp.hasBadfoodEffect() ? "&cEnabled": "&cDisabled") + " &6Badfood &eeffect for player &6" + op.getName()));
 				return;
 				
 			case EXP_BOTTLE:
+				if (!NO_PICKUP.isEnabled()) {
+					p.sendMessage(Message.GUI_EFFECT_DISABLED.toString());
+					return;
+				}
 				tp.setPickup(!tp.canPickup());
 				p.sendMessage(col((!tp.canPickup() ? "&cEnabled": "&cDisabled") + " &6No-Pickup &eeffect for player &6" + op.getName()));
 				return;
 				
 			case IRON_BOOTS:
+				if (!FREEZE.isEnabled()) {
+					p.sendMessage(Message.GUI_EFFECT_DISABLED.toString());
+					return;
+				}
 				tp.setFrozen(!tp.isFrozen());
 				p.sendMessage(col((tp.isFrozen() ? "&cEnabled": "&cDisabled") + " &6Freeze &eeffect for player &6" + op.getName()));
 				return;
 				
 			case BOOK:
+				if (!GIBBERISH.isEnabled()) {
+					p.sendMessage(Message.GUI_EFFECT_DISABLED.toString());
+					return;
+				}
 				tp.setGibberishChat(!tp.chatIsGibberish());
 				p.sendMessage(col((tp.chatIsGibberish() ? "&cEnabled": "&cDisabled") + " &6Gibberish &eeffect for player &6" + op.getName()));
 				return;
 				
 			case TRAPPED_CHEST:
+				if (!INVENTORY_LOCK.isEnabled()) {
+					p.sendMessage(Message.GUI_EFFECT_DISABLED.toString());
+					return;
+				}
 				tp.setInvLocked(!tp.invIsLocked());
 				p.sendMessage(col((tp.invIsLocked() ? "&cEnabled": "&cDisabled") + " &6Inventory-Lock &eeffect for player &6" + op.getName()));
 				return;
 				
 			case TNT:
+				if (!EXPLODE_BLOCKS.isEnabled()) {
+					p.sendMessage(Message.GUI_EFFECT_DISABLED.toString());
+					return;
+				}
 				tp.setExplodeMinedBlocksEffect(!tp.hasExplodeMinedBlocksEffect());
 				p.sendMessage(col((tp.hasExplodeMinedBlocksEffect() ? "&cEnabled": "&cDisabled") + " &6Explode-Blocks &eeffect &efor player &6" + op.getName()));
 				return;
 				
 			case IRON_DOOR:
+				if (!BLACKLISTED.isEnabled()) {
+					p.sendMessage(Message.GUI_EFFECT_DISABLED.toString());
+					return;
+				}
 				tp.setBlacklisted(!tp.isBlacklisted());
 				p.sendMessage(col((tp.isBlacklisted() ? "&cBlacklisted": "&cUn-blacklisted") + "  &eplayer &6" + op.getName()));
 				Bukkit.getPlayer(op.getUniqueId()).kickPlayer(Message.getString("blacklist"));
 				return;
 				
 			case LEASH:
+				if (!FREEZE_CHAT.isEnabled()) {
+					p.sendMessage(Message.GUI_EFFECT_DISABLED.toString());
+					return;
+				}
 				if (ftp.USE_PROTOCOL_LIB) {
 					tp.freezeChat(!tp.chatIsFrozen());
 					p.sendMessage(col((tp.chatIsFrozen() ? "&cEnabled": "&cDisabled") + "  &6Chat-Freeze &eeffect for &6" + op.getName()));
