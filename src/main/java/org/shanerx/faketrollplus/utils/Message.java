@@ -25,22 +25,24 @@ import org.shanerx.faketrollplus.utils.function.Test;
 
 public enum Message {
 	
-	PREFIX("%PREFIX%[FakeTrollPlus] &f %PRIMARY% "),
+	PREFIX("NOT-ACCESSIBLE"),
 	
-	ACCESS_DENIED("You do not have %SECONDARY%access%PRIMARY% to that command!"),
+	ACCESS_DENIED("You do not have &3access&f to this command!"),
 	
-	PLAYER_ONLY("Sorry, but this command is only available to %SECONDARY%players%PRIMARY%."),
+	PLAYER_ONLY("Sorry, but this command is only available to &3players&f."),
 	
-	INVALID_ARGS("Invalid args, please try again. Usage: %SECONDARY%%usage%"),
+	INVALID_ARGS("Invalid args, please try again. Usage: &3%usage%"),
 		
-	RELOAD_CONFIG("Configuration file has been reloaded!");
+	RELOAD_CONFIG("Configuration file has been &3reloaded&f!");
+	
+	public static char COLOUR_SYMBOL = '&';
 	
 	public static String col(String x) {
 		return ChatColor.translateAlternateColorCodes('&', x);
 	}
 	
 	public static String col(Message x) {
-		return ChatColor.translateAlternateColorCodes(Colour.COLOUR_SYMBOL, x.toString());
+		return ChatColor.translateAlternateColorCodes(COLOUR_SYMBOL, x.toString());
 	}
 	
 	private static FileConfiguration fc;
@@ -52,7 +54,7 @@ public enum Message {
 	
 	@Override
 	public String toString() {
-		return Colour.parse((this == PREFIX ? "" : PREFIX.toString()) + message);
+		return this == PREFIX ? (fc.getBoolean("use-prefix") ? Message.getString("prefix") : "") : col(PREFIX.toString() + message);
 	}
 	
 // CONFIG UTILS
@@ -82,12 +84,12 @@ public enum Message {
 	public static String changeToGibberish(String initialMsg) {
 		final String chars = "abcdefghijklmnopqrstuvwxyz1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 		int msgLength = initialMsg.length();
-		String newMsg = "";
-
+		
+		StringBuilder newMsg = new StringBuilder();
 		for (int i = 0; i < msgLength; i++) {
-			newMsg += String.valueOf(chars.charAt((int) (Math.random() * chars.length())));
+			newMsg.append(String.valueOf(chars.charAt((int) (Math.random() * chars.length()))));
 		}
-		return newMsg;
+		return newMsg.toString();
 	}
 	
 	public static boolean verifyCommandSender(Command cmd, CommandSender sender,
@@ -103,38 +105,6 @@ public enum Message {
 			return false;
 		}
 		return true;
-	}
-	
-	public enum Colour {
-		
-		PRIMARY('f'),
-		
-		SECONDARY('3'),
-		
-		PREFIX('a');
-		
-		private char colourCode;
-		public static final char COLOUR_SYMBOL = '&';
-		
-		Colour(char colourCode) {
-			this.colourCode = colourCode;
-		}
-		
-		public char colourCode() {
-			return colourCode;
-		}
-		
-		@Override
-		public String toString() {
-			return col(String.valueOf(colourCode));
-		}
-		
-		public static String parse(String msg) {
-			return col(msg
-					.replace("%PRIMARY%", COLOUR_SYMBOL + PRIMARY.toString())
-					.replace("%SECONDARY%", COLOUR_SYMBOL + SECONDARY.toString())
-					.replace("%PREFIX%", COLOUR_SYMBOL + PREFIX.toString()));
-		}
 	}
 
 }
