@@ -22,7 +22,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.bukkit.plugin.PluginDescriptionFile;
-import org.shanerx.faketrollplus.FakeTrollPlus;
 
 public class Updater {
 
