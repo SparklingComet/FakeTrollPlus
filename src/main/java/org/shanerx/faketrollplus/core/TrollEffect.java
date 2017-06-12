@@ -17,6 +17,7 @@ package org.shanerx.faketrollplus.core;
 
 import org.bukkit.plugin.java.JavaPlugin;
 import org.shanerx.faketrollplus.FakeTrollPlus;
+import org.shanerx.faketrollplus.utils.Message;
 
 /**
  * An enum containing all the trolling effects the plugin adds to the game.
@@ -102,6 +103,43 @@ public enum TrollEffect {
 	 */
 	public short key() {
 		return key;
+	}
+	
+	/**
+	 * Returns whether the effect is enabled in the config.
+	 *
+	 * @return true if enabled.
+	 */
+	public boolean isEnabled() {
+		String key;
+		switch (this) {
+			case BADFOOD:
+				key = "badfood.enable";
+				break;
+			case NO_PICKUP:
+				key = "no-pickup.enable";
+				break;
+			case FREEZE:
+				key = "freeze.enable";
+				break;
+			case GIBBERISH:
+				key = "gibberish.enable";
+				break;
+			case INVENTORY_LOCK:
+				key = "inventory-lock.enable";
+				break;
+			case EXPLODE_BLOCKS:
+				key = "explode-blocks.enable";
+				break;
+			case BLACKLISTED:
+				key = "enable-blacklist";
+				break;
+			case FREEZE_CHAT:
+				key = "freeze-chat.enable";
+				break;
+			default: key = null;
+		}
+		return Message.getBool(key);
 	}
 	
 	/**
