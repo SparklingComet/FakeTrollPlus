@@ -21,6 +21,8 @@ import java.util.*;
 
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.command.CommandSender;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.json.simple.JSONObject;
 import org.shanerx.faketrollplus.FakeTrollPlus;
@@ -103,15 +105,16 @@ public class TrollPlayer {
 	 * Checks whether the player can be trolled. <br>
 	 * The trolling player needs to have proper permission.
 	 * 
-	 * @param isConsole
-	 *            Whether the trolling entity is the console.
+	 * @param sender the CommandSender.
+	 *
 	 * @return {@code true} if the player can be trolled.
 	 */
-	public boolean canTroll(boolean isConsole) {
-		if (!ftp.getConfig().getBoolean("exempt-admins"))
-			return false;
-		if (isConsole && ftp.getConfig().getBoolean("console-bypass"))
+	public boolean canTroll(CommandSender sender) {
+		if (!ftp.getConfig().getBoolean("exempt-admins")) {
 			return true;
+		} else if (sender instanceof ConsoleCommandSender && ftp.getConfig().getBoolean("console-bypass")) {
+			return true;
+		}
 		return !Bukkit.getPlayer(uuid).hasPermission("faketroll.exempt");
 	}
 
