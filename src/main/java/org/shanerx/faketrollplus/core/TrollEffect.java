@@ -102,6 +102,11 @@ public enum TrollEffect implements Serializable{
 	 * Returns a short unique to the effect, which can be used to identify or store the effect in memory.
 	 *
 	 * @return the key.
+	 *
+	 * @see #fromKey(short)
+	 * @see #serialize()
+	 * @see #deserialize(String)
+	 * @see java.io.Serializable
 	 */
 	public short key() {
 		return key;
@@ -149,6 +154,11 @@ public enum TrollEffect implements Serializable{
 	 *
 	 * @param key the key
 	 * @return the effect
+	 *
+	 * @see #key()
+	 * @see #serialize()
+	 * @see #deserialize(String)
+	 * @see java.io.Serializable
 	 */
 	public static TrollEffect fromKey(short key) {
 		switch (key) {
@@ -168,6 +178,7 @@ public enum TrollEffect implements Serializable{
 	 * Sets the {@link org.shanerx.faketrollplus.FakeTrollPlus} instance.
 	 * This is required to retrieve information from the {@link org.bukkit.plugin.PluginDescriptionFile}
 	 * (aka the plugin.yml) and MUST be called in {@link JavaPlugin#onEnable()}.
+	 *
 	 * @param plugin the {@link org.shanerx.faketrollplus.FakeTrollPlus} instance
 	 */
 	public static void setPlugin(FakeTrollPlus plugin) {
@@ -180,7 +191,10 @@ public enum TrollEffect implements Serializable{
 	 * Returns a serialized form of the TrollEffect.
 	 *
 	 * @return a String representing the serialized data.
-	 * @see #key() {@link #deserialize(String)} {@link Serializable}
+	 *
+	 * @see #key()
+	 * @see #deserialize(String)
+	 * @see java.io.Serializable
 	 */
 	public String serialize() {
 		return "effectKey_" + key;
@@ -188,9 +202,13 @@ public enum TrollEffect implements Serializable{
 	
 	/**
 	 * Retrieves the TrollEffect from a previously serialized object.
+	 *
 	 * @param serializedData a serialized data.
 	 * @return the TrollEffect enum constant.
-	 * @see #fromKey(short)#serialize() {@link Serializable}
+	 *
+	 * @see #fromKey(short)
+	 * @see #serialize()
+	 * @see java.io.Serializable
 	 */
 	public static TrollEffect deserialize(String serializedData) {
 		String[] arr = serializedData.split("_");
