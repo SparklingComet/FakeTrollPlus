@@ -49,6 +49,10 @@ public class Badfood implements CommandExecutor {
 			tp.setBadfoodEffect(false);
 			sender.sendMessage(Message.PREFIX + Message.getString("badfood.remove").replace("%player%", target.getName()));
 			return true;
+			
+		} else if (!tp.canBeTrolledBy(sender)) {
+			sender.sendMessage(Message.PREFIX + Message.getString("no-admin-trolling"));
+			return false;
 		}
 		
 		tp.setBadfoodEffect(true);

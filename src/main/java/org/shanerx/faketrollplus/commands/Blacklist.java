@@ -25,30 +25,35 @@ import org.shanerx.faketrollplus.utils.Message;
 import org.shanerx.faketrollplus.core.TrollPlayer;
 
 public class Blacklist implements CommandExecutor {
-
+	
 	private FakeTrollPlus ftp;
-
+	
 	public Blacklist(final FakeTrollPlus ftp) {
 		this.ftp = ftp;
 	}
-
+	
 	@Override
 	public boolean onCommand(final CommandSender sender, final Command cmd, final String label, final String[] args) {
 		if (!Message.verifyCommandSender(cmd, sender, "faketroll.blacklist", Message.getBool("enable-blacklist"), () -> args.length != 1)) {
 			return false;
 		}
 		
-		@SuppressWarnings("deprecation")
-		final OfflinePlayer op = Bukkit.getOfflinePlayer(args[0]);
+		@SuppressWarnings("deprecation")		final OfflinePlayer op = Bukkit.getOfflinePlayer(args[0]);
 		if (!op.hasPlayedBefore()) {
 			sender.sendMessage(Message.PREFIX + Message.getString("invalid-target"));
 			return false;
 		}
 		
 		final TrollPlayer target = ftp.getUserCache().getTrollPlayer(op);
+		
+		if (!target.isBlacklisted() && !target.canBeTrolledBy(sender)) {
+			sender.sendMessage(Message.PREFIX + Message.getString("no-admin-trolling"));
+			return false;
+			
+		}
 		target.setBlacklisted(!target.isBlacklisted());
 		
-		sender.sendMessage(Message.PREFIX + Message.col((target.isBlacklisted() ? "&3Blacklisted": "&3Un-blacklisted") + "  &fplayer &3" + op.getName() + "&f!"));
+		sender.sendMessage(Message.PREFIX + Message.col((target.isBlacklisted() ? "&3Blacklisted" : "&3Un-blacklisted") + "  &fplayer &3" + op.getName() + "&f!"));
 		if (op.isOnline()) {
 			Bukkit.getPlayer(op.getUniqueId()).kickPlayer(Message.getString("blacklist"));
 		}

@@ -51,7 +51,11 @@ public class Freeze implements CommandExecutor {
 			sender.sendMessage(Message.PREFIX + Message.getString("freeze.sender.toggle-off").replace("%player%", target.getName()));
 			target.sendMessage(Message.getString("freeze.unfreeze-msg"));
 			return true;
+		} else if (!tp.canBeTrolledBy(sender)) {
+			sender.sendMessage(Message.PREFIX + Message.getString("no-admin-trolling"));
+			return false;
 		}
+		
 		tp.setFrozen(true);
 		sender.sendMessage(Message.PREFIX + Message.getString("freeze.sender.toggle-on").replace("%player%", target.getName()));
 		target.sendMessage(Message.getString("freeze.freeze-msg"));

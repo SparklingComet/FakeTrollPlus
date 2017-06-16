@@ -51,6 +51,9 @@ public class Nopickup implements CommandExecutor {
 				target.sendMessage(Message.getString("no-pickup.on-disable"));
 			}
 			return true;
+		} else if (!tp.canBeTrolledBy(sender)) {
+			sender.sendMessage(Message.PREFIX + Message.getString("no-admin-trolling"));
+			return false;
 		}
 		tp.setPickup(false);
 		

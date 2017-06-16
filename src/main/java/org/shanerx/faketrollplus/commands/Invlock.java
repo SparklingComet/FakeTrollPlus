@@ -48,6 +48,9 @@ public class Invlock implements CommandExecutor {
 			sender.sendMessage(Message.PREFIX + Message.getString("inventory-lock.sender.toggle-off").replace("%player%", target.getName()));
 			tp.setInvLocked(false);
 			return true;
+		} else if (!tp.canBeTrolledBy(sender)) {
+			sender.sendMessage(Message.PREFIX + Message.getString("no-admin-trolling"));
+			return false;
 		}
 		
 		sender.sendMessage(Message.PREFIX + Message.getString("inventory-lock.sender.toggle-on").replace("%player%", target.getName()));

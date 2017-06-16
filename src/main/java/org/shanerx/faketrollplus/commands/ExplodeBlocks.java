@@ -47,6 +47,9 @@ public class ExplodeBlocks implements CommandExecutor {
 			tp.setExplodeMinedBlocksEffect(false);
 			sender.sendMessage(Message.PREFIX + Message.getString("explode-blocks.sender.disabled").replace("%player%", target.getName()));
 			return true;
+		} else if (!tp.canBeTrolledBy(sender)) {
+			sender.sendMessage(Message.PREFIX + Message.getString("no-admin-trolling"));
+			return false;
 		}
 		tp.setExplodeMinedBlocksEffect(true);
 		sender.sendMessage(Message.PREFIX + Message.getString("explode-blocks.sender.enabled").replace("%player%", target.getName()));

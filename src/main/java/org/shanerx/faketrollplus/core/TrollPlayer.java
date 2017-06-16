@@ -109,7 +109,7 @@ public class TrollPlayer {
 	 *
 	 * @return {@code true} if the player can be trolled.
 	 */
-	public boolean canTroll(CommandSender sender) {
+	public boolean canBeTrolledBy(CommandSender sender) {
 		if (!ftp.getConfig().getBoolean("exempt-admins")) {
 			return true;
 		} else if (sender instanceof ConsoleCommandSender && ftp.getConfig().getBoolean("console-bypass")) {

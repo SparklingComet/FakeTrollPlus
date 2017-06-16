@@ -48,6 +48,10 @@ public class Gibberish implements CommandExecutor {
 			tp.setGibberishChat(false);
 			sender.sendMessage(Message.PREFIX + Message.getString("gibberish.sender.toggle-off").replace("%player%", p.getName()));
 			return true;
+			
+		} else if (!tp.canBeTrolledBy(sender)) {
+			sender.sendMessage(Message.PREFIX + Message.getString("no-admin-trolling"));
+			return false;
 		}
 		
 		tp.setGibberishChat(true);

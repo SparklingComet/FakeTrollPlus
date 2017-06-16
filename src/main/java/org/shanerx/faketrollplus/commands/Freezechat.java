@@ -51,8 +51,12 @@ public class Freezechat implements CommandExecutor {
 			sender.sendMessage(Message.PREFIX + Message.getString("invalid-target"));
 			return false;
 		}
-		
 		TrollPlayer tp = plugin.getUserCache().getTrollPlayer(target);
+		
+		if (!tp.chatIsFrozen() && tp.canBeTrolledBy(sender)) {
+			sender.sendMessage(Message.PREFIX + Message.getString("no-admin-trolling"));
+			return false;
+		}
 		tp.freezeChat(!tp.chatIsFrozen());
 		
 		sender.sendMessage(Message.PREFIX + Message.getString("freeze-chat.sender").replace("%player%", target.getName()));
