@@ -59,5 +59,4 @@ public class Portal implements CommandExecutor {
 		sender.sendMessage(Message.PREFIX + Message.getString("portal.warped").replace("%player%", target.getName()));
 		return true;
 	}
-
 }

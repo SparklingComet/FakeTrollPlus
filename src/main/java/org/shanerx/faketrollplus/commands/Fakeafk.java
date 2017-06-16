@@ -57,5 +57,4 @@ public class Fakeafk implements CommandExecutor {
 		}
 		return true;
 	}
-
 }

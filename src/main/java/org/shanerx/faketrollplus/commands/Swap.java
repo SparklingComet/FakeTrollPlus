@@ -61,5 +61,4 @@ public class Swap implements CommandExecutor {
 				t1.getName()).replace("%player2%", t2.getName()));
 		return true;
 	}
-
 }

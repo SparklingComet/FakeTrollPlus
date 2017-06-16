@@ -140,5 +140,4 @@ public class FakeTrollPlus extends JavaPlugin {
 	public Player getTarget(String arg) {
 		return getConfig().getBoolean("exact-target") ? Bukkit.getPlayerExact(arg) : Bukkit.getPlayer(arg);
 	}
-	
 }

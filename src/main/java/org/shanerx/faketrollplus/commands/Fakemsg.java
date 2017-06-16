@@ -63,5 +63,4 @@ public class Fakemsg implements CommandExecutor {
 		sender.sendMessage(Message.PREFIX + Message.getString("fake-msg.sender").replace("%player%", target.getName()));
 		return true;
 	}
-
 }

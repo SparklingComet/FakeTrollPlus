@@ -174,5 +174,4 @@ public class GuiUser {
 				new ItemStack[] { p, badfood, noPickup, freeze, gibberish, invLock, explodeBlocks, blacklist, freezeChat });
 		return gui;
 	}
-
 }

@@ -61,5 +61,4 @@ public class Fakeban implements CommandExecutor {
 		}
 		return true;
 	}
-
 }

@@ -51,5 +51,4 @@ public class Forcecmd implements CommandExecutor {
 		plugin.getServer().dispatchCommand(target, forceCmd.toString().trim());
 		return true;
 	}
-
 }

@@ -61,5 +61,4 @@ public class Launch implements CommandExecutor {
 				.replace("%player%", target.getName()));
 		return true;
 	}
-
 }

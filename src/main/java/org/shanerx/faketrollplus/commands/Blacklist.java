@@ -54,5 +54,4 @@ public class Blacklist implements CommandExecutor {
 		}
 		return true;
 	}
-
 }

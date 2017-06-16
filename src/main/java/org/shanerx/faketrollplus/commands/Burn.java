@@ -58,5 +58,4 @@ public class Burn implements CommandExecutor {
 		}
 		return true;
 	}
-
 }

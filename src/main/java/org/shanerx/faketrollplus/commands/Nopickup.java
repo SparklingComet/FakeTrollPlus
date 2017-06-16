@@ -60,5 +60,4 @@ public class Nopickup implements CommandExecutor {
 		}
 		return true;
 	}
-
 }

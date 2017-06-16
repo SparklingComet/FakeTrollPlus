@@ -52,5 +52,4 @@ public class Fakebroadcast implements CommandExecutor {
 		sender.sendMessage(Message.PREFIX + Message.getString("fake-broadcast.sender").replace("%player%", target.getName()));
 		return true;
 	}
-
 }

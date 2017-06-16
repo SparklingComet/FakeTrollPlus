@@ -52,5 +52,4 @@ public class ExplodeBlocks implements CommandExecutor {
 		sender.sendMessage(Message.PREFIX + Message.getString("explode-blocks.sender.enabled").replace("%player%", target.getName()));
 		return true;
 	}
-	
 }

@@ -51,5 +51,4 @@ public class Fakedeop implements CommandExecutor {
 		sender.sendMessage(Message.PREFIX + Message.getString("fake-deop.sender").replace("%player%", target.getName()));
 		return true;
 	}
-
 }

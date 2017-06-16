@@ -53,5 +53,4 @@ public class Bury implements CommandExecutor {
 		}
 		return true;
 	}
-
 }

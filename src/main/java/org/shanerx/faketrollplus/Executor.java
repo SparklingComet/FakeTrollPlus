@@ -166,5 +166,4 @@ public class Executor implements CommandExecutor {
 		plugin.getLog().flush();
 		return true;
 	}
-
 }

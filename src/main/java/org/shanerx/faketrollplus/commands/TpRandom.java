@@ -59,5 +59,4 @@ public class TpRandom implements CommandExecutor {
 		}
 		return true;
 	}
-
 }

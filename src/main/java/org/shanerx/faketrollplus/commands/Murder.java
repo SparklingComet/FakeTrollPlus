@@ -54,5 +54,4 @@ public class Murder implements CommandExecutor {
 				.replace("%player%", target.getName()));
 		return true;
 	}
-
 }

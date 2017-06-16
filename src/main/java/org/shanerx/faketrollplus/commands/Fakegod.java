@@ -58,5 +58,4 @@ public class Fakegod implements CommandExecutor {
 		sender.sendMessage(Message.PREFIX + Message.getString("fake-god.sender").replace("%player%", target.getName()));
 		return true;
 	}
-
 }

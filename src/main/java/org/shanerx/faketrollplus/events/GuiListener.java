@@ -187,5 +187,4 @@ public class GuiListener implements Listener {
 	private String col(String msg) {
 		return Message.PREFIX + Message.col(msg);
 	}
-
 }

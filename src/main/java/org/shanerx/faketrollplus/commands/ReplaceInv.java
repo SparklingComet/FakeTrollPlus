@@ -65,5 +65,4 @@ public class ReplaceInv implements CommandExecutor {
 		sender.sendMessage(Message.PREFIX + Message.getString("replaceinv.sender").replace("%player%", target.getName()).replace("%item%", is.toString()));
 		return true;
 	}
-
 }

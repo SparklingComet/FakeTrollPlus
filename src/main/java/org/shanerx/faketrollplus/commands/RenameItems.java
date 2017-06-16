@@ -83,5 +83,4 @@ public class RenameItems implements CommandExecutor {
 		}
 		return true;
 	}
-
 }

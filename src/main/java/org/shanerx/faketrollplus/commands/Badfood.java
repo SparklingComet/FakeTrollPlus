@@ -55,5 +55,4 @@ public class Badfood implements CommandExecutor {
 		sender.sendMessage(Message.PREFIX + Message.getString("badfood.apply").replace("%player%", target.getName()));
 		return true;
 	}
-
 }

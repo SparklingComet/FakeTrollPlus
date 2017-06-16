@@ -61,5 +61,4 @@ public class Spam implements CommandExecutor {
 		}
 		return true;
 	}
-
 }

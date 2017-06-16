@@ -137,5 +137,4 @@ public class Faketrollplus implements CommandExecutor {
 		}
 		return true;
 	}
-
 }

@@ -75,5 +75,4 @@ public interface Test {
 	default public Test resultEquals(Test test) {
 		return () -> test() == test.test();
 	}
-	
 }

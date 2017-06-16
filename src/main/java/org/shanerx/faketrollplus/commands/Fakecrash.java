@@ -25,11 +25,11 @@ import org.shanerx.faketrollplus.utils.Message;
 public class Fakecrash implements CommandExecutor {
 	
 	private FakeTrollPlus plugin;
-
+	
 	public Fakecrash(final FakeTrollPlus instance) {
 		plugin = instance;
 	}
-
+	
 	@Override
 	public boolean onCommand(final CommandSender sender, final Command cmd, final String label, final String[] args) {
 		if (!Message.verifyCommandSender(cmd, sender, "faketroll.fakecrash", Message.getBool("fake-crash.enable"), () -> args.length != 1)) {
@@ -41,14 +41,13 @@ public class Fakecrash implements CommandExecutor {
 			sender.sendMessage(Message.PREFIX + Message.getString("invalid-target"));
 			return false;
 		}
-
+		
 		sender.sendMessage(Message.PREFIX + Message.getString("fake-crash.sender").replace("%player%", target.getName()));
 		target.kickPlayer(
 				"Internal Exception: io.netty.handler.codec.DecoderException: "
-				+ "java.lang.IndexOutOfBoundsException: "
-				+ "readerIndex(9) + length(1) exceeds writerIndex(9): "
-				+ "UnpooledHeapByteBuf(ridx: 9,widx: 9, cap: 9)");
+						+ "java.lang.IndexOutOfBoundsException: "
+						+ "readerIndex(9) + length(1) exceeds writerIndex(9): "
+						+ "UnpooledHeapByteBuf(ridx: 9,widx: 9, cap: 9)");
 		return true;
 	}
-
 }

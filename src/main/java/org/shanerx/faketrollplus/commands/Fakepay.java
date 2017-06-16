@@ -65,5 +65,4 @@ public class Fakepay implements CommandExecutor {
 				.replace("%player%", target.getName()));
 		return true;
 	}
-
 }

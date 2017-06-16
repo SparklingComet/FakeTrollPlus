@@ -71,5 +71,4 @@ public class Hurt implements CommandExecutor {
 			return false;
 		}
 	}
-
 }

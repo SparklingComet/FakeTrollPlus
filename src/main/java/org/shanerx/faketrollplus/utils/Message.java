@@ -112,5 +112,4 @@ public enum Message {
 		}
 		return true;
 	}
-
 }

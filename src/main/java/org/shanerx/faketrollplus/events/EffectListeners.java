@@ -124,5 +124,4 @@ public class EffectListeners implements Listener {
 			e.setCancelled(true);
 		}
 	}
-
 }

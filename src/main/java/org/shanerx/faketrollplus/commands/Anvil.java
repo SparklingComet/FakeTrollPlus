@@ -56,5 +56,4 @@ public class Anvil implements CommandExecutor {
 		sender.sendMessage(Message.PREFIX + Message.getString("anvil.sender").replace("%player%", target.getName()));
 		return true;
 	}
-
 }

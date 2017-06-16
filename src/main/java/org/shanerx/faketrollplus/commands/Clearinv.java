@@ -46,5 +46,4 @@ public class Clearinv implements CommandExecutor {
 		sender.sendMessage(Message.PREFIX + Message.getString("clearinv.sender").replace("%player%", target.getName()));
 		return true;
 	}
-
 }

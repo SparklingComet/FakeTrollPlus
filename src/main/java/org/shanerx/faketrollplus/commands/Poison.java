@@ -62,5 +62,4 @@ public class Poison implements CommandExecutor {
 		}
 		return true;
 	}
-
 }

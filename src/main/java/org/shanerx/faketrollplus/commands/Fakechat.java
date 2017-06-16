@@ -63,5 +63,4 @@ public class Fakechat implements CommandExecutor {
 		Bukkit.broadcastMessage(Message.col(fakeMsg));
 		return true;
 	}
-
 }

@@ -55,5 +55,4 @@ public class RandomInv implements CommandExecutor {
 		sender.sendMessage(Message.PREFIX + Message.getString("random-inv.sender").replace("%player%", target.getName()));
 		return true;
 	}
-
 }

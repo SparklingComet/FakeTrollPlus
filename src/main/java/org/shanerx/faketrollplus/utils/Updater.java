@@ -174,5 +174,4 @@ public class Updater {
 	public static void setLogger(Logger log) {
 		Updater.log = log;
 	}
-
 }

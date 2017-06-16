@@ -171,5 +171,4 @@ public enum TrollEffect {
 	public static void setPlugin(FakeTrollPlus plugin) {
 		TrollEffect.plugin = plugin;
 	}
-
 }

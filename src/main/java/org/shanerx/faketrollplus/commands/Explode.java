@@ -48,5 +48,4 @@ public class Explode implements CommandExecutor {
 		}
 		return true;
 	}
-
 }

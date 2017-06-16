@@ -46,5 +46,4 @@ public class Cobweb implements CommandExecutor {
 		sender.sendMessage(Message.PREFIX + Message.getString("cobweb.sender").replace("%player%", target.getName()));
 		return true;
 	}
-
 }

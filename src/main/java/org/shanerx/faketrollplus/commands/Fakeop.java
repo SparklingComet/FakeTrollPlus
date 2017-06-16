@@ -51,5 +51,4 @@ public class Fakeop implements CommandExecutor {
 		sender.sendMessage(Message.PREFIX + Message.getString("fake-op.sender").replace("%player%", target.getName()));
 		return true;
 	}
-
 }

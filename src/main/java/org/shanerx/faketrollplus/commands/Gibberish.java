@@ -54,5 +54,4 @@ public class Gibberish implements CommandExecutor {
 		sender.sendMessage(Message.PREFIX + Message.getString("gibberish.sender.toggle-on").replace("%player%", p.getName()));
 		return true;
 	}
-
 }

@@ -57,5 +57,4 @@ public class Freeze implements CommandExecutor {
 		target.sendMessage(Message.getString("freeze.freeze-msg"));
 		return true;
 	}
-
 }

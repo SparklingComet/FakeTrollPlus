@@ -39,5 +39,4 @@ public class Fakejoin implements CommandExecutor {
 		Bukkit.broadcastMessage(Message.getString("fake-join.message").replace("%player%", args[0]));
 		return true;
 	}
-
 }

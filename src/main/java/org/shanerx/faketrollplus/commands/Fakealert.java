@@ -52,5 +52,4 @@ public class Fakealert implements CommandExecutor {
 		sender.sendMessage(Message.PREFIX + Message.getString("fake-alert.sender").replace("%player%", target.getName()));
 		return true;
 	}
-
 }

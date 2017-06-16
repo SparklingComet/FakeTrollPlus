@@ -54,5 +54,4 @@ public class Invlock implements CommandExecutor {
 		tp.setInvLocked(true);
 		return true;
 	}
-
 }
