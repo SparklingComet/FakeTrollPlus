@@ -15,6 +15,8 @@
  */
 package org.shanerx.faketrollplus.commands;
 
+import com.google.common.collect.Lists;
+import org.apache.commons.lang.StringUtils;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -117,7 +119,22 @@ public class Faketrollplus implements CommandExecutor {
 			return false;
 			
 		}
-		sender.sendMessage(HELP.replace("%VERSION%", plugin.VERSION.getNakedVersion()));
+		else if (args.length == 0 || args.length > 2) {
+			sender.sendMessage(HELP.replace("%VERSION%", plugin.VERSION.getNakedVersion()));
+			return false;
+		} else {
+			String cmdString = args[1];
+			Command command = plugin.getCommand(cmdString);
+			if (command == null) {
+				sender.sendMessage(Message.HELP_COMMAND_NOT_FOUND.toString().replace("%command%", cmdString));
+				return false;
+			}
+			sender.sendMessage(Message.COMMAND_HELP.toString()
+					.replace("%command%", cmdString)
+					.replace("%description%", command.getDescription())
+					.replace("%usage%", command.getUsage())
+					.replace("%aliases%", StringUtils.join(Lists.newArrayList(command.getAliases()), ", ")));
+		}
 		return true;
 	}
 

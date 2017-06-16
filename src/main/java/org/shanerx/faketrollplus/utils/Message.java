@@ -35,7 +35,11 @@ public enum Message {
 
 	GUI_EFFECT_DISABLED("&3Sorry, but this effect has been &3disabled &fin the config."),
 	
-	RELOAD_CONFIG("Configuration file has been &3reloaded&f!");
+	RELOAD_CONFIG("Configuration file has been &3reloaded&f!"),
+	
+	HELP_COMMAND_NOT_FOUND("&3/%command% &fcould not be found."),
+	
+	COMMAND_HELP("&3Command help for: &7/%command%\n&7Description: &f%description%\n&7Usage: &f%usage%\n&7Aliases: &f%aliases%");
 	
 	public static char COLOUR_SYMBOL = '&';
 	
