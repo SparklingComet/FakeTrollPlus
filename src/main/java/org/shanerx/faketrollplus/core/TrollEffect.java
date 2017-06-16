@@ -19,10 +19,12 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.shanerx.faketrollplus.FakeTrollPlus;
 import org.shanerx.faketrollplus.utils.Message;
 
+import java.io.Serializable;
+
 /**
  * An enum containing all the trolling effects the plugin adds to the game.
  */
-public enum TrollEffect {
+public enum TrollEffect implements Serializable{
 
 	BADFOOD((short) 1, "Badfood", "badfood", "hasBadfoodEffect"),
 
@@ -50,9 +52,9 @@ public enum TrollEffect {
 	private static FakeTrollPlus plugin;
 	
 	private short key;
-	private String name;
-	private String id;
-	private String config;
+	private transient String name;
+	private transient String id;
+	private transient String config;
 
 	/**
 	 * Gets the effect's name (Different from
@@ -170,5 +172,38 @@ public enum TrollEffect {
 	 */
 	public static void setPlugin(FakeTrollPlus plugin) {
 		TrollEffect.plugin = plugin;
+	}
+	
+// SERIALIZABLE IMPLEMENTATION:
+	
+	/**
+	 * Returns a serialized form of the TrollEffect.
+	 *
+	 * @return a String representing the serialized data.
+	 * @see #key() {@link #deserialize(String)} {@link Serializable}
+	 */
+	public String serialize() {
+		return "effectKey_" + key;
+	}
+	
+	/**
+	 * Retrieves the TrollEffect from a previously serialized object.
+	 * @param serializedData a serialized data.
+	 * @return the TrollEffect enum constant.
+	 * @see #fromKey(short)#serialize() {@link Serializable}
+	 */
+	public static TrollEffect deserialize(String serializedData) {
+		String[] arr = serializedData.split("_");
+		if (arr.length != 2) {
+			return null;
+		} else if (!arr[0].equalsIgnoreCase("effectKey")){
+			return null;
+		} else {
+			try {
+				return TrollEffect.fromKey(Short.parseShort(arr[1]));
+			} catch (NumberFormatException e) {
+				return null;
+			}
+		}
 	}
 }
