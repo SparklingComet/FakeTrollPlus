@@ -157,7 +157,7 @@ public enum TrollEffect {
 			case 5: return INVENTORY_LOCK;
 			case 6: return EXPLODE_BLOCKS;
 			case 7: return BLACKLISTED;
-			case 8: return FREEZE;
+			case 8: return FREEZE_CHAT;
 			default: return null;
 		}
 	}
