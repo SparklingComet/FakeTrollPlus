@@ -18,7 +18,7 @@ package org.shanerx.faketrollplus.utils;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.FileConfiguration;
+import org.shanerx.faketrollplus.FakeTrollPlus;
 import org.shanerx.faketrollplus.utils.function.Test;
 
 public enum Message {
@@ -51,7 +51,7 @@ public enum Message {
 		return ChatColor.translateAlternateColorCodes(COLOUR_SYMBOL, x.toString());
 	}
 	
-	private static FileConfiguration fc;
+	private static FakeTrollPlus plugin;
 	private String message;
 	
 	Message(String msg) {
@@ -60,29 +60,29 @@ public enum Message {
 	
 	@Override
 	public String toString() {
-		return this == PREFIX ? (fc.getBoolean("use-prefix") ? Message.getString("prefix") : "") : col(PREFIX.toString() + message);
+		return this == PREFIX ? (plugin.getConfig().getBoolean("use-prefix") ? Message.getString("prefix") : "") : col(PREFIX.toString() + message);
 	}
 	
 // CONFIG UTILS
 	
 	public static String getString(String s) {
-		return col(fc.getString(s));
+		return col(plugin.getConfig().getString(s));
 	}
 	
 	public static boolean getBool(String s) {
-		return fc.getBoolean(s);
+		return plugin.getConfig().getBoolean(s);
 	}
 	
 	public static int getInt(String s) {
-		return fc.getInt(s);
+		return plugin.getConfig().getInt(s);
 	}
 	
 	public static double getDouble(String s) {
-		return fc.getDouble(s);
+		return plugin.getConfig().getDouble(s);
 	}
 	
-	public static void setConfig(FileConfiguration fc) {
-		Message.fc = fc;
+	public static void setPlugin(FakeTrollPlus plugin) {
+		Message.plugin = plugin;
 	}
 	
 // GENERAL UTILS

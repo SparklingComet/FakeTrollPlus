@@ -51,7 +51,7 @@ public class FakeTrollPlus extends JavaPlugin {
 	@Override
 	@SuppressWarnings("deprecation")
 	public void onEnable() {
-		Message.setConfig(getConfig());
+		Message.setPlugin(this);
 		TrollEffect.setPlugin(this);
 		saveDefaultConfig();
 		PluginManager pm = Bukkit.getServer().getPluginManager();
