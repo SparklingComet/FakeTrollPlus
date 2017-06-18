@@ -171,7 +171,7 @@ public class GuiListener implements Listener {
 				Bukkit.getPlayer(op.getUniqueId()).kickPlayer(Message.getString("blacklist"));
 				return;
 				
-			case LEASH:
+/*			case LEASH:
 				if (!FREEZE_CHAT.isEnabled()) {
 					p.sendMessage(Message.GUI_EFFECT_DISABLED.toString());
 					return;
@@ -187,7 +187,7 @@ public class GuiListener implements Listener {
 				} else {
 					p.sendMessage(col("You need to install ProtocolLib for this effect to worj!"));
 					return;
-				}
+				}*/
 			default:
 				return;
 			}
