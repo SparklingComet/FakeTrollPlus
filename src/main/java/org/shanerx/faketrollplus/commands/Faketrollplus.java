@@ -122,7 +122,7 @@ public class Faketrollplus implements CommandExecutor {
 		else if (args.length == 0 || args.length > 2) {
 			sender.sendMessage(HELP.replace("%VERSION%", plugin.VERSION.getNakedVersion()));
 			return false;
-		} else {
+		} else if (args.length == 2) {
 			String cmdString = args[1];
 			Command command = plugin.getCommand(cmdString);
 			if (command == null) {
@@ -134,6 +134,9 @@ public class Faketrollplus implements CommandExecutor {
 					.replace("%description%", command.getDescription())
 					.replace("%usage%", command.getUsage())
 					.replace("%aliases%", StringUtils.join(Lists.newArrayList(command.getAliases()), ", ")));
+		} else {
+			sender.sendMessage(HELP.replace("%VERSION%", plugin.VERSION.getNakedVersion()));
+			return true;
 		}
 		return true;
 	}
