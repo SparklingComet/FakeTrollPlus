@@ -83,7 +83,11 @@ public class GuiListener implements Listener {
 				if (!BADFOOD.isEnabled()) {
 					p.sendMessage(Message.GUI_EFFECT_DISABLED.toString());
 					return;
+				} else if (!tp.canBeTrolledBy(p)) {
+					p.sendMessage(Message.PREFIX + Message.getString("no-admin-trolling"));
+					return;
 				}
+				
 				tp.setBadfoodEffect(!tp.hasBadfoodEffect());
 				p.sendMessage(col((tp.hasBadfoodEffect() ? "&cEnabled": "&cDisabled") + " &6Badfood &eeffect for player &6" + op.getName()));
 				return;
@@ -92,7 +96,11 @@ public class GuiListener implements Listener {
 				if (!NO_PICKUP.isEnabled()) {
 					p.sendMessage(Message.GUI_EFFECT_DISABLED.toString());
 					return;
+				} else if (!tp.canBeTrolledBy(p)) {
+					p.sendMessage(Message.PREFIX + Message.getString("no-admin-trolling"));
+					return;
 				}
+				
 				tp.setPickup(!tp.canPickup());
 				p.sendMessage(col((!tp.canPickup() ? "&cEnabled": "&cDisabled") + " &6No-Pickup &eeffect for player &6" + op.getName()));
 				return;
@@ -101,7 +109,11 @@ public class GuiListener implements Listener {
 				if (!FREEZE.isEnabled()) {
 					p.sendMessage(Message.GUI_EFFECT_DISABLED.toString());
 					return;
+				} else if (!tp.canBeTrolledBy(p)) {
+					p.sendMessage(Message.PREFIX + Message.getString("no-admin-trolling"));
+					return;
 				}
+				
 				tp.setFrozen(!tp.isFrozen());
 				p.sendMessage(col((tp.isFrozen() ? "&cEnabled": "&cDisabled") + " &6Freeze &eeffect for player &6" + op.getName()));
 				return;
@@ -110,7 +122,11 @@ public class GuiListener implements Listener {
 				if (!GIBBERISH.isEnabled()) {
 					p.sendMessage(Message.GUI_EFFECT_DISABLED.toString());
 					return;
+				} else if (!tp.canBeTrolledBy(p)) {
+					p.sendMessage(Message.PREFIX + Message.getString("no-admin-trolling"));
+					return;
 				}
+				
 				tp.setGibberishChat(!tp.chatIsGibberish());
 				p.sendMessage(col((tp.chatIsGibberish() ? "&cEnabled": "&cDisabled") + " &6Gibberish &eeffect for player &6" + op.getName()));
 				return;
@@ -119,7 +135,11 @@ public class GuiListener implements Listener {
 				if (!INVENTORY_LOCK.isEnabled()) {
 					p.sendMessage(Message.GUI_EFFECT_DISABLED.toString());
 					return;
+				} else if (!tp.canBeTrolledBy(p)) {
+					p.sendMessage(Message.PREFIX + Message.getString("no-admin-trolling"));
+					return;
 				}
+				
 				tp.setInvLocked(!tp.invIsLocked());
 				p.sendMessage(col((tp.invIsLocked() ? "&cEnabled": "&cDisabled") + " &6Inventory-Lock &eeffect for player &6" + op.getName()));
 				return;
@@ -128,7 +148,11 @@ public class GuiListener implements Listener {
 				if (!EXPLODE_BLOCKS.isEnabled()) {
 					p.sendMessage(Message.GUI_EFFECT_DISABLED.toString());
 					return;
+				} else if (!tp.canBeTrolledBy(p)) {
+					p.sendMessage(Message.PREFIX + Message.getString("no-admin-trolling"));
+					return;
 				}
+				
 				tp.setExplodeMinedBlocksEffect(!tp.hasExplodeMinedBlocksEffect());
 				p.sendMessage(col((tp.hasExplodeMinedBlocksEffect() ? "&cEnabled": "&cDisabled") + " &6Explode-Blocks &eeffect &efor player &6" + op.getName()));
 				return;
@@ -137,7 +161,11 @@ public class GuiListener implements Listener {
 				if (!BLACKLISTED.isEnabled()) {
 					p.sendMessage(Message.GUI_EFFECT_DISABLED.toString());
 					return;
+				} else if (!tp.canBeTrolledBy(p)) {
+					p.sendMessage(Message.PREFIX + Message.getString("no-admin-trolling"));
+					return;
 				}
+				
 				tp.setBlacklisted(!tp.isBlacklisted());
 				p.sendMessage(col((tp.isBlacklisted() ? "&cBlacklisted": "&cUn-blacklisted") + "  &eplayer &6" + op.getName()));
 				Bukkit.getPlayer(op.getUniqueId()).kickPlayer(Message.getString("blacklist"));
@@ -147,7 +175,11 @@ public class GuiListener implements Listener {
 				if (!FREEZE_CHAT.isEnabled()) {
 					p.sendMessage(Message.GUI_EFFECT_DISABLED.toString());
 					return;
+				} else if (!tp.canBeTrolledBy(p)) {
+					p.sendMessage(Message.PREFIX + Message.getString("no-admin-trolling"));
+					return;
 				}
+				
 				if (ftp.useProtocolLib()) {
 					tp.freezeChat(!tp.chatIsFrozen());
 					p.sendMessage(col((tp.chatIsFrozen() ? "&cEnabled": "&cDisabled") + "  &6Chat-Freeze &eeffect for &6" + op.getName()));
