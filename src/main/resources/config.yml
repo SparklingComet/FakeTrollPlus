@@ -262,7 +262,7 @@ message-for-disabled-cmds: '&fUnknown command. Type "/help" for help.'
 # Set the message displayed when the target's name is either invalid or they are not online.
 invalid-target: 'Player not found.'
 
-# Set to true if the plugin should try to find the player with the most similar name, instead
+# Set to false if the plugin should try to find the player with the most similar name, instead
 # of sending an error message if the name entered does not 100% match the target.
 # Recommended setting: false
 exact-target: false
