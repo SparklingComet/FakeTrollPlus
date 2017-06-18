@@ -47,11 +47,15 @@ public class Blacklist implements CommandExecutor {
 		
 		final TrollPlayer target = ftp.getUserCache().getTrollPlayer(op);
 		
-		if (!target.isBlacklisted() && !target.canBeTrolledBy(sender)) {
+		if (!target.isBlacklisted() && target.canBeTrolledBy(sender)) {
 			sender.sendMessage(Message.PREFIX + Message.getString("no-admin-trolling"));
 			return false;
 			
+		}  else if (!target.isBlacklisted() && !target.canBeTrolledBy(sender)) {
+			sender.sendMessage(Message.PREFIX + Message.getString("no-admin-trolling"));
+			return false;
 		}
+		
 		target.setBlacklisted(!target.isBlacklisted());
 		
 		sender.sendMessage(Message.PREFIX + Message.col((target.isBlacklisted() ? "&3Blacklisted" : "&3Un-blacklisted") + "  &fplayer &3" + op.getName() + "&f!"));
