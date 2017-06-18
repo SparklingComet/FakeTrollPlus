@@ -55,7 +55,7 @@ public class EffectListeners implements Listener {
 	public void onAsyncChatEvent(AsyncPlayerChatEvent e) {
 		Player p = e.getPlayer();
 		TrollPlayer tp = plugin.getUserCache().getTrollPlayer(p.getUniqueId());
-		if (tp.chatIsFrozen() && plugin.USE_PROTOCOL_LIB) {
+		if (tp.chatIsFrozen() && plugin.useProtocolLib()) {
 			e.setCancelled(true);
 
 		} else if (tp.chatIsGibberish()) {
@@ -120,7 +120,7 @@ public class EffectListeners implements Listener {
 	public void onPlayerCommandPreprocess(PlayerCommandPreprocessEvent e) {
 		Player p = e.getPlayer();
 		TrollPlayer tp = plugin.getUserCache().getTrollPlayer(p.getUniqueId());
-		if (tp.chatIsFrozen() && plugin.USE_PROTOCOL_LIB) {
+		if (tp.chatIsFrozen() && plugin.useProtocolLib()) {
 			e.setCancelled(true);
 		}
 	}

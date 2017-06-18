@@ -21,15 +21,13 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
 
-import com.comphenix.protocol.ProtocolLibrary;
-import com.comphenix.protocol.ProtocolManager;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.shanerx.faketrollplus.core.TrollEffect;
 import org.shanerx.faketrollplus.core.UserCache;
-import org.shanerx.faketrollplus.events.ChatPacketListener;
+//import org.shanerx.faketrollplus.events.ChatPacketListener;
 import org.shanerx.faketrollplus.events.EffectListeners;
 import org.shanerx.faketrollplus.events.GuiListener;
 import org.shanerx.faketrollplus.utils.Message;
@@ -48,7 +46,7 @@ public class FakeTrollPlus extends JavaPlugin {
 
 	private volatile UserCache usercache;
 	
-	public final boolean USE_PROTOCOL_LIB = Bukkit.getPluginManager().getPlugin("ProtocolLib").isEnabled();
+	private boolean USE_PROTOCOL_LIB = false;
 	
 	@Override
 	@SuppressWarnings("deprecation")
@@ -60,9 +58,10 @@ public class FakeTrollPlus extends JavaPlugin {
 		pm.registerEvents(new EffectListeners(this), this);
 		pm.registerEvents(new GuiListener(this), this);
 		
+		USE_PROTOCOL_LIB = pm.getPlugin("ProtocolLib") != null;
 		if (USE_PROTOCOL_LIB) {
-			ProtocolManager protMan = ProtocolLibrary.getProtocolManager();
-			protMan.addPacketListener(new ChatPacketListener(this));
+			com.comphenix.protocol.ProtocolManager protMan = com.comphenix.protocol.ProtocolLibrary.getProtocolManager();
+//			protMan.addPacketListener(new org.shanerx.faketrollplus.events.ChatPacketListener(this));
 		}
 
 		Executor ex = new Executor(this);		
@@ -134,6 +133,10 @@ public class FakeTrollPlus extends JavaPlugin {
 	
 	public RelationalStatus buildRelation() {
 		return buildRelation;
+	}
+	
+	public boolean useProtocolLib() {
+		return USE_PROTOCOL_LIB;
 	}
 	
 // UTILS

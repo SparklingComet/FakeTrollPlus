@@ -148,7 +148,7 @@ public class GuiListener implements Listener {
 					p.sendMessage(Message.GUI_EFFECT_DISABLED.toString());
 					return;
 				}
-				if (ftp.USE_PROTOCOL_LIB) {
+				if (ftp.useProtocolLib()) {
 					tp.freezeChat(!tp.chatIsFrozen());
 					p.sendMessage(col((tp.chatIsFrozen() ? "&cEnabled": "&cDisabled") + "  &6Chat-Freeze &eeffect for &6" + op.getName()));
 					return;

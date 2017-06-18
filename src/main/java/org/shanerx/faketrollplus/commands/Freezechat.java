@@ -40,7 +40,7 @@ public class Freezechat implements CommandExecutor {
 			return false;
 		}
 		
-		if (!plugin.USE_PROTOCOL_LIB) {
+		if (!plugin.useProtocolLib()) {
 			sender.sendMessage(Message.NO_PROTOCOL_LIB.toString());
 			return false;
 		}
