@@ -27,7 +27,7 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.shanerx.faketrollplus.core.TrollEffect;
 import org.shanerx.faketrollplus.core.UserCache;
-//import org.shanerx.faketrollplus.events.ChatPacketListener;
+import org.shanerx.faketrollplus.events.ChatPacketListener;
 import org.shanerx.faketrollplus.events.EffectListeners;
 import org.shanerx.faketrollplus.events.GuiListener;
 import org.shanerx.faketrollplus.utils.Message;
@@ -61,7 +61,7 @@ public class FakeTrollPlus extends JavaPlugin {
 		USE_PROTOCOL_LIB = pm.getPlugin("ProtocolLib") != null;
 		if (USE_PROTOCOL_LIB) {
 			com.comphenix.protocol.ProtocolManager protMan = com.comphenix.protocol.ProtocolLibrary.getProtocolManager();
-//			protMan.addPacketListener(new org.shanerx.faketrollplus.events.ChatPacketListener(this));
+			protMan.addPacketListener(new ChatPacketListener(this));
 		}
 
 		Executor ex = new Executor(this);		
