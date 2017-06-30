@@ -50,8 +50,36 @@ public class Cage implements CommandExecutor {
 		return true;
 	}
 	
+	@SuppressWarnings("deprecation")
 	private void spawnCage(LivingEntity target) {
-		Location loc = target.getLocation();
-		loc.getBlock().setType(Material.BEDROCK);
+		// Filling the floor:
+		Location floor = target.getLocation().add(0, -1, 0);
+		for (int x = -1; x < 2; x++) {
+			for (int z = -1; z < 2; z++) {
+				floor.clone().add(x, 0, z).getBlock().setType(Material.BEDROCK);
+			}
+		}
+		
+		// Filling the ceiling:
+		Location ceil = target.getLocation().add(0, 2, 0);
+		for (int x = -1; x < 2; x++) {
+			for (int z = -1; z < 2; z++) {
+				ceil.clone().add(x, 0, z).getBlock().setType(Material.BEDROCK);
+			}
+		}
+		
+		// Making sure there are no obstructing blocks:
+		Location middle = target.getLocation();
+		middle.getBlock().setType(Material.AIR);
+		middle.clone().add(0, 1, 0).getBlock().setType(Material.AIR);
+		
+		for (int x = -1; x < 2; x++) {
+			for (int y = 0; y < 2; y++) {
+				for (int z = -1; z < 2; z++) {
+					if (x == 0 && z == 0) continue;
+					middle.clone().add(x, y, z).getBlock().setType(Material.getMaterial(101));
+				}
+			}
+		}
 	}
 }
