@@ -231,6 +231,9 @@ cobweb:
   enable: true
   sender: 'You have trapped &3%player%&f!'
 
+# NOTICE:
+# The new freeze-chat effect bound to /freezechat has been disabled temporarily due to dependency issues.
+# We are looking forward to fixing it.
 freeze-chat:
   enable: true
   sender: 'You have frozen &3%player%&f''s chat!'
@@ -239,6 +242,9 @@ freeze-chat:
     toggle-on: '&3Your chat has been frozen!'
     toggle-off: '&3Your chat has been unfrozen!'
 
+cage:
+  enable: true
+  sender: 'You have trapped &3%player%&f!'
 
 # Blacklist configurations
 enable-blacklist: true

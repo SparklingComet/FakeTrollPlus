@@ -166,3 +166,7 @@ commands:
 #    description: Cancel all outgoing messages for a player and reject all of the player's input in a silent way.
 #    aliases: [chatfreeze]
 #    usage: /freezechat <player>
+  cage:
+    description: Spawn a cage around a player.
+    aliases: [spawncage]
+    usage: /cage <target>
