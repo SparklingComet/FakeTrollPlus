@@ -73,10 +73,12 @@ public class Cage implements CommandExecutor {
 		middle.getBlock().setType(Material.AIR);
 		middle.clone().add(0, 1, 0).getBlock().setType(Material.AIR);
 		
+		// Adding iron bars
 		for (int x = -1; x < 2; x++) {
 			for (int y = 0; y < 2; y++) {
 				for (int z = -1; z < 2; z++) {
 					if (x == 0 && z == 0) continue;
+					// Using deprecated API for backwards compatibility
 					middle.clone().add(x, y, z).getBlock().setType(Material.getMaterial(101));
 				}
 			}
