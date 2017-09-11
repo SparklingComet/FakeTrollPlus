@@ -41,7 +41,7 @@ public class FakeTrollPlus extends JavaPlugin {
 	private PrintWriter log;
 	static boolean doLogging;
 
-	public final Updater VERSION = new Updater(getDescription(), Updater.BuildType.BETA);
+	public final Updater VERSION = new Updater(getDescription());
 	private volatile RelationalStatus buildRelation;
 
 	private volatile UserCache usercache;

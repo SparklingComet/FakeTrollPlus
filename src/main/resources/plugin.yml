@@ -18,7 +18,7 @@
 # FakeTrollPlus config v3.5.1 by Lori00. #
 # +------------------------------------+ #
 main: org.shanerx.faketrollplus.FakeTrollPlus
-version: 3.5.1
+version: 3.6.0-BETA
 author: Lori00
 name: FakeTrollPlus
 

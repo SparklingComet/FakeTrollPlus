@@ -63,17 +63,17 @@ public class Updater {
 	private PluginDescriptionFile pdf;
 	private BuildType build;
 
-	public Updater(PluginDescriptionFile pdf, BuildType build) {
+	public Updater(PluginDescriptionFile pdf) {
 		this.pdf = pdf;
-		this.build = build;
+		this.build = BuildType.valueOf(getVersion().split("-")[1]);
 	}
 
 	public String getVersion() {
-		return pdf.getVersion() + "-" + build;
+		return pdf.getVersion();
 	}
 
 	public String getNakedVersion() {
-		return pdf.getVersion();
+		return pdf.getVersion().split("-")[0];
 	}
 
 	public String getVersionComponent(SemVer semver) {
@@ -104,6 +104,7 @@ public class Updater {
 			String inputLine;
 			while ((inputLine = in.readLine()) != null) {
 				String[] ver = inputLine.split("\\.");
+				ver[2] = ver[2].split("-")[0];
 				RelationalStatus rs = compareVersions(ver[0], ver[1], ver[2]);
 				if (rs == RelationalStatus.BEHIND) {
 					log.log(Level.WARNING, "[Updater] +------------------------------------------------+");
