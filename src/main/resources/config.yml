@@ -277,3 +277,12 @@ invalid-target: 'Player not found.'
 # of sending an error message if the name entered does not 100% match the target.
 # Recommended setting: false
 exact-target: false
+
+# Database settings:
+database:
+  type: 'mysql'
+  host: 'localhost'
+  port: 3306
+  user: 'admin'
+  password: '123456'
+  db-name: 'minecraft'
