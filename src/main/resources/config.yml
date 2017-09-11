@@ -280,6 +280,7 @@ exact-target: false
 
 # Database settings:
 database:
+  use: false
   type: 'mysql'
   host: 'localhost'
   port: 3306
