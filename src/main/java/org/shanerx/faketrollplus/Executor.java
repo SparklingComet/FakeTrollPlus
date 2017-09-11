@@ -154,6 +154,8 @@ public class Executor implements CommandExecutor {
 				break;
 			case "cage":
 				new Cage(plugin).onCommand(sender, cmd, label, args);
+			case "turn":
+				new Turn(plugin).onCommand(sender, cmd, label, args);
 		}
 		
 		if (!FakeTrollPlus.doLogging) {

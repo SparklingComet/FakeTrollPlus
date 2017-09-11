@@ -189,3 +189,7 @@ commands:
     description: Spawn a cage around a player.
     aliases: [spawncage]
     usage: /cage <target>
+  turn:
+    description: Turn a player around.
+    aliases: [fturn, faketurn]
+    usage: /turn <target>

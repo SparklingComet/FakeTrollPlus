@@ -247,6 +247,10 @@ cage:
   enable: true
   sender: 'You have trapped &3%player%&f!'
 
+turn:
+  enable: true
+  sender: 'You have turned &3%player% &faround!'
+
 # Blacklist configurations
 enable-blacklist: true
 blacklist: '&4You were blacklisted from the network!'
