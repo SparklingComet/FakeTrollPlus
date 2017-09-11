@@ -34,6 +34,7 @@ public class Database {
 	
 	private String host, user, database;
 	private int port;
+	private String dbType;
 	private Connection connection;
 	private Statement statement;
 	
@@ -51,7 +52,8 @@ public class Database {
 	 * @throws ClassNotFoundException Thrown if the {@code com.mysql.jdbc.Driver class}
 	 * cannot be found.
 	 */
-	public Database(String hostname, int port, String username, String password, String database) throws SQLException, ClassNotFoundException {
+	public Database(String dbType, String hostname, int port, String username, String password, String database) throws SQLException, ClassNotFoundException {
+		this.dbType = dbType;
 		host = hostname;
 		this.port = port;
 		user = username;
@@ -128,7 +130,7 @@ public class Database {
 				return;
 			}
 			Class.forName("com.mysql.jdbc.Driver");
-			connection = DriverManager.getConnection("jdbc:mysql://" + this.host+ ":" + this.port + "/" + this.database, this.user, password);
+			connection = DriverManager.getConnection("jdbc:" + dbType + "://" + this.host+ ":" + this.port + "/" + this.database, this.user, password);
 		}
 	}
 	

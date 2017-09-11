@@ -19,7 +19,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.Date;
+import java.util.logging.Level;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -30,6 +32,7 @@ import org.shanerx.faketrollplus.core.UserCache;
 //import org.shanerx.faketrollplus.events.ChatPacketListener;
 import org.shanerx.faketrollplus.events.EffectListeners;
 import org.shanerx.faketrollplus.events.GuiListener;
+import org.shanerx.faketrollplus.utils.Database;
 import org.shanerx.faketrollplus.utils.Message;
 import org.shanerx.faketrollplus.utils.Updater;
 import org.shanerx.faketrollplus.utils.Updater.RelationalStatus;
@@ -45,6 +48,7 @@ public class FakeTrollPlus extends JavaPlugin {
 	private volatile RelationalStatus buildRelation;
 
 	private volatile UserCache usercache;
+	private volatile Database database;
 	
 	private boolean USE_PROTOCOL_LIB = false;
 	
@@ -68,6 +72,24 @@ public class FakeTrollPlus extends JavaPlugin {
 		for (String cmd : getDescription().getCommands().keySet()) {
 			getCommand(cmd).setExecutor(ex);
 		}
+		
+		if (getConfig().getBoolean("database.use")) {
+			new Thread(() -> {
+				String type = getConfig().getString("database.type");
+				String host = getConfig().getString("database.host");
+				int port = getConfig().getInt("database.port");
+				String user = getConfig().getString("database.user");
+				String pass = getConfig().getString("database.password");
+				String db = getConfig().getString("database.db-name");
+				try {
+					database = new Database(type, host, port, user, pass, db);
+				} catch (Exception e) {
+					getLogger().log(Level.SEVERE, "Could not establish a connection to the database. Please check your credentials and try again. Disabling plugin.", e);
+					Bukkit.getPluginManager().disablePlugin(this);
+					return;
+				}
+			}).start();
+		}
 
 		logs = new File(getDataFolder(), "logs");
 		if (!logs.exists()) {
@@ -76,7 +98,6 @@ public class FakeTrollPlus extends JavaPlugin {
 		doLogging = getConfig().getBoolean("enable-logs");
 		
 		Updater.setLogger(getLogger());
-		
 		if (!doLogging) {
 			if (getConfig().getBoolean("check-updates")) {
 				new Thread(() -> buildRelation = VERSION.checkCurrentVersion()).start();
@@ -129,6 +150,10 @@ public class FakeTrollPlus extends JavaPlugin {
 
 	public UserCache getUserCache() {
 		return usercache;
+	}
+	
+	public Database getDatabase() {
+		return database;
 	}
 	
 	public RelationalStatus buildRelation() {
