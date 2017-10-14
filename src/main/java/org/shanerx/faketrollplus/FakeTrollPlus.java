@@ -73,6 +73,7 @@ public class FakeTrollPlus extends JavaPlugin {
 			getCommand(cmd).setExecutor(ex);
 		}
 		
+		/* DATABASE
 		if (getConfig().getBoolean("database.use")) {
 			new Thread(() -> {
 				String type = getConfig().getString("database.type");
@@ -89,7 +90,7 @@ public class FakeTrollPlus extends JavaPlugin {
 					return;
 				}
 			}).start();
-		}
+		}*/
 
 		logs = new File(getDataFolder(), "logs");
 		if (!logs.exists()) {
