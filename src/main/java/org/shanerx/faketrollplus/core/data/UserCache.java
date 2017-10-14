@@ -1,21 +1,24 @@
 /*
- *     Copyright 2016-2017 SparklingComet @ http://shanerx.org
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ *      Copyright (c) 2016-2017 SparklingComet @ http://shanerx.org
  *
- *          http://www.apache.org/licenses/LICENSE-2.0
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
  *
- * Unless required by applicable law or agreed to in writing, software
+ *           http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ *
  */
-package org.shanerx.faketrollplus.core;
+package org.shanerx.faketrollplus.core.data;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -179,12 +182,12 @@ public class UserCache {
 	}
 
 	/**
-	 * Gets the instance of {@link org.shanerx.faketrollplus.core.TrollPlayer}
+	 * Gets the instance of {@link org.shanerx.faketrollplus.core.data.TrollPlayer}
 	 * which represents the player known by that {@link java.util.UUID}.
 	 * 
 	 * @param uuid
 	 *            the UUID of the player.
-	 * @return the {@link org.shanerx.faketrollplus.core.TrollPlayer} known by
+	 * @return the {@link org.shanerx.faketrollplus.core.data.TrollPlayer} known by
 	 *         that UUID.
 	 */
 	public TrollPlayer getTrollPlayer(UUID uuid) {
@@ -192,28 +195,38 @@ public class UserCache {
 	}
 
 	/**
-	 * Gets the instance of {@link org.shanerx.faketrollplus.core.TrollPlayer}
+	 * Gets the instance of {@link org.shanerx.faketrollplus.core.data.TrollPlayer}
 	 * which represents the player known by the {@link java.util.UUID} of the
 	 * {@link org.bukkit.OfflinePlayer}.
 	 * 
 	 * @param op
 	 *            the player.
-	 * @return the {@link org.shanerx.faketrollplus.core.TrollPlayer}.
+	 * @return the {@link org.shanerx.faketrollplus.core.data.TrollPlayer}.
 	 */
 	public TrollPlayer getTrollPlayer(OfflinePlayer op) {
 		return new TrollPlayer(op, plugin);
 	}
 
 	/**
-	 * Gets the instance of {@link org.shanerx.faketrollplus.core.TrollPlayer}
+	 * Gets the instance of {@link org.shanerx.faketrollplus.core.data.TrollPlayer}
 	 * which represents the player known by the {@link java.util.UUID} of the
 	 * {@link org.bukkit.entity.Player}.
 	 * 
 	 * @param p
 	 *            the player.
-	 * @return the {@link org.shanerx.faketrollplus.core.TrollPlayer}.
+	 * @return the {@link org.shanerx.faketrollplus.core.data.TrollPlayer}.
 	 */
 	public TrollPlayer getTrollPlayer(Player p) {
 		return new TrollPlayer(p, plugin);
+	}
+	
+	protected void update(JSONObject root) {
+		try {
+			PrintWriter write = new PrintWriter(uc.getUserCacheFile());
+			write.write(root.toJSONString());
+			write.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 	}
 }

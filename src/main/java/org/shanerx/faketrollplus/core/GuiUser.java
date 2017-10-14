@@ -25,7 +25,9 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
+import org.shanerx.faketrollplus.core.data.TrollPlayer;
 import org.shanerx.faketrollplus.utils.Message;
+
 
 /**
  * This class is a wrapper, used to make a player open the trolling GUI.
@@ -36,11 +38,11 @@ public class GuiUser {
 
 	/**
 	 * Instantiates a new gui user. Requires a
-	 * {@link org.shanerx.faketrollplus.core.TrollPlayer} that refers to the
+	 * {@link org.shanerx.faketrollplus.core.data.TrollPlayer} that refers to the
 	 * user who is being forced to open the inventory-gui.
 	 * 
 	 * @param tp
-	 *            the {@link org.shanerx.faketrollplus.core.TrollPlayer}
+	 *            the {@link org.shanerx.faketrollplus.core.data.TrollPlayer}
 	 *            instance
 	 */
 	public GuiUser(final TrollPlayer tp) {
