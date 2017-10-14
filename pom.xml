@@ -37,7 +37,6 @@
 					<relocations>
 						<relocation>
 							<pattern>org.bstats</pattern>
-							<!-- Replace this with your package! -->
 							<shadedPattern>org.shanerx.faketrollplus.utils</shadedPattern>
 						</relocation>
 					</relocations>
