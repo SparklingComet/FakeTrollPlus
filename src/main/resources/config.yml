@@ -1,13 +1,15 @@
 # +------------------------------------+ #
-# FakeTrollPlus config v3.4.2 by Lori00. #
+# FakeTrollPlus config v3.5.1 by Lori00. #
+# Licensed under the Apache License v2.0 #
 # +------------------------------------+ #
 
 
 # The plugin automatically adds a prefix with its name to all messages that the sender command sender receives.
 # Messages sent to the trolled player and server-wide broadcasts or announcements do NOT contain the prefix.
-# The prefix is currently hard coded, but WILL be made configurable in the next release (v#3.4.2).
 # The prefix includes a certain styling for the message.
-# The colours and format may be overridden by editing the string.
+# The colours and format may be overridden by editing the string in the configuration.
+use-prefix: true
+prefix: '&a[FakeTrollPlus] &f '
 
 # Keeping the Updater enabled is recommended.
 # Only disable if the server is not connected to the internet.
@@ -230,6 +232,25 @@ cobweb:
   enable: true
   sender: 'You have trapped &3%player%&f!'
 
+# NOTICE:
+# The new freeze-chat effect bound to /freezechat has been disabled temporarily due to dependency issues.
+# We are looking forward to fixing it.
+freeze-chat:
+  enable: true
+  sender: 'You have frozen &3%player%&f''s chat!'
+  target:
+    do-target-msg: false
+    toggle-on: '&3Your chat has been frozen!'
+    toggle-off: '&3Your chat has been unfrozen!'
+
+cage:
+  enable: true
+  sender: 'You have trapped &3%player%&f!'
+
+turn:
+  enable: true
+  sender: 'You have turned &3%player% &faround!'
+
 # Blacklist configurations
 enable-blacklist: true
 blacklist: '&4You were blacklisted from the network!'
@@ -251,3 +272,18 @@ message-for-disabled-cmds: '&fUnknown command. Type "/help" for help.'
 
 # Set the message displayed when the target's name is either invalid or they are not online.
 invalid-target: 'Player not found.'
+
+# Set to false if the plugin should try to find the player with the most similar name, instead
+# of sending an error message if the name entered does not 100% match the target.
+# Recommended setting: false
+exact-target: false
+
+# Database settings:
+database:
+  use: false
+  type: 'mysql'
+  host: 'localhost'
+  port: 3306
+  user: 'admin'
+  password: '123456'
+  db-name: 'minecraft'

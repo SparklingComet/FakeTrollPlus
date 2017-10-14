@@ -164,10 +164,14 @@ public class GuiUser {
 		ItemMeta blacklistMeta = blacklist.getItemMeta();
 		blacklistMeta.setDisplayName("Blacklist Player");
 		blacklist.setItemMeta(blacklistMeta);
+		
+		ItemStack freezeChat = new ItemStack(Material.LEASH, 1);
+		ItemMeta freezeChatMeta = freezeChat.getItemMeta();
+		freezeChatMeta.setDisplayName("Freeze-Chat");
+		freezeChat.setItemMeta(freezeChatMeta);
 
 		gui.setContents(
-				new ItemStack[] { p, null, badfood, noPickup, freeze, gibberish, invLock, explodeBlocks, blacklist });
+				new ItemStack[] { p, badfood, noPickup, freeze, gibberish, invLock, explodeBlocks, blacklist, freezeChat });
 		return gui;
 	}
-
 }

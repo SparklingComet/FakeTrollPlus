@@ -38,7 +38,7 @@ public class Badfood implements CommandExecutor {
 			return false;
 		}
 		
-		final Player target = plugin.getServer().getPlayer(args[0]);
+		final Player target = plugin.getTarget(args[0]);
 		if (target == null) {
 			sender.sendMessage(Message.PREFIX + Message.getString("invalid-target"));
 			return false;
@@ -49,11 +49,14 @@ public class Badfood implements CommandExecutor {
 			tp.setBadfoodEffect(false);
 			sender.sendMessage(Message.PREFIX + Message.getString("badfood.remove").replace("%player%", target.getName()));
 			return true;
+			
+		} else if (!tp.canBeTrolledBy(sender)) {
+			sender.sendMessage(Message.PREFIX + Message.getString("no-admin-trolling"));
+			return false;
 		}
 		
 		tp.setBadfoodEffect(true);
 		sender.sendMessage(Message.PREFIX + Message.getString("badfood.apply").replace("%player%", target.getName()));
 		return true;
 	}
-
 }

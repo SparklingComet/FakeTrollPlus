@@ -15,33 +15,46 @@
  */
 package org.shanerx.faketrollplus.core;
 
+import org.bukkit.plugin.java.JavaPlugin;
+import org.shanerx.faketrollplus.FakeTrollPlus;
+import org.shanerx.faketrollplus.utils.Message;
+
+import java.io.Serializable;
+
 /**
  * An enum containing all the trolling effects the plugin adds to the game.
  */
-public enum TrollEffect {
+public enum TrollEffect implements Serializable{
 
-	BADFOOD((short) 1, "Badfood"),
+	BADFOOD((short) 1, "Badfood", "badfood", "hasBadfoodEffect"),
 
-	NO_PICKUP((short) 2, "No-Pickup"),
+	NO_PICKUP((short) 2, "No-Pickup", "nopickup", "canPickup"),
 
-	FREEZE((short) 3, "Freeze"),
+	FREEZE((short) 3, "Freeze", "freeze", "isFrozen"),
 
-	GIBBERISH((short) 4, "Gibberish"),
+	GIBBERISH((short) 4, "Gibberish", "gibberish", "chatIsGibberish"),
 
-	INVENTORY_LOCK((short) 5, "Inventory-Lock"),
+	INVENTORY_LOCK((short) 5, "Inventory-Lock", "inventorylock", "invIsLocked"),
 
-	EXPLODE_BLOCKS((short) 6, "Explode-Blocks"),
+	EXPLODE_BLOCKS((short) 6, "Explode-Blocks", "explodeblocks", "hasExplodeMinedBlocksEffect"),
 
-	BLACKLISTED((short) 7, "Blacklist");
+	BLACKLISTED((short) 7, "Blacklist", "blacklist", "isBlacklisted"),
+	
+	FREEZE_CHAT((short) 8, "Freeze-Chat", "freezechat", "chatIsFrozen");
 
-	TrollEffect(short key,String name) {
+	TrollEffect(short key,String name, String id, String config) {
 		this.key = key;
 		this.name = name;
+		this.id = id;
+		this.config = config;
 	}
-
-	private String name;
-	private String description;
+	
+	private static FakeTrollPlus plugin;
+	
 	private short key;
+	private transient String name;
+	private transient String id;
+	private transient String config;
 
 	/**
 	 * Gets the effect's name (Different from
@@ -55,26 +68,97 @@ public enum TrollEffect {
 	}
 
 	/**
-	 * Gets the description of the effect.
+	 * Gets the description of the effect (which equals the
+	 * description of the command used to toggle it, as
+	 * specified in the {@link org.bukkit.plugin.PluginDescriptionFile}.
 	 *
 	 * @return the description
 	 */
-	public String getDescription() {
-		return description;
+	public String description() {
+		return plugin.getCommand(id).getDescription();
+	}
+	
+	/**
+	 * Returns the name of the command used to toggle the effect.
+	 *
+	 * @return the command name
+	 */
+	public String id() {
+		return id;
+	}
+	
+	/**
+	 * Returns the name of the configuration key in the
+	 * {@link org.json.simple.JSONObject} which refers
+	 * to the player's data.
+	 *
+	 * @return the key of the config map.
+	 */
+	public String config() {
+		return config;
 	}
 	
 	/**
 	 * Returns a short unique to the effect, which can be used to identify or store the effect in memory.
+	 *
 	 * @return the key.
+	 *
+	 * @see #fromKey(short)
+	 * @see #serialize()
+	 * @see #deserialize(String)
+	 * @see java.io.Serializable
 	 */
 	public short key() {
 		return key;
 	}
 	
 	/**
+	 * Returns whether the effect is enabled in the config.
+	 *
+	 * @return true if enabled.
+	 */
+	public boolean isEnabled() {
+		String key;
+		switch (this) {
+			case BADFOOD:
+				key = "badfood.enable";
+				break;
+			case NO_PICKUP:
+				key = "no-pickup.enable";
+				break;
+			case FREEZE:
+				key = "freeze.enable";
+				break;
+			case GIBBERISH:
+				key = "gibberish.enable";
+				break;
+			case INVENTORY_LOCK:
+				key = "inventory-lock.enable";
+				break;
+			case EXPLODE_BLOCKS:
+				key = "explode-blocks.enable";
+				break;
+			case BLACKLISTED:
+				key = "enable-blacklist";
+				break;
+			case FREEZE_CHAT:
+				key = "freeze-chat.enable";
+				break;
+			default: key = null;
+		}
+		return Message.getBool(key);
+	}
+	
+	/**
 	 * Identifies the effect that this key belongs to. Useful when storing keys in maps, lists or as serialized data.
+	 *
 	 * @param key the key
 	 * @return the effect
+	 *
+	 * @see #key()
+	 * @see #serialize()
+	 * @see #deserialize(String)
+	 * @see java.io.Serializable
 	 */
 	public static TrollEffect fromKey(short key) {
 		switch (key) {
@@ -85,8 +169,59 @@ public enum TrollEffect {
 			case 5: return INVENTORY_LOCK;
 			case 6: return EXPLODE_BLOCKS;
 			case 7: return BLACKLISTED;
+			case 8: return FREEZE_CHAT;
 			default: return null;
 		}
 	}
-
+	
+	/**
+	 * Sets the {@link org.shanerx.faketrollplus.FakeTrollPlus} instance.
+	 * This is required to retrieve information from the {@link org.bukkit.plugin.PluginDescriptionFile}
+	 * (aka the plugin.yml) and MUST be called in {@link JavaPlugin#onEnable()}.
+	 *
+	 * @param plugin the {@link org.shanerx.faketrollplus.FakeTrollPlus} instance
+	 */
+	public static void setPlugin(FakeTrollPlus plugin) {
+		TrollEffect.plugin = plugin;
+	}
+	
+// SERIALIZABLE IMPLEMENTATION:
+	
+	/**
+	 * Returns a serialized form of the TrollEffect.
+	 *
+	 * @return a String representing the serialized data.
+	 *
+	 * @see #key()
+	 * @see #deserialize(String)
+	 * @see java.io.Serializable
+	 */
+	public String serialize() {
+		return "effectKey_" + key;
+	}
+	
+	/**
+	 * Retrieves the TrollEffect from a previously serialized object.
+	 *
+	 * @param serializedData a serialized data.
+	 * @return the TrollEffect enum constant.
+	 *
+	 * @see #fromKey(short)
+	 * @see #serialize()
+	 * @see java.io.Serializable
+	 */
+	public static TrollEffect deserialize(String serializedData) {
+		String[] arr = serializedData.split("_");
+		if (arr.length != 2) {
+			return null;
+		} else if (!arr[0].equalsIgnoreCase("effectKey")){
+			return null;
+		} else {
+			try {
+				return TrollEffect.fromKey(Short.parseShort(arr[1]));
+			} catch (NumberFormatException e) {
+				return null;
+			}
+		}
+	}
 }

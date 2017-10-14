@@ -17,13 +17,12 @@ package org.shanerx.faketrollplus.core;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.command.CommandSender;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.json.simple.JSONObject;
 import org.shanerx.faketrollplus.FakeTrollPlus;
@@ -65,8 +64,7 @@ public class TrollPlayer {
 	 * @return the {@link org.bukkit.OfflinePlayer}.
 	 */
 	public OfflinePlayer getOfflinePlayer() {
-		OfflinePlayer op = Bukkit.getOfflinePlayer(uuid);
-		return op;
+		return Bukkit.getOfflinePlayer(uuid);
 	}
 	
 	/**
@@ -104,71 +102,51 @@ public class TrollPlayer {
 	}
 
 	/**
-	 * Whether the player can be trolled. <br>
+	 * Checks whether the player can be trolled. <br>
 	 * The trolling player needs to have proper permission.
 	 * 
-	 * @param isConsole
-	 *            Whether the trolling entity is the console.
+	 * @param sender the CommandSender.
+	 *
 	 * @return {@code true} if the player can be trolled.
 	 */
-	public boolean canTroll(boolean isConsole) {
-		if (!ftp.getConfig().getBoolean("exempt-admins"))
-			return false;
-		if (isConsole && ftp.getConfig().getBoolean("console-bypass"))
+	public boolean canBeTrolledBy(CommandSender sender) {
+		if (!ftp.getConfig().getBoolean("exempt-admins")) {
 			return true;
+		} else if (sender instanceof ConsoleCommandSender && ftp.getConfig().getBoolean("console-bypass")) {
+			return true;
+		}
 		return !Bukkit.getPlayer(uuid).hasPermission("faketroll.exempt");
 	}
 
 	/**
-	 * Whether the player is frozen.
+	 * Checks whether the player is physically frozen.
 	 * 
 	 * @return {@code true} if frozen.
 	 */
 	public boolean isFrozen() {
-		UserCache uc = ftp.getUserCache();
-		JSONObject root = uc.getJSONConfiguration();
-		JSONObject userInfo = getUserInfo();
-		try {
-			return root.containsKey(uuid.toString()) && (boolean) userInfo.get("isFrozen");
-		} catch (NullPointerException npe) {
-			return false;
-		}
+		return get(FREEZE);
 	}
 
 	/**
-	 * Whether the trolled player's chat messages will be changed to gibberish.
+	 * Checks whether the trolled player's chat messages will be changed to gibberish.
 	 * 
 	 * @return {@code true} if effect is enabled.
 	 */
 	public boolean chatIsGibberish() {
-		UserCache uc = ftp.getUserCache();
-		JSONObject root = uc.getJSONConfiguration();
-		JSONObject userInfo = getUserInfo();
-		try {
-			return root.containsKey(uuid.toString()) && (boolean) userInfo.get("chatIsGibberish");
-		} catch (NullPointerException npe) {
-			return false;
-		}
+		return get(GIBBERISH);
 	}
 
 	/**
-	 * Whether the player's inventory is locked.
+	 * Checks whether the player's inventory is locked.
 	 * 
 	 * @return {@code true} if yes.
 	 */
 	public boolean invIsLocked() {
-		UserCache uc = ftp.getUserCache();
-		JSONObject root = uc.getJSONConfiguration();
-		JSONObject userInfo = getUserInfo();
-		try {
-			return root.containsKey(uuid.toString()) && (boolean) userInfo.get("invIsLocked");
-		} catch (NullPointerException npe) {
-			return false;
-		}
+		return get(INVENTORY_LOCK);
 	}
 
 	/**
-	 * Whether the player can pickup items.
+	 * Checks whether the player can pickup items.
 	 * 
 	 * @return {@code false} if the No-Pickup effect is
 	 *         <strong>enabled</strong>.
@@ -178,61 +156,46 @@ public class TrollPlayer {
 		JSONObject root = uc.getJSONConfiguration();
 		JSONObject userInfo = getUserInfo();
 		try {
-			if (!root.containsKey(uuid.toString())) {
-				return true;
-			}
-			return (boolean) userInfo.get("canPickup");
+			return !root.containsKey(uuid.toString()) || (boolean) userInfo.get("canPickup");
 		} catch (NullPointerException npe) {
 			return false;
 		}
 	}
 
 	/**
-	 * Whether the player will be poisoned by any item they consume.
+	 * Checks whether the player will be poisoned by any item they consume.
 	 * 
 	 * @return {@code true} if yes.
 	 */
 	public boolean hasBadfoodEffect() {
-		UserCache uc = ftp.getUserCache();
-		JSONObject root = uc.getJSONConfiguration();
-		JSONObject userInfo = getUserInfo();
-		try {
-			return root.containsKey(uuid.toString()) && (boolean) userInfo.get("hasBadfoodEffect");
-		} catch (NullPointerException npe) {
-			return false;
-		}
+		return get(BADFOOD);
 	}
 
 	/**
-	 * Whether mining a block will generate an explosion.
+	 * Checks whether mining a block will generate an explosion.
 	 * 
 	 * @return {@code true} if the player is affected.
 	 */
 	public boolean hasExplodeMinedBlocksEffect() {
-		UserCache uc = ftp.getUserCache();
-		JSONObject root = uc.getJSONConfiguration();
-		JSONObject userInfo = getUserInfo();
-		try {
-			return root.containsKey(uuid.toString()) && (boolean) userInfo.get("hasExplodeMinedBlocksEffect");
-		} catch (NullPointerException npe) {
-			return false;
-		}
+		return get(EXPLODE_BLOCKS);
 	}
 
 	/**
-	 * Whether the player is blacklisted by the plugin.
+	 * Checks whether the player is blacklisted by the plugin.
 	 * 
 	 * @return {@code true} if the player is blacklisted.
 	 */
 	public boolean isBlacklisted() {
-		UserCache uc = ftp.getUserCache();
-		JSONObject root = uc.getJSONConfiguration();
-		JSONObject userInfo = getUserInfo();
-		try {
-			return root.containsKey(uuid.toString()) && (boolean) userInfo.get("isBlacklisted");
-		} catch (NullPointerException npe) {
-			return false;
-		}
+		return get(BLACKLISTED);
+	}
+	
+	/**
+	 * Checks whether the player's chat is frozen.
+	 *
+	 * @return {@code true} if the player's chat is frozen.
+	 */
+	public boolean chatIsFrozen() {
+		return get(FREEZE_CHAT);
 	}
 
 	/**
@@ -242,39 +205,17 @@ public class TrollPlayer {
 	 *            whether or not the player should freeze.
 	 */
 	public void setFrozen(boolean isFrozen) {
-		UserCache uc = ftp.getUserCache();
-		JSONObject root = uc.getJSONConfiguration();
-		JSONObject userInfo = getUserInfo();
-		userInfo.put("isFrozen", isFrozen);
-		root.put(uuid.toString(), userInfo);
-		try {
-			PrintWriter write = new PrintWriter(uc.getUserCacheFile());
-			write.write(root.toJSONString());
-			write.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
+		set(FREEZE, isFrozen);
 	}
 
 	/**
-	 * Adds or removes the Gibberish effect.
+	 * Adds or removes the Gibberish effect to/from the player.
 	 * 
 	 * @param chatIsGibberish
 	 *            whether the player should talk gibberish.
 	 */
 	public void setGibberishChat(boolean chatIsGibberish) {
-		UserCache uc = ftp.getUserCache();
-		JSONObject root = uc.getJSONConfiguration();
-		JSONObject userInfo = getUserInfo();
-		userInfo.put("chatIsGibberish", chatIsGibberish);
-		root.put(uuid.toString(), userInfo);
-		try {
-			PrintWriter write = new PrintWriter(uc.getUserCacheFile());
-			write.write(root.toJSONString());
-			write.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
+		set(GIBBERISH, chatIsGibberish);
 	}
 
 	/**
@@ -284,18 +225,7 @@ public class TrollPlayer {
 	 *            whether the player should be locked out or not.
 	 */
 	public void setInvLocked(boolean invIsLocked) {
-		UserCache uc = ftp.getUserCache();
-		JSONObject root = uc.getJSONConfiguration();
-		JSONObject userInfo = getUserInfo();
-		userInfo.put("invIsLocked", invIsLocked);
-		root.put(uuid.toString(), userInfo);
-		try {
-			PrintWriter write = new PrintWriter(uc.getUserCacheFile());
-			write.write(root.toJSONString());
-			write.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
+		set(INVENTORY_LOCK, invIsLocked);
 	}
 
 	/**
@@ -305,60 +235,27 @@ public class TrollPlayer {
 	 *            whether the player should be able to pickup dropped items.
 	 */
 	public void setPickup(boolean canPickup) {
-		UserCache uc = ftp.getUserCache();
-		JSONObject root = uc.getJSONConfiguration();
-		JSONObject userInfo = getUserInfo();
-		userInfo.put("canPickup", canPickup);
-		root.put(uuid.toString(), userInfo);
-		try {
-			PrintWriter write = new PrintWriter(uc.getUserCacheFile());
-			write.write(root.toJSONString());
-			write.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
+		set(NO_PICKUP, canPickup);
 	}
 
 	/**
-	 * Adds or lifts the Badfood effect.
+	 * Adds or lifts the Badfood effect to/from the player.
 	 * 
 	 * @param hasBadfoodEffect
 	 *            whether the player should be poisoned by food.
 	 */
 	public void setBadfoodEffect(boolean hasBadfoodEffect) {
-		UserCache uc = ftp.getUserCache();
-		JSONObject root = uc.getJSONConfiguration();
-		JSONObject userInfo = getUserInfo();
-		userInfo.put("hasBadfoodEffect", hasBadfoodEffect);
-		root.put(uuid.toString(), userInfo);
-		try {
-			PrintWriter write = new PrintWriter(uc.getUserCacheFile());
-			write.write(root.toJSONString());
-			write.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
+		set(BADFOOD, hasBadfoodEffect);
 	}
 
 	/**
-	 * Add or lift the effect from the player.
+	 * Adds or lift the effect to/from the player.
 	 * 
 	 * @param hasExplodeMinedBlocksEffect
 	 *            {@code true} if the blocks should explode.
 	 */
 	public void setExplodeMinedBlocksEffect(boolean hasExplodeMinedBlocksEffect) {
-		UserCache uc = ftp.getUserCache();
-		JSONObject root = uc.getJSONConfiguration();
-		JSONObject userInfo = getUserInfo();
-		userInfo.put("hasExplodeMinedBlocksEffect", hasExplodeMinedBlocksEffect);
-		root.put(uuid.toString(), userInfo);
-		try {
-			PrintWriter write = new PrintWriter(uc.getUserCacheFile());
-			write.write(root.toJSONString());
-			write.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
+		set(EXPLODE_BLOCKS, hasExplodeMinedBlocksEffect);
 	}
 
 	/**
@@ -368,23 +265,25 @@ public class TrollPlayer {
 	 *            whether or not to blacklist the player.
 	 */
 	public void setBlacklisted(boolean isBlacklisted) {
-		UserCache uc = ftp.getUserCache();
-		JSONObject root = uc.getJSONConfiguration();
-		JSONObject userInfo = getUserInfo();
-		userInfo.put("isBlacklisted", isBlacklisted);
-		root.put(uuid.toString(), userInfo);
-		try {
-			PrintWriter write = new PrintWriter(uc.getUserCacheFile());
-			write.write(root.toJSONString());
-			write.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		return;
+		set(BLACKLISTED, isBlacklisted);
 	}
-
-	public Collection<TrollEffect> activeEffects() {
-		List<TrollEffect> active = new ArrayList<>();
+	
+	/**
+	 * Adds or lifts the freeze-chat effect to/from the player.
+	 *
+	 * @param chatIsFrozen
+	 *            whether or not to freeze the chat.
+	 */
+	public void freezeChat(boolean chatIsFrozen) {
+		set(FREEZE_CHAT, chatIsFrozen);
+	}
+	
+	/**
+	 * Returns a set of effects that are currently active on the player.
+	 * @return all active effects
+	 */
+	public Set<TrollEffect> activeEffects() {
+		Set<TrollEffect> active = new HashSet<>();
 		if (hasBadfoodEffect()) {
 			active.add(BADFOOD);
 		}
@@ -406,7 +305,35 @@ public class TrollPlayer {
 		if (isBlacklisted()) {
 			active.add(BLACKLISTED);
 		}
+		if (chatIsFrozen()) {
+			active.add(FREEZE_CHAT);
+		}
 		return active;
 	}
-
+	
+	private boolean get(TrollEffect effect) {
+		UserCache uc = ftp.getUserCache();
+		JSONObject root = uc.getJSONConfiguration();
+		JSONObject userInfo = getUserInfo();
+		try {
+			return root.containsKey(uuid.toString()) && (boolean) userInfo.get(effect.config());
+		} catch (NullPointerException npe) {
+			return false;
+		}
+	}
+	
+	private void set(TrollEffect effect, boolean enable) {
+		UserCache uc = ftp.getUserCache();
+		JSONObject root = uc.getJSONConfiguration();
+		JSONObject userInfo = getUserInfo();
+		userInfo.put(effect.config(), enable);
+		root.put(uuid.toString(), userInfo);
+		try {
+			PrintWriter write = new PrintWriter(uc.getUserCacheFile());
+			write.write(root.toJSONString());
+			write.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
 }

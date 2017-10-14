@@ -15,7 +15,7 @@
  */
 package org.shanerx.faketrollplus.events;
 
-import java.util.Collection;
+import java.util.Set;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -32,6 +32,7 @@ import org.shanerx.faketrollplus.FakeTrollPlus;
 import org.shanerx.faketrollplus.utils.Message;
 import org.shanerx.faketrollplus.core.GuiUser;
 import org.shanerx.faketrollplus.core.TrollEffect;
+import static org.shanerx.faketrollplus.core.TrollEffect.*;
 import org.shanerx.faketrollplus.core.TrollPlayer;
 
 public class GuiListener implements Listener {
@@ -45,9 +46,10 @@ public class GuiListener implements Listener {
 	@SuppressWarnings("deprecation")
 	@EventHandler(priority=EventPriority.HIGH)
 	public void onInventoryClick(InventoryClickEvent e) {
-		if (e.getClickedInventory() == null) {
+		if (e.getClickedInventory() == null || e.getCurrentItem() == null) {
 			return;
 		}
+		
 		String name = e.getClickedInventory().getTitle();
 		ItemStack item = e.getCurrentItem();
 		int size = e.getClickedInventory().getSize();
@@ -56,6 +58,7 @@ public class GuiListener implements Listener {
 		if (!ChatColor.stripColor(name).equals(ChatColor.stripColor(Message.getString("gui.title"))) || item == null) {
 			return;
 		}
+		
 		e.setCancelled(true);
 		
 		if (size == 9) {
@@ -65,7 +68,7 @@ public class GuiListener implements Listener {
 			
 			switch(item.getType()) {
 			case SKULL_ITEM:
-				Collection<TrollEffect> activeEffects = ftp.getUserCache().getTrollPlayer(op.getUniqueId()).activeEffects();
+				Set<TrollEffect> activeEffects = ftp.getUserCache().getTrollPlayer(op.getUniqueId()).activeEffects();
 
 				StringBuilder sb = new StringBuilder();
 				boolean hasEffects = activeEffects.size() > 0;
@@ -77,41 +80,114 @@ public class GuiListener implements Listener {
 				return;
 				
 			case ROTTEN_FLESH:
+				if (!BADFOOD.isEnabled()) {
+					p.sendMessage(Message.GUI_EFFECT_DISABLED.toString());
+					return;
+				} else if (!tp.canBeTrolledBy(p)) {
+					p.sendMessage(Message.PREFIX + Message.getString("no-admin-trolling"));
+					return;
+				}
+				
 				tp.setBadfoodEffect(!tp.hasBadfoodEffect());
 				p.sendMessage(col((tp.hasBadfoodEffect() ? "&cEnabled": "&cDisabled") + " &6Badfood &eeffect for player &6" + op.getName()));
 				return;
 				
 			case EXP_BOTTLE:
+				if (!NO_PICKUP.isEnabled()) {
+					p.sendMessage(Message.GUI_EFFECT_DISABLED.toString());
+					return;
+				} else if (!tp.canBeTrolledBy(p)) {
+					p.sendMessage(Message.PREFIX + Message.getString("no-admin-trolling"));
+					return;
+				}
+				
 				tp.setPickup(!tp.canPickup());
 				p.sendMessage(col((!tp.canPickup() ? "&cEnabled": "&cDisabled") + " &6No-Pickup &eeffect for player &6" + op.getName()));
 				return;
 				
 			case IRON_BOOTS:
+				if (!FREEZE.isEnabled()) {
+					p.sendMessage(Message.GUI_EFFECT_DISABLED.toString());
+					return;
+				} else if (!tp.canBeTrolledBy(p)) {
+					p.sendMessage(Message.PREFIX + Message.getString("no-admin-trolling"));
+					return;
+				}
+				
 				tp.setFrozen(!tp.isFrozen());
 				p.sendMessage(col((tp.isFrozen() ? "&cEnabled": "&cDisabled") + " &6Freeze &eeffect for player &6" + op.getName()));
 				return;
 				
 			case BOOK:
+				if (!GIBBERISH.isEnabled()) {
+					p.sendMessage(Message.GUI_EFFECT_DISABLED.toString());
+					return;
+				} else if (!tp.canBeTrolledBy(p)) {
+					p.sendMessage(Message.PREFIX + Message.getString("no-admin-trolling"));
+					return;
+				}
+				
 				tp.setGibberishChat(!tp.chatIsGibberish());
 				p.sendMessage(col((tp.chatIsGibberish() ? "&cEnabled": "&cDisabled") + " &6Gibberish &eeffect for player &6" + op.getName()));
 				return;
 				
 			case TRAPPED_CHEST:
+				if (!INVENTORY_LOCK.isEnabled()) {
+					p.sendMessage(Message.GUI_EFFECT_DISABLED.toString());
+					return;
+				} else if (!tp.canBeTrolledBy(p)) {
+					p.sendMessage(Message.PREFIX + Message.getString("no-admin-trolling"));
+					return;
+				}
+				
 				tp.setInvLocked(!tp.invIsLocked());
 				p.sendMessage(col((tp.invIsLocked() ? "&cEnabled": "&cDisabled") + " &6Inventory-Lock &eeffect for player &6" + op.getName()));
 				return;
 				
 			case TNT:
+				if (!EXPLODE_BLOCKS.isEnabled()) {
+					p.sendMessage(Message.GUI_EFFECT_DISABLED.toString());
+					return;
+				} else if (!tp.canBeTrolledBy(p)) {
+					p.sendMessage(Message.PREFIX + Message.getString("no-admin-trolling"));
+					return;
+				}
+				
 				tp.setExplodeMinedBlocksEffect(!tp.hasExplodeMinedBlocksEffect());
 				p.sendMessage(col((tp.hasExplodeMinedBlocksEffect() ? "&cEnabled": "&cDisabled") + " &6Explode-Blocks &eeffect &efor player &6" + op.getName()));
 				return;
 				
 			case IRON_DOOR:
+				if (!BLACKLISTED.isEnabled()) {
+					p.sendMessage(Message.GUI_EFFECT_DISABLED.toString());
+					return;
+				} else if (!tp.canBeTrolledBy(p)) {
+					p.sendMessage(Message.PREFIX + Message.getString("no-admin-trolling"));
+					return;
+				}
+				
 				tp.setBlacklisted(!tp.isBlacklisted());
 				p.sendMessage(col((tp.isBlacklisted() ? "&cBlacklisted": "&cUn-blacklisted") + "  &eplayer &6" + op.getName()));
 				Bukkit.getPlayer(op.getUniqueId()).kickPlayer(Message.getString("blacklist"));
 				return;
 				
+/*			case LEASH:
+				if (!FREEZE_CHAT.isEnabled()) {
+					p.sendMessage(Message.GUI_EFFECT_DISABLED.toString());
+					return;
+				} else if (!tp.canBeTrolledBy(p)) {
+					p.sendMessage(Message.PREFIX + Message.getString("no-admin-trolling"));
+					return;
+				}
+				
+				if (ftp.useProtocolLib()) {
+					tp.freezeChat(!tp.chatIsFrozen());
+					p.sendMessage(col((tp.chatIsFrozen() ? "&cEnabled": "&cDisabled") + "  &6Chat-Freeze &eeffect for &6" + op.getName()));
+					return;
+				} else {
+					p.sendMessage(col("You need to install ProtocolLib for this effect to worj!"));
+					return;
+				}*/
 			default:
 				return;
 			}
@@ -141,7 +217,6 @@ public class GuiListener implements Listener {
 	
 	// Just to shorten the Message.col(x) method.
 	private String col(String msg) {
-		return Message.col(msg);
+		return Message.PREFIX + Message.col(msg);
 	}
-
 }

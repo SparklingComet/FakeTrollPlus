@@ -15,27 +15,25 @@
  */
 package org.shanerx.faketrollplus.commands;
 
-import org.bukkit.World;
-import org.bukkit.block.Block;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.util.Vector;
 import org.shanerx.faketrollplus.FakeTrollPlus;
 import org.shanerx.faketrollplus.utils.Message;
 
-public class Anvil implements CommandExecutor {
-
+public class Turn implements CommandExecutor {
+	
 	private FakeTrollPlus plugin;
-
-	public Anvil(final FakeTrollPlus instance) {
+	
+	public Turn(final FakeTrollPlus instance) {
 		plugin = instance;
 	}
-
+	
 	@Override
-	@SuppressWarnings("deprecation")
 	public boolean onCommand(final CommandSender sender, final Command cmd, final String label, final String[] args) {
-		if (!Message.verifyCommandSender(cmd, sender, "faketroll.anvil", Message.getBool("anvil.enable"), () -> args.length != 1)) {
+		if (!Message.verifyCommandSender(cmd, sender, "faketroll.cage", Message.getBool("cage.enable"), () -> args.length != 1)) {
 			return false;
 		}
 		
@@ -45,15 +43,8 @@ public class Anvil implements CommandExecutor {
 			return false;
 		}
 		
-		final int x = target.getLocation().getBlockX();
-		final int y = target.getLocation().getBlockY();
-		final int z = target.getLocation().getBlockZ();
-		
-		final World world = target.getLocation().getWorld();
-		final Block block = world.getBlockAt(x, y + 2, z);
-		
-		block.setTypeId(145);
-		sender.sendMessage(Message.PREFIX + Message.getString("anvil.sender").replace("%player%", target.getName()));
+		target.setVelocity(target.getVelocity().add(new Vector(-1, 0, -1)));
+		sender.sendMessage(Message.PREFIX + Message.getString("turn.sender").replace("%player%", target.getName()));
 		return true;
 	}
 }

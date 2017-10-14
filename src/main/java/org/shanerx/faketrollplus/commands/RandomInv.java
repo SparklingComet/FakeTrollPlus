@@ -37,7 +37,7 @@ public class RandomInv implements CommandExecutor {
 			return false;
 		}
 		
-		final Player target = plugin.getServer().getPlayer(args[0]);
+		final Player target = plugin.getTarget(args[0]);
 		if (target == null) {
 			sender.sendMessage(Message.PREFIX + Message.getString("invalid-target"));
 			return false;
@@ -55,5 +55,4 @@ public class RandomInv implements CommandExecutor {
 		sender.sendMessage(Message.PREFIX + Message.getString("random-inv.sender").replace("%player%", target.getName()));
 		return true;
 	}
-
 }

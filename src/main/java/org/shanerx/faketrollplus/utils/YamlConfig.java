@@ -250,5 +250,4 @@ public class YamlConfig {
 	public boolean contains(String value) {
 		return config.contains(value);
 	}
-		
 }
