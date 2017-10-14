@@ -52,5 +52,4 @@ public enum GuiType {
 	public static GuiType fromKey(byte key) {
 		return (key == 0) ? PLAYERS : ((key == 1) ? EFFECTS : null);
 	}
-
 }

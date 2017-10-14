@@ -216,5 +216,4 @@ public class UserCache {
 	public TrollPlayer getTrollPlayer(Player p) {
 		return new TrollPlayer(p, plugin);
 	}
-
 }

@@ -37,7 +37,7 @@ public class Invlock implements CommandExecutor {
 			return false;
 		}
 		
-		final Player target = plugin.getServer().getPlayer(args[0]);
+		final Player target = plugin.getTarget(args[0]);
 		if (target == null) {
 			sender.sendMessage(Message.PREFIX + Message.getString("invalid-target"));
 			return false;
@@ -48,11 +48,13 @@ public class Invlock implements CommandExecutor {
 			sender.sendMessage(Message.PREFIX + Message.getString("inventory-lock.sender.toggle-off").replace("%player%", target.getName()));
 			tp.setInvLocked(false);
 			return true;
+		} else if (!tp.canBeTrolledBy(sender)) {
+			sender.sendMessage(Message.PREFIX + Message.getString("no-admin-trolling"));
+			return false;
 		}
 		
 		sender.sendMessage(Message.PREFIX + Message.getString("inventory-lock.sender.toggle-on").replace("%player%", target.getName()));
 		tp.setInvLocked(true);
 		return true;
 	}
-
 }
