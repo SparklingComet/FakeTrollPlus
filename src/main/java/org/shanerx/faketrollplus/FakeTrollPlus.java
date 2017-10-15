@@ -118,7 +118,7 @@ public class FakeTrollPlus extends JavaPlugin {
 		log.println("[ " + date.toGMTString() + " ]");
 		log.flush();
 
-		usercache = UserCache.getInstance(new File(getDataFolder(), "usercache.json"), this);
+		usercache = LocalUserCache.getInstance(new File(getDataFolder(), "usercache.json"), this);
 		
 		if (getConfig().getBoolean("check-updates")) {
 			new Thread(() -> VERSION.checkCurrentVersion()).start();
