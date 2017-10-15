@@ -190,15 +190,6 @@ public class TrollPlayer {
 	public boolean isBlacklisted() {
 		return get(BLACKLISTED);
 	}
-	
-	/**
-	 * Checks whether the player's chat is frozen.
-	 *
-	 * @return {@code true} if the player's chat is frozen.
-	 */
-	public boolean chatIsFrozen() {
-		return get(FREEZE_CHAT);
-	}
 
 	/**
 	 * Sets the player's freeze-status.
@@ -271,16 +262,6 @@ public class TrollPlayer {
 	}
 	
 	/**
-	 * Adds or lifts the freeze-chat effect to/from the player.
-	 *
-	 * @param chatIsFrozen
-	 *            whether or not to freeze the chat.
-	 */
-	public void freezeChat(boolean chatIsFrozen) {
-		set(FREEZE_CHAT, chatIsFrozen);
-	}
-	
-	/**
 	 * Returns a set of effects that are currently active on the player.
 	 * @return all active effects
 	 */
@@ -306,9 +287,6 @@ public class TrollPlayer {
 		}
 		if (isBlacklisted()) {
 			active.add(BLACKLISTED);
-		}
-		if (chatIsFrozen()) {
-			active.add(FREEZE_CHAT);
 		}
 		return active;
 	}
