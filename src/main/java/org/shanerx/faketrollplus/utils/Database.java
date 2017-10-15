@@ -167,8 +167,7 @@ public class Database {
 				"gibberish INT default 0," +
 				"inventory_lock INT default 0, " +
 				"explode_blocks INT default 0, " +
-				"blacklisted INT default 0, " +
-				"freeze_chat INT default 0," +
+				"blacklisted INT default 0" +
 				");");
 	}
 }

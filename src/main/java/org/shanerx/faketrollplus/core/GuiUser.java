@@ -146,10 +146,8 @@ public class GuiUser {
 
 		ItemStack blacklist = getEffectItem(TrollEffect.BLACKLISTED);
 		
-		ItemStack freezeChat = getEffectItem(TrollEffect.FREEZE_CHAT);
-
 		gui.setContents(
-				new ItemStack[] { p, badfood, noPickup, freeze, gibberish, invLock, explodeBlocks, blacklist, freezeChat });
+				new ItemStack[] { p, badfood, noPickup, freeze, gibberish, invLock, explodeBlocks, blacklist, null});
 		return gui;
 	}
 	

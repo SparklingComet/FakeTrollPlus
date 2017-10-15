@@ -39,10 +39,8 @@ public enum TrollEffect implements Serializable{
 
 	EXPLODE_BLOCKS((short) 6, "Explode-Blocks", "explodeblocks", "hasExplodeMinedBlocksEffect", Material.TNT),
 
-	BLACKLISTED((short) 7, "Blacklist", "blacklist", "isBlacklisted", Material.IRON_DOOR),
+	BLACKLISTED((short) 7, "Blacklist", "blacklist", "isBlacklisted", Material.IRON_DOOR);
 	
-	FREEZE_CHAT((short) 8, "Freeze-Chat", "freezechat", "chatIsFrozen", Material.LEASH);
-
 	TrollEffect(short key,String name, String id, String config, Material guiItem) {
 		this.key = key;
 		this.name = name;
@@ -154,9 +152,6 @@ public enum TrollEffect implements Serializable{
 			case BLACKLISTED:
 				key = "enable-blacklist";
 				break;
-			case FREEZE_CHAT:
-				key = "freeze-chat.enable";
-				break;
 			default: key = null;
 		}
 		return Message.getBool(key);
@@ -182,7 +177,6 @@ public enum TrollEffect implements Serializable{
 			case 5: return INVENTORY_LOCK;
 			case 6: return EXPLODE_BLOCKS;
 			case 7: return BLACKLISTED;
-			case 8: return FREEZE_CHAT;
 			default: return null;
 		}
 	}
