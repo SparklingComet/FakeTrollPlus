@@ -228,6 +228,11 @@ public class LocalUserCache implements UserCache {
 		return new TrollPlayer(p, plugin);
 	}
 	
+	/**
+	 * Updates the data on the hard drive.
+	 *
+	 * @param root the {@link org.json.simple.JSONObject} containing the information.
+	 */
 	@Override
 	public void update(JSONObject root) {
 		try {
