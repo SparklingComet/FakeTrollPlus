@@ -28,8 +28,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.shanerx.faketrollplus.core.TrollEffect;
-import org.shanerx.faketrollplus.core.UserCache;
-//import org.shanerx.faketrollplus.events.ChatPacketListener;
+import org.shanerx.faketrollplus.core.data.LocalUserCache;
+import org.shanerx.faketrollplus.core.data.UserCache;
 import org.shanerx.faketrollplus.events.EffectListeners;
 import org.shanerx.faketrollplus.events.GuiListener;
 import org.shanerx.faketrollplus.utils.Database;
@@ -50,7 +50,6 @@ public class FakeTrollPlus extends JavaPlugin {
 	private volatile UserCache usercache;
 	private volatile Database database;
 	
-	private boolean USE_PROTOCOL_LIB = false;
 	
 	@Override
 	@SuppressWarnings("deprecation")
@@ -61,19 +60,12 @@ public class FakeTrollPlus extends JavaPlugin {
 		PluginManager pm = Bukkit.getServer().getPluginManager();
 		pm.registerEvents(new EffectListeners(this), this);
 		pm.registerEvents(new GuiListener(this), this);
-		
-		USE_PROTOCOL_LIB = pm.getPlugin("ProtocolLib") != null;
-/*		if (USE_PROTOCOL_LIB) {
-			com.comphenix.protocol.ProtocolManager protMan = com.comphenix.protocol.ProtocolLibrary.getProtocolManager();
-			protMan.addPacketListener(new ChatPacketListener(this));
-		}*/
 
 		Executor ex = new Executor(this);		
 		for (String cmd : getDescription().getCommands().keySet()) {
 			getCommand(cmd).setExecutor(ex);
 		}
 		
-		/* DATABASE
 		if (getConfig().getBoolean("database.use")) {
 			new Thread(() -> {
 				String type = getConfig().getString("database.type");
@@ -90,7 +82,7 @@ public class FakeTrollPlus extends JavaPlugin {
 					return;
 				}
 			}).start();
-		}*/
+		}
 
 		logs = new File(getDataFolder(), "logs");
 		if (!logs.exists()) {
@@ -127,7 +119,7 @@ public class FakeTrollPlus extends JavaPlugin {
 		log.println("[ " + date.toGMTString() + " ]");
 		log.flush();
 
-		usercache = UserCache.getInstance(new File(getDataFolder(), "usercache.json"), this);
+		usercache = LocalUserCache.getInstance(new File(getDataFolder(), "usercache.json"), this);
 		
 		if (getConfig().getBoolean("check-updates")) {
 			new Thread(() -> VERSION.checkCurrentVersion()).start();
@@ -137,6 +129,14 @@ public class FakeTrollPlus extends JavaPlugin {
 	@Override
 	@SuppressWarnings("deprecation")
 	public void onDisable() {
+		if (database != null) {
+			try {
+				database.closeConnection();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
 		if (doLogging) {
 			log.println(
 					"----------------------------------------------------------------------------------------------------------");
@@ -161,11 +161,11 @@ public class FakeTrollPlus extends JavaPlugin {
 		return buildRelation;
 	}
 	
-	public boolean useProtocolLib() {
-		return USE_PROTOCOL_LIB;
-	}
 	
-// UTILS
+	///////////
+	// UTILS //
+	///////////
+	
 	public Player getTarget(String arg) {
 		return getConfig().getBoolean("exact-target") ? Bukkit.getPlayerExact(arg) : Bukkit.getPlayer(arg);
 	}

@@ -38,6 +38,8 @@ public class Database {
 	private Connection connection;
 	private Statement statement;
 	
+	public static final String TABLE_NAME = "ftp_data";
+	
 	/**
 	 * Constructs a new {@link Database} object.
 	 *
@@ -60,6 +62,7 @@ public class Database {
 		this.database = database;
 		openConnection(password);
 		statement = connection.createStatement();
+		initializeDatabase();
 	}
 	
 	/**
@@ -149,5 +152,22 @@ public class Database {
 		if (connection != null && !connection.isClosed()) {
 			connection.close();
 		}
+	}
+	
+	/**
+	 * Creates the table if it does not exist.
+	 * @throws SQLException
+	 */
+	protected void initializeDatabase() throws SQLException {
+		statement.executeUpdate("CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " (" +
+				"uuid VARCHAR(64), " +
+				"badfood INT default 0, " +
+				"no_pickup INT default 0, " +
+				"freeze INT default 0, " +
+				"gibberish INT default 0," +
+				"inventory_lock INT default 0, " +
+				"explode_blocks INT default 0, " +
+				"blacklisted INT default 0" +
+				");");
 	}
 }

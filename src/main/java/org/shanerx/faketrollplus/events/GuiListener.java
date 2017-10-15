@@ -33,7 +33,7 @@ import org.shanerx.faketrollplus.utils.Message;
 import org.shanerx.faketrollplus.core.GuiUser;
 import org.shanerx.faketrollplus.core.TrollEffect;
 import static org.shanerx.faketrollplus.core.TrollEffect.*;
-import org.shanerx.faketrollplus.core.TrollPlayer;
+import org.shanerx.faketrollplus.core.data.TrollPlayer;
 
 public class GuiListener implements Listener {
 	

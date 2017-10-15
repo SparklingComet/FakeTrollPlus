@@ -1,21 +1,24 @@
 /*
- *     Copyright 2016-2017 SparklingComet @ http://shanerx.org
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ *      Copyright (c) 2016-2017 SparklingComet @ http://shanerx.org
  *
- *          http://www.apache.org/licenses/LICENSE-2.0
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
  *
- * Unless required by applicable law or agreed to in writing, software
+ *           http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ *
  */
-package org.shanerx.faketrollplus.core;
+package org.shanerx.faketrollplus.core.data;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -28,7 +31,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.shanerx.faketrollplus.FakeTrollPlus;
 
-public class UserCache {
+public class LocalUserCache implements UserCache {
 
 	private FakeTrollPlus plugin;
 	private File cacheFile;
@@ -51,7 +54,7 @@ public class UserCache {
 	 * @param plugin
 	 *            the current Plugin instance.
 	 */
-	private UserCache(File usercache, FakeTrollPlus plugin) {
+	private LocalUserCache(File usercache, FakeTrollPlus plugin) {
 		this.cacheFile = usercache;
 		this.plugin = plugin;
 
@@ -65,7 +68,6 @@ public class UserCache {
 				e.printStackTrace();
 			}
 		}
-
 	}
 
 	/**
@@ -83,7 +85,7 @@ public class UserCache {
 	 */
 	public static UserCache getInstance(File file, FakeTrollPlus ftp) {
 		if (uc == null) {
-			uc = new UserCache(file, ftp);
+			uc = new LocalUserCache(file, ftp);
 		}
 		return uc;
 	}
@@ -95,6 +97,7 @@ public class UserCache {
 	 * 
 	 * @return the {@link org.shanerx.faketrollplus.FakeTrollPlus} instance.
 	 */
+	@Override
 	public FakeTrollPlus getPlugin() {
 		return plugin;
 	}
@@ -120,6 +123,7 @@ public class UserCache {
 	 * 
 	 * @return the {@link org.json.simple.JSONObject}.
 	 */
+	@Override
 	public JSONObject getJSONConfiguration() {
 		try {
 			JSONParser parser = new JSONParser();
@@ -143,6 +147,7 @@ public class UserCache {
 	 * @return the {@link org.json.simple.JSONObject} representing the data
 	 *         related to the UUID.
 	 */
+	@Override
 	public JSONObject getPlayerInfo(UUID uuid) {
 		return (JSONObject) getJSONConfiguration().get(uuid.toString());
 	}
@@ -158,6 +163,7 @@ public class UserCache {
 	 * @return the {@link org.json.simple.JSONObject} representing the data
 	 *         related to the {@link org.bukkit.OfflinePlayer}.
 	 */
+	@Override
 	public JSONObject getPlayerInfo(OfflinePlayer op) {
 		return (JSONObject) getJSONConfiguration().get(op.getUniqueId().toString());
 	}
@@ -174,46 +180,65 @@ public class UserCache {
 	 * @return the {@link org.json.simple.JSONObject} representing the data
 	 *         related to the {@link org.bukkit.entity.Player}.
 	 */
+	@Override
 	public JSONObject getPlayerInfo(Player p) {
 		return (JSONObject) getJSONConfiguration().get(p.getUniqueId().toString());
 	}
 
 	/**
-	 * Gets the instance of {@link org.shanerx.faketrollplus.core.TrollPlayer}
+	 * Gets the instance of {@link org.shanerx.faketrollplus.core.data.TrollPlayer}
 	 * which represents the player known by that {@link java.util.UUID}.
 	 * 
 	 * @param uuid
 	 *            the UUID of the player.
-	 * @return the {@link org.shanerx.faketrollplus.core.TrollPlayer} known by
+	 * @return the {@link org.shanerx.faketrollplus.core.data.TrollPlayer} known by
 	 *         that UUID.
 	 */
+	@Override
 	public TrollPlayer getTrollPlayer(UUID uuid) {
 		return new TrollPlayer(uuid, plugin);
 	}
 
 	/**
-	 * Gets the instance of {@link org.shanerx.faketrollplus.core.TrollPlayer}
+	 * Gets the instance of {@link org.shanerx.faketrollplus.core.data.TrollPlayer}
 	 * which represents the player known by the {@link java.util.UUID} of the
 	 * {@link org.bukkit.OfflinePlayer}.
 	 * 
 	 * @param op
 	 *            the player.
-	 * @return the {@link org.shanerx.faketrollplus.core.TrollPlayer}.
+	 * @return the {@link org.shanerx.faketrollplus.core.data.TrollPlayer}.
 	 */
+	@Override
 	public TrollPlayer getTrollPlayer(OfflinePlayer op) {
 		return new TrollPlayer(op, plugin);
 	}
 
 	/**
-	 * Gets the instance of {@link org.shanerx.faketrollplus.core.TrollPlayer}
+	 * Gets the instance of {@link org.shanerx.faketrollplus.core.data.TrollPlayer}
 	 * which represents the player known by the {@link java.util.UUID} of the
 	 * {@link org.bukkit.entity.Player}.
 	 * 
 	 * @param p
 	 *            the player.
-	 * @return the {@link org.shanerx.faketrollplus.core.TrollPlayer}.
+	 * @return the {@link org.shanerx.faketrollplus.core.data.TrollPlayer}.
 	 */
+	@Override
 	public TrollPlayer getTrollPlayer(Player p) {
 		return new TrollPlayer(p, plugin);
+	}
+	
+	/**
+	 * Updates the data on the hard drive.
+	 *
+	 * @param root the {@link org.json.simple.JSONObject} containing the information.
+	 */
+	protected void update(JSONObject root) {
+		try {
+			PrintWriter write = new PrintWriter(getUserCacheFile());
+			write.write(root.toJSONString());
+			write.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 	}
 }

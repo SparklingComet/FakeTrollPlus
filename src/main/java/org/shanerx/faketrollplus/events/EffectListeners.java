@@ -27,7 +27,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.shanerx.faketrollplus.FakeTrollPlus;
 import org.shanerx.faketrollplus.utils.Message;
-import org.shanerx.faketrollplus.core.TrollPlayer;
+import org.shanerx.faketrollplus.core.data.TrollPlayer;
 
 public class EffectListeners implements Listener {
 
@@ -55,10 +55,7 @@ public class EffectListeners implements Listener {
 	public void onAsyncChatEvent(AsyncPlayerChatEvent e) {
 		Player p = e.getPlayer();
 		TrollPlayer tp = plugin.getUserCache().getTrollPlayer(p.getUniqueId());
-		if (tp.chatIsFrozen() && plugin.useProtocolLib()) {
-			e.setCancelled(true);
-
-		} else if (tp.chatIsGibberish()) {
+		if (tp.chatIsGibberish()) {
 			String randomString = Message.changeToGibberish(e.getMessage());
 			e.setMessage(randomString);
 		}
@@ -113,15 +110,6 @@ public class EffectListeners implements Listener {
 		TrollPlayer tp = plugin.getUserCache().getTrollPlayer(e.getPlayer().getUniqueId());
 		if (tp.isBlacklisted()) {
 			e.disallow(Result.KICK_BANNED, Message.getString("blacklist"));
-		}
-	}
-	
-	@EventHandler
-	public void onPlayerCommandPreprocess(PlayerCommandPreprocessEvent e) {
-		Player p = e.getPlayer();
-		TrollPlayer tp = plugin.getUserCache().getTrollPlayer(p.getUniqueId());
-		if (tp.chatIsFrozen() && plugin.useProtocolLib()) {
-			e.setCancelled(true);
 		}
 	}
 }

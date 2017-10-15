@@ -21,7 +21,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.shanerx.faketrollplus.FakeTrollPlus;
 import org.shanerx.faketrollplus.utils.Message;
-import org.shanerx.faketrollplus.core.TrollPlayer;
+import org.shanerx.faketrollplus.core.data.TrollPlayer;
 
 public class Nopickup implements CommandExecutor {
 	

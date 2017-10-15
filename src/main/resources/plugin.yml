@@ -15,7 +15,7 @@
  #
 
 # +------------------------------------+ #
-# FakeTrollPlus config v3.5.1 by Lori00. #
+# FakeTrollPlus config v3.6.0 by Lori00. #
 # +------------------------------------+ #
 main: org.shanerx.faketrollplus.FakeTrollPlus
 version: 3.6.0-BETA
@@ -24,8 +24,6 @@ name: FakeTrollPlus
 
 website: https://www.spigotmc.org/resources/30762/
 description: New large-range trolling plugin for server administrators.
-
-softdepend: [ProtocolLib]
 
 commands:
   faketrollplus:
@@ -181,10 +179,6 @@ commands:
     description: Add or remove a player's account to/from the blacklist.
     aliases: [bl]
     usage: /blacklist <target>
-#  freezechat:
-#    description: Cancel all outgoing messages for a player and reject all of the player's input in a silent way.
-#    aliases: [chatfreeze]
-#    usage: /freezechat <player>
   cage:
     description: Spawn a cage around a player.
     aliases: [spawncage]
