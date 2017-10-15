@@ -330,6 +330,10 @@ public class TrollPlayer {
 		JSONObject userInfo = getUserInfo();
 		userInfo.put(effect.config(), enable);
 		root.put(uuid.toString(), userInfo);
-		uc.update(root);
+		
+		if (uc instanceof LocalUserCache)
+			((LocalUserCache) uc).update(root);
+		else
+			((RemoteUserCache) uc).update(uuid, (JSONObject) root.get(uuid.toString()));
 	}
 }

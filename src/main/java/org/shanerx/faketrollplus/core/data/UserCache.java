@@ -116,12 +116,4 @@ public interface UserCache {
      * @return the {@link org.shanerx.faketrollplus.core.data.TrollPlayer}.
      */
     TrollPlayer getTrollPlayer(Player p);
-    
-    /**
-     * Updates the data on the hard drive.
-     *
-     * @param root the {@link org.json.simple.JSONObject} containing the information.
-     */
-    void update(JSONObject root);
-    
 }

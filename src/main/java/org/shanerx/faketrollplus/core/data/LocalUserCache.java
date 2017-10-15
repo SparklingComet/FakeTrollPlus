@@ -68,7 +68,6 @@ public class LocalUserCache implements UserCache {
 				e.printStackTrace();
 			}
 		}
-
 	}
 
 	/**
@@ -233,8 +232,7 @@ public class LocalUserCache implements UserCache {
 	 *
 	 * @param root the {@link org.json.simple.JSONObject} containing the information.
 	 */
-	@Override
-	public void update(JSONObject root) {
+	protected void update(JSONObject root) {
 		try {
 			PrintWriter write = new PrintWriter(getUserCacheFile());
 			write.write(root.toJSONString());
