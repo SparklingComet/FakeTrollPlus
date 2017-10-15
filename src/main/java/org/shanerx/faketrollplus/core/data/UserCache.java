@@ -17,6 +17,13 @@
  */
 package org.shanerx.faketrollplus.core.data;
 
+import org.bukkit.OfflinePlayer;
+import org.bukkit.entity.Player;
+import org.json.simple.JSONObject;
+import org.shanerx.faketrollplus.FakeTrollPlus;
+
+import java.util.UUID;
+
 public interface UserCache {
 
     FakeTrollPlus getPlugin();
@@ -35,6 +42,6 @@ public interface UserCache {
     
     TrollPlayer getTrollPlayer(Player p);
     
-    protected void update(JSONObject root);
+    void update(JSONObject root);
     
 }

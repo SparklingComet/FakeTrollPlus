@@ -229,9 +229,9 @@ public class LocalUserCache implements UserCache {
 	}
 	
 	@Override
-	protected void update(JSONObject root) {
+	public void update(JSONObject root) {
 		try {
-			PrintWriter write = new PrintWriter(uc.getUserCacheFile());
+			PrintWriter write = new PrintWriter(getUserCacheFile());
 			write.write(root.toJSONString());
 			write.close();
 		} catch (FileNotFoundException e) {
