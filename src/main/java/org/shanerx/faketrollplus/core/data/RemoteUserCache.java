@@ -105,7 +105,7 @@ public class RemoteUserCache implements UserCache {
 	/**
 	 * Gets the database object containing the information
 	 *
-	 * @return
+	 * @return the {@link org.shanerx.faketrollplus.utils.Database} instance.
 	 */
 	public Database getDatabase() {
 		return database;
