@@ -54,7 +54,7 @@ public class LocalUserCache implements UserCache {
 	 * @param plugin
 	 *            the current Plugin instance.
 	 */
-	private UserCache(File usercache, FakeTrollPlus plugin) {
+	private LocalUserCache(File usercache, FakeTrollPlus plugin) {
 		this.cacheFile = usercache;
 		this.plugin = plugin;
 
@@ -86,7 +86,7 @@ public class LocalUserCache implements UserCache {
 	 */
 	public static UserCache getInstance(File file, FakeTrollPlus ftp) {
 		if (uc == null) {
-			uc = new UserCache(file, ftp);
+			uc = new LocalUserCache(file, ftp);
 		}
 		return uc;
 	}
