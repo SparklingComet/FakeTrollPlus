@@ -31,7 +31,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.shanerx.faketrollplus.FakeTrollPlus;
 
-public class UserCache {
+public class LocalUserCache implements UserCache {
 
 	private FakeTrollPlus plugin;
 	private File cacheFile;
