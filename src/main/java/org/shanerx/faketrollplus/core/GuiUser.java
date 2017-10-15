@@ -131,49 +131,33 @@ public class GuiUser {
 		skull.setOwner(player);
 		skull.setDisplayName(ChatColor.YELLOW + "Troll options for: " + ChatColor.GREEN + player);
 		p.setItemMeta(skull);
-
-		ItemStack badfood = new ItemStack(Material.ROTTEN_FLESH, 1);
-		ItemMeta badfoodMeta = badfood.getItemMeta();
-		badfoodMeta.setDisplayName("Badfood");
-		badfood.setItemMeta(badfoodMeta);
-
-		ItemStack noPickup = new ItemStack(Material.EXP_BOTTLE, 1);
-		ItemMeta noPickupMeta = noPickup.getItemMeta();
-		noPickupMeta.setDisplayName("No-Pickup");
-		noPickup.setItemMeta(noPickupMeta);
-
-		ItemStack freeze = new ItemStack(Material.IRON_BOOTS, 1);
-		ItemMeta freezeMeta = freeze.getItemMeta();
-		freezeMeta.setDisplayName("Freeze");
-		freeze.setItemMeta(freezeMeta);
-
-		ItemStack gibberish = new ItemStack(Material.BOOK, 1);
-		ItemMeta gibberishMeta = gibberish.getItemMeta();
-		gibberishMeta.setDisplayName("Gibberish");
-		gibberish.setItemMeta(gibberishMeta);
-
-		ItemStack invLock = new ItemStack(Material.TRAPPED_CHEST, 1);
-		ItemMeta invLockMeta = invLock.getItemMeta();
-		invLockMeta.setDisplayName("Inventory-Lock");
-		invLock.setItemMeta(invLockMeta);
-
-		ItemStack explodeBlocks = new ItemStack(Material.TNT, 1);
-		ItemMeta explodeBlocksMeta = explodeBlocks.getItemMeta();
-		explodeBlocksMeta.setDisplayName("Explode-Blocks");
-		explodeBlocks.setItemMeta(explodeBlocksMeta);
-
-		ItemStack blacklist = new ItemStack(Material.IRON_DOOR, 1);
-		ItemMeta blacklistMeta = blacklist.getItemMeta();
-		blacklistMeta.setDisplayName("Blacklist Player");
-		blacklist.setItemMeta(blacklistMeta);
 		
-		ItemStack freezeChat = new ItemStack(Material.LEASH, 1);
-		ItemMeta freezeChatMeta = freezeChat.getItemMeta();
-		freezeChatMeta.setDisplayName("Freeze-Chat");
-		freezeChat.setItemMeta(freezeChatMeta);
+		ItemStack badfood = getEffectItem(TrollEffect.BADFOOD);
+
+		ItemStack noPickup = getEffectItem(TrollEffect.NO_PICKUP);
+
+		ItemStack freeze = getEffectItem(TrollEffect.FREEZE);
+
+		ItemStack gibberish = getEffectItem(TrollEffect.GIBBERISH);
+
+		ItemStack invLock = getEffectItem(TrollEffect.INVENTORY_LOCK);
+
+		ItemStack explodeBlocks = getEffectItem(TrollEffect.EXPLODE_BLOCKS);
+
+		ItemStack blacklist = getEffectItem(TrollEffect.BLACKLISTED);
+		
+		ItemStack freezeChat = getEffectItem(TrollEffect.FREEZE_CHAT);
 
 		gui.setContents(
 				new ItemStack[] { p, badfood, noPickup, freeze, gibberish, invLock, explodeBlocks, blacklist, freezeChat });
 		return gui;
+	}
+	
+	private ItemStack getEffectItem(TrollEffect effect) {
+		ItemStack stack = new ItemStack(effect.guiItem(), 1);
+		ItemMeta meta = stack.getItemMeta();
+		meta.setDisplayName(effect.toString());
+		stack.setItemMeta(meta);
+		return stack;
 	}
 }

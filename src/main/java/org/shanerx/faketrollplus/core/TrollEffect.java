@@ -15,6 +15,7 @@
  */
 package org.shanerx.faketrollplus.core;
 
+import org.bukkit.Material;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.shanerx.faketrollplus.FakeTrollPlus;
 import org.shanerx.faketrollplus.utils.Message;
@@ -26,27 +27,28 @@ import java.io.Serializable;
  */
 public enum TrollEffect implements Serializable{
 
-	BADFOOD((short) 1, "Badfood", "badfood", "hasBadfoodEffect"),
+	BADFOOD((short) 1, "Badfood", "badfood", "hasBadfoodEffect", Material.ROTTEN_FLESH),
 
-	NO_PICKUP((short) 2, "No-Pickup", "nopickup", "canPickup"),
+	NO_PICKUP((short) 2, "No-Pickup", "nopickup", "canPickup", Material.EXP_BOTTLE),
 
-	FREEZE((short) 3, "Freeze", "freeze", "isFrozen"),
+	FREEZE((short) 3, "Freeze", "freeze", "isFrozen", Material.IRON_BOOTS),
 
-	GIBBERISH((short) 4, "Gibberish", "gibberish", "chatIsGibberish"),
+	GIBBERISH((short) 4, "Gibberish", "gibberish", "chatIsGibberish", Material.BOOK),
 
-	INVENTORY_LOCK((short) 5, "Inventory-Lock", "inventorylock", "invIsLocked"),
+	INVENTORY_LOCK((short) 5, "Inventory-Lock", "inventorylock", "invIsLocked", Material.TRAPPED_CHEST),
 
-	EXPLODE_BLOCKS((short) 6, "Explode-Blocks", "explodeblocks", "hasExplodeMinedBlocksEffect"),
+	EXPLODE_BLOCKS((short) 6, "Explode-Blocks", "explodeblocks", "hasExplodeMinedBlocksEffect", Material.TNT),
 
-	BLACKLISTED((short) 7, "Blacklist", "blacklist", "isBlacklisted"),
+	BLACKLISTED((short) 7, "Blacklist", "blacklist", "isBlacklisted", Material.IRON_DOOR),
 	
-	FREEZE_CHAT((short) 8, "Freeze-Chat", "freezechat", "chatIsFrozen");
+	FREEZE_CHAT((short) 8, "Freeze-Chat", "freezechat", "chatIsFrozen", Material.LEASH);
 
-	TrollEffect(short key,String name, String id, String config) {
+	TrollEffect(short key,String name, String id, String config, Material guiItem) {
 		this.key = key;
 		this.name = name;
 		this.id = id;
 		this.config = config;
+		this.guiItem = guiItem;
 	}
 	
 	private static FakeTrollPlus plugin;
@@ -55,6 +57,7 @@ public enum TrollEffect implements Serializable{
 	private transient String name;
 	private transient String id;
 	private transient String config;
+	private transient Material guiItem;
 
 	/**
 	 * Gets the effect's name (Different from
@@ -96,6 +99,16 @@ public enum TrollEffect implements Serializable{
 	 */
 	public String config() {
 		return config;
+	}
+	
+	/**
+	 * Returns the {@link org.bukkit.Material} constant
+	 * representing this effect in the Troll GUI.
+	 *
+	 * @return the Material.
+	 */
+	public Material guiItem() {
+		return guiItem;
 	}
 	
 	/**
