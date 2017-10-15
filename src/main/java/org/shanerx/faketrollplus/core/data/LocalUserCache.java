@@ -98,6 +98,7 @@ public class LocalUserCache implements UserCache {
 	 * 
 	 * @return the {@link org.shanerx.faketrollplus.FakeTrollPlus} instance.
 	 */
+	@Override
 	public FakeTrollPlus getPlugin() {
 		return plugin;
 	}
@@ -123,6 +124,7 @@ public class LocalUserCache implements UserCache {
 	 * 
 	 * @return the {@link org.json.simple.JSONObject}.
 	 */
+	@Override
 	public JSONObject getJSONConfiguration() {
 		try {
 			JSONParser parser = new JSONParser();
@@ -146,6 +148,7 @@ public class LocalUserCache implements UserCache {
 	 * @return the {@link org.json.simple.JSONObject} representing the data
 	 *         related to the UUID.
 	 */
+	@Override
 	public JSONObject getPlayerInfo(UUID uuid) {
 		return (JSONObject) getJSONConfiguration().get(uuid.toString());
 	}
@@ -161,6 +164,7 @@ public class LocalUserCache implements UserCache {
 	 * @return the {@link org.json.simple.JSONObject} representing the data
 	 *         related to the {@link org.bukkit.OfflinePlayer}.
 	 */
+	@Override
 	public JSONObject getPlayerInfo(OfflinePlayer op) {
 		return (JSONObject) getJSONConfiguration().get(op.getUniqueId().toString());
 	}
@@ -177,6 +181,7 @@ public class LocalUserCache implements UserCache {
 	 * @return the {@link org.json.simple.JSONObject} representing the data
 	 *         related to the {@link org.bukkit.entity.Player}.
 	 */
+	@Override
 	public JSONObject getPlayerInfo(Player p) {
 		return (JSONObject) getJSONConfiguration().get(p.getUniqueId().toString());
 	}
@@ -190,6 +195,7 @@ public class LocalUserCache implements UserCache {
 	 * @return the {@link org.shanerx.faketrollplus.core.data.TrollPlayer} known by
 	 *         that UUID.
 	 */
+	@Override
 	public TrollPlayer getTrollPlayer(UUID uuid) {
 		return new TrollPlayer(uuid, plugin);
 	}
@@ -203,6 +209,7 @@ public class LocalUserCache implements UserCache {
 	 *            the player.
 	 * @return the {@link org.shanerx.faketrollplus.core.data.TrollPlayer}.
 	 */
+	@Override
 	public TrollPlayer getTrollPlayer(OfflinePlayer op) {
 		return new TrollPlayer(op, plugin);
 	}
@@ -216,10 +223,12 @@ public class LocalUserCache implements UserCache {
 	 *            the player.
 	 * @return the {@link org.shanerx.faketrollplus.core.data.TrollPlayer}.
 	 */
+	@Override
 	public TrollPlayer getTrollPlayer(Player p) {
 		return new TrollPlayer(p, plugin);
 	}
 	
+	@Override
 	protected void update(JSONObject root) {
 		try {
 			PrintWriter write = new PrintWriter(uc.getUserCacheFile());
