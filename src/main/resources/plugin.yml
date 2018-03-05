@@ -29,7 +29,7 @@ commands:
   faketrollplus:
     description: Show plugin help and version
     aliases: [faketroll, ftroll, troll, ftp]
-    usage: /ftp [help|reload|gui]
+    usage: /faketrollplus [help|reload|gui]
   fakeop:
     description: Make a player believe that they just got opped!
     aliases: [fop]
@@ -162,7 +162,7 @@ commands:
   inventorylock:
     description: Lock a player out of their inventory.
     aliases: [invlock, lockinventory, lockinv, il, li]
-    usage: /invlock <target>
+    usage: /inventorylock <target>
   explode:
     description: Explode a player.
     aliases: [deflagrate]
