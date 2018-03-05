@@ -29,7 +29,7 @@ commands:
   faketrollplus:
     description: Show plugin help and version
     aliases: [faketroll, ftroll, troll, ftp]
-    usage: /faketrollplus [help|reload|gui]
+    usage: /faketrollplus [help|reload|gui|[clear <target>]]
   fakeop:
     description: Make a player believe that they just got opped!
     aliases: [fop]

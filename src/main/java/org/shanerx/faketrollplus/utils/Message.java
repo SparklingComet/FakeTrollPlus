@@ -38,6 +38,8 @@ public enum Message {
 	RELOAD_CONFIG("Configuration file has been &3reloaded&f!"),
 	
 	HELP_COMMAND_NOT_FOUND("&3/%command% &fcould not be found."),
+
+	EFFECTS_CLEARED("Cleared all effects for player &3%player%&f."),
 	
 	COMMAND_HELP("&3Command help for: &7/%command%\n&7Description: &f%description%\n&7Usage: &f%usage%\n&7Aliases: &f%aliases%");
 	

@@ -78,8 +78,7 @@ public class TrollPlayer {
 	 * @return the {@link org.bukkit.entity.Player}.
 	 */
 	public Player getPlayer() {
-		Player p = Bukkit.getPlayer(uuid);
-		return p;
+		return Bukkit.getPlayer(uuid);
 	}
 
 	/**
@@ -291,7 +290,7 @@ public class TrollPlayer {
 		return active;
 	}
 	
-	private boolean get(TrollEffect effect) {
+	public boolean get(TrollEffect effect) {
 		UserCache uc = ftp.getUserCache();
 		JSONObject root = uc.getJSONConfiguration();
 		JSONObject userInfo = getUserInfo();
@@ -302,7 +301,7 @@ public class TrollPlayer {
 		}
 	}
 	
-	private void set(TrollEffect effect, boolean enable) {
+	public void set(TrollEffect effect, boolean enable) {
 		UserCache uc = ftp.getUserCache();
 		JSONObject root = uc.getJSONConfiguration();
 		JSONObject userInfo = getUserInfo();

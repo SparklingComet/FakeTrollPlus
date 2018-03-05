@@ -17,11 +17,13 @@ package org.shanerx.faketrollplus.commands;
 
 import com.google.common.collect.Lists;
 import org.apache.commons.lang.StringUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.shanerx.faketrollplus.FakeTrollPlus;
+import org.shanerx.faketrollplus.core.TrollEffect;
 import org.shanerx.faketrollplus.utils.Message;
 import org.shanerx.faketrollplus.core.GuiUser;
 import org.shanerx.faketrollplus.core.data.TrollPlayer;
@@ -35,11 +37,11 @@ public class Faketrollplus implements CommandExecutor {
 		plugin = instance;
 	}
 	
-	public final String HELP = Message.col(
-			
+	private final String HELP = Message.col(
 			"\n \n &f&m----------&e[ &aHELP &e]&f&m---------- "
 			+ "\n&aFakeTrollPlus &e%VERSION%&a by Lori00 "
 			+ "\n&bFor commands and permissions help go to &3&ngoo.gl/c8RL4G "
+			+ "\nFor more details on command usage, try &3/faketrollplus help <command>"
 			+ "\n&cCommands:"
 			+ "\n&e/faketrollplus &f- Display plugin help "
 			+ "\n&e/fakeop &f- Make a player believe that they just got opped! "
@@ -127,17 +129,40 @@ public class Faketrollplus implements CommandExecutor {
 			((Player) sender).openInventory(gui.getPlayerList(1));
 			return true;
 			
+		} else if (args[0].equalsIgnoreCase("cleareffects")) {
+			if (!sender.hasPermission("faketroll.cleareffects")) {
+				sender.sendMessage(Message.ACCESS_DENIED.toString());
+				return false;
+
+			} else if (args.length != 2) {
+				sender.sendMessage(Message.INVALID_ARGS.toString());
+				return false;
+			}
+
+			Player p = plugin.getTarget(args[1]);
+			if (p == null) {
+				sender.sendMessage(Message.getString("invalid-target"));
+				return true;
+			}
+			TrollPlayer player = plugin.getUserCache().getTrollPlayer(p);
+
+			for (TrollEffect effect: player.activeEffects()) {
+				player.set(effect, false);
+			}
+
+			sender.sendMessage(Message.EFFECTS_CLEARED.toString().replace("%player%", p.getName()));
+
 		} else if (!sender.hasPermission("faketroll.help") && Message.getBool("help.require-permission")) {
 			sender.sendMessage(Message.ACCESS_DENIED.toString());
 			return false;
 			
 		}
-		else if (args.length == 0 || args.length > 2) {
+		else if (args.length > 2) {
 			sender.sendMessage(HELP.replace("%VERSION%", plugin.VERSION.getNakedVersion()));
 			return false;
 		} else if (args.length == 2) {
 			String cmdString = args[1];
-			Command command = plugin.getCommand(cmdString);
+			Command command = plugin.getCommand(cmdString.toLowerCase());
 			if (command == null) {
 				sender.sendMessage(Message.HELP_COMMAND_NOT_FOUND.toString().replace("%command%", cmdString));
 				return false;
