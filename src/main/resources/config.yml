@@ -266,6 +266,8 @@ gui:
 fakeworldguard:
   enable: true
   msg: 'You have turned &c%status% &ffor player &c%target%&f.'
+  do-alert: true
+  alert: '&7&lHey! &cSorry, but you can''t do that here.'
 
 # Logging options: - After editing this setting, you will need to restart the server for the changes to take place.
 enable-logs: true

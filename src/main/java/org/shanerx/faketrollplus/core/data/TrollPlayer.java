@@ -27,6 +27,7 @@ import org.bukkit.entity.Player;
 import org.json.simple.JSONObject;
 import org.shanerx.faketrollplus.FakeTrollPlus;
 import org.shanerx.faketrollplus.core.TrollEffect;
+import org.shanerx.faketrollplus.utils.Message;
 
 import static org.shanerx.faketrollplus.core.TrollEffect.*;
 
@@ -331,5 +332,13 @@ public class TrollPlayer {
 			((LocalUserCache) uc).update(root);
 		else
 			((RemoteUserCache) uc).update(uuid, (JSONObject) root.get(uuid.toString()));
+	}
+
+	public void sendFakeWorldGuardMsg() {
+		if (getOfflinePlayer().isOnline()) {
+			if (Message.getBool("fakeworldguard.do-alert")) {
+				getPlayer().sendMessage(Message.getString("fakeworldguard.alert"));
+			}
+		}
 	}
 }

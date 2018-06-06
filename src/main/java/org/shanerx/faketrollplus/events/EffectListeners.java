@@ -16,19 +16,27 @@
 package org.shanerx.faketrollplus.events;
 
 import org.bukkit.Location;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryOpenEvent;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.*;
 import org.bukkit.event.player.PlayerLoginEvent.Result;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.shanerx.faketrollplus.FakeTrollPlus;
 import org.shanerx.faketrollplus.utils.Message;
 import org.shanerx.faketrollplus.core.data.TrollPlayer;
 
+@SuppressWarnings("unused")
 public class EffectListeners implements Listener {
 
 	private FakeTrollPlus plugin;
@@ -43,6 +51,7 @@ public class EffectListeners implements Listener {
 	public void onPlayerMove(PlayerMoveEvent e) {
 		Player p = e.getPlayer();
 		TrollPlayer tp = plugin.getUserCache().getTrollPlayer(p.getUniqueId());
+
 		if (tp.isFrozen()) {
 			e.setCancelled(true);
 			if (!Message.getBool("freeze.do-move-attempt-msg"))
@@ -55,17 +64,20 @@ public class EffectListeners implements Listener {
 	public void onAsyncChatEvent(AsyncPlayerChatEvent e) {
 		Player p = e.getPlayer();
 		TrollPlayer tp = plugin.getUserCache().getTrollPlayer(p.getUniqueId());
+
 		if (tp.chatIsGibberish()) {
 			String randomString = Message.changeToGibberish(e.getMessage());
 			e.setMessage(randomString);
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onPlayerPickupItem(PlayerPickupItemEvent e) {
 		Player p = e.getPlayer();
 		TrollPlayer tp = plugin.getUserCache().getTrollPlayer(p.getUniqueId());
-		if (!tp.canPickup()) {
+
+		if (!tp.canPickup() || tp.isFakeWorldGuard()) {
 			e.setCancelled(true);
 		}
 	}
@@ -74,6 +86,7 @@ public class EffectListeners implements Listener {
 	public void onPlayerInventory(InventoryClickEvent e) {
 		Player p = (Player) e.getWhoClicked();
 		TrollPlayer tp = plugin.getUserCache().getTrollPlayer(p.getUniqueId());
+
 		if (tp.invIsLocked()) {
 			e.setCancelled(true);
 			if (Message.getBool("inventory-lock.do-target-msg")) {
@@ -86,22 +99,68 @@ public class EffectListeners implements Listener {
 	public void onPlayerItemConsume(PlayerItemConsumeEvent e) {
 		Player p = e.getPlayer();
 		TrollPlayer tp = plugin.getUserCache().getTrollPlayer(p.getUniqueId());
+
 		if (tp.hasBadfoodEffect()) {
 			int duration = Message.getInt("badfood.duration") * 20;
 			e.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.POISON, duration, 1));
 		}
 	}
 
-	@EventHandler
+	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onBlockBreak(BlockBreakEvent e) {
 		Player p = e.getPlayer();
 		TrollPlayer tp = plugin.getUserCache().getTrollPlayer(p.getUniqueId());
 		Location loc = e.getBlock().getLocation();
-		if (tp.hasExplodeMinedBlocksEffect()) {
+
+		if (tp.isFakeWorldGuard()){
+			tp.sendFakeWorldGuardMsg();
+			e.setCancelled(true);
+		}
+		else if (tp.hasExplodeMinedBlocksEffect()) {
 			float power = (float) Message.getDouble("explode-blocks.power");
 			boolean setFire = Message.getBool("explode-blocks.set-fire");
 			loc.getWorld().createExplosion(loc, power, setFire);
 			e.setExpToDrop(0);
+		}
+	}
+
+	@EventHandler(priority = EventPriority.HIGHEST)
+	public void onBlockPlace(BlockPlaceEvent e) {
+		Player p = e.getPlayer();
+		TrollPlayer tp = plugin.getUserCache().getTrollPlayer(p);
+
+		if (tp.isFakeWorldGuard()) {
+			tp.sendFakeWorldGuardMsg();
+			e.setCancelled(true);
+		}
+	}
+
+	@EventHandler(priority = EventPriority.HIGHEST)
+	public void onEntityDamage(EntityDamageByEntityEvent e) {
+		if (e.getEntityType() != EntityType.PLAYER) {
+			return;
+		}
+		Player p = (Player) e.getEntity();
+		TrollPlayer tp = plugin.getUserCache().getTrollPlayer(p);
+
+		if (tp.isFakeWorldGuard()) {
+			tp.sendFakeWorldGuardMsg();
+			e.setCancelled(true);
+		}
+	}
+
+	@EventHandler(priority = EventPriority.HIGHEST)
+	public void onInventoryOpen(InventoryOpenEvent e) {
+		if (e.getInventory().getType() != InventoryType.PLAYER) {
+			return;
+		}
+
+		Player p = (Player) e.getPlayer();
+		TrollPlayer tp = plugin.getUserCache().getTrollPlayer(p);
+
+		if (tp.isFakeWorldGuard()) {
+			tp.sendFakeWorldGuardMsg();
+			e.setCancelled(true);
 		}
 	}
 
