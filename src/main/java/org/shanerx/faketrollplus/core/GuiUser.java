@@ -145,9 +145,11 @@ public class GuiUser {
 		ItemStack explodeBlocks = getEffectItem(TrollEffect.EXPLODE_BLOCKS);
 
 		ItemStack blacklist = getEffectItem(TrollEffect.BLACKLISTED);
+
+		ItemStack fakeWorldGuard = getEffectItem(TrollEffect.FAKEWORLDGUARD);
 		
 		gui.setContents(
-				new ItemStack[] { p, badfood, noPickup, freeze, gibberish, invLock, explodeBlocks, blacklist, null});
+				new ItemStack[] { p, badfood, noPickup, freeze, gibberish, invLock, explodeBlocks, blacklist, fakeWorldGuard});
 		return gui;
 	}
 	

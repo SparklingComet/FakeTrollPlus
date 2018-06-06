@@ -187,3 +187,7 @@ commands:
     description: Turn a player around.
     aliases: [fturn, faketurn]
     usage: /turn <target>
+  fakeworldguard:
+    description: Stop a player from interacting with the world.
+    aliases: [fworldguard, fwg, fakewg]
+    usage: /fakeworldguard <target>

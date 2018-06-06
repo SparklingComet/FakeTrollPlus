@@ -191,6 +191,15 @@ public class TrollPlayer {
 	}
 
 	/**
+	 * Checks whether the player is under the Fake-WorldGuard effect.
+	 *
+	 * @return {@code true} if the player is under the effect.
+	 */
+	public boolean isFakeWorldGuard() {
+		return get(FAKEWORLDGUARD);
+	}
+
+	/**
 	 * Sets the player's freeze-status.
 	 * 
 	 * @param isFrozen
@@ -258,6 +267,16 @@ public class TrollPlayer {
 	 */
 	public void setBlacklisted(boolean isBlacklisted) {
 		set(BLACKLISTED, isBlacklisted);
+	}
+
+	/**
+	 * Ads or lifts the effect to/from the player.
+	 *
+	 * @param isFakeWorldGuard
+	 * 			{@code true} if the player should be denied interaction with the world.
+	 */
+	public void setFakeWorldGuard(boolean isFakeWorldGuard) {
+		set(FAKEWORLDGUARD, isFakeWorldGuard);
 	}
 	
 	/**

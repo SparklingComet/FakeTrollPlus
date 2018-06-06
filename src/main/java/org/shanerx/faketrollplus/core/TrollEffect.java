@@ -39,7 +39,9 @@ public enum TrollEffect implements Serializable{
 
 	EXPLODE_BLOCKS((short) 6, "Explode-Blocks", "explodeblocks", "hasExplodeMinedBlocksEffect", Material.TNT),
 
-	BLACKLISTED((short) 7, "Blacklist", "blacklist", "isBlacklisted", Material.IRON_DOOR);
+	BLACKLISTED((short) 7, "Blacklist", "blacklist", "isBlacklisted", Material.IRON_DOOR),
+
+	FAKEWORLDGUARD((short) 8, "Fake-WorldGuard", "fakeworldguard", "isFakeWorldGuard", Material.BARRIER);
 	
 	TrollEffect(short key,String name, String id, String config, Material guiItem) {
 		this.key = key;
