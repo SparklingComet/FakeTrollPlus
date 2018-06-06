@@ -84,6 +84,7 @@ public class Faketrollplus implements CommandExecutor {
 			+ "\n&e/blacklist &f - Add or remove a player's account to/from the blacklist."
 			+ "\n&e/cage &f - Spawn a cage around a player."
 			+ "\n&e/turn &f - Turn a player around."
+			+ "\n&e/fakeworldguard &f - Stop a player from interacting with the world."
 	);
 
 	
